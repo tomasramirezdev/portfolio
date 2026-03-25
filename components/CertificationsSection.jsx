@@ -31,25 +31,24 @@ export default function CertificationsSection() {
   return (
     <section
       id="certificaciones"
-      className="border-t border-white/[0.06] bg-black px-4 py-16 sm:px-5 sm:py-20 lg:px-8"
+      className="px-4 py-16 sm:px-5 sm:py-20 lg:px-8"
+      style={{ borderTop: "1px solid var(--border)" }}
     >
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-medium uppercase tracking-widest text-zinc-500">
+          <p
+            className="text-xs font-semibold uppercase tracking-[0.2em]"
+            style={{ color: "var(--txt)" }}
+          >
             Formación
           </p>
-          <h2 className="mt-2 font-display text-[clamp(1.75rem,5vw,2.25rem)] font-bold tracking-tight text-white md:text-4xl">
+          <h2
+            className="mt-2 font-display text-[clamp(1.75rem,5vw,2.5rem)] font-bold tracking-tight md:text-4xl"
+            style={{ color: "var(--txt)" }}
+          >
             Certificaciones
           </h2>
-          <p className="mt-4 px-1 text-base leading-relaxed text-zinc-400 sm:text-lg">
-            <span className="md:hidden">
-              Deslizá para ver todas. Tocá una tarjeta para abrir el certificado.
-            </span>
-            <span className="hidden md:inline">
-              Orden cronológico (más antiguo a la izquierda). Pasá el mouse para
-              separar las tarjetas; clic para ver el certificado.
-            </span>
-          </p>
+
         </div>
 
         {/* Móvil: lista vertical legible */}

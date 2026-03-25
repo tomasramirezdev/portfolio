@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
@@ -18,19 +17,15 @@ function LogoMark({ onNavigate }) {
     <Link
       href="#inicio"
       onClick={onNavigate}
-      className="flex shrink-0 items-center rounded-lg p-0.5 transition-opacity active:opacity-80"
+      className="flex shrink-0 items-center justify-center p-1 opacity-90 transition-all duration-300 hover:scale-105 hover:opacity-100 active:scale-95 active:opacity-70"
       aria-label="Inicio"
     >
-      <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full ring-1 ring-white/12 sm:h-9 sm:w-9">
-        <Image
-          src="/logo.png"
-          alt=""
-          width={40}
-          height={40}
-          className="h-10 w-10 object-cover sm:h-9 sm:w-9"
-          priority
-        />
-      </span>
+      <img
+        src="/logo.png"
+        alt="TR Logo"
+        className="h-8 w-8 object-contain sm:h-9 sm:w-9"
+        style={{ mixBlendMode: "lighten" }}
+      />
     </Link>
   );
 }
@@ -42,9 +37,7 @@ export default function Header() {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
   return (
@@ -52,22 +45,36 @@ export default function Header() {
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-      className="pointer-events-none fixed left-0 right-0 top-0 z-50 flex justify-center px-3 pt-[max(1rem,env(safe-area-inset-top))] sm:px-4 md:pt-8"
+      className="pointer-events-none fixed left-0 right-0 top-0 z-50 flex justify-center px-3 pt-[max(1rem,env(safe-area-inset-top))] sm:px-4 md:pt-6"
     >
-      <div className="pointer-events-auto flex w-full max-w-5xl items-center gap-2 rounded-full border border-white/[0.08] bg-zinc-950/70 py-2 pl-2.5 pr-2 shadow-[0_8px_32px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:gap-3 sm:py-2.5 sm:pl-3 md:gap-4 md:px-5">
+      <div
+        className="pointer-events-auto flex w-full max-w-5xl items-center gap-2 rounded-2xl py-2.5 pl-2.5 pr-2 backdrop-blur-xl sm:gap-3 sm:py-2.5 sm:pl-3 md:gap-4 md:px-4"
+        style={{
+          background: "rgba(14,14,18,0.8)",
+          border: "1px solid var(--border)",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.25), 0 0 0 1px rgba(124,92,252,0.06)",
+        }}
+      >
         <LogoMark onNavigate={closeMenu} />
 
         <nav
-          className="hidden min-h-0 min-w-0 flex-1 justify-center gap-6 overflow-x-auto md:flex md:gap-10 [&::-webkit-scrollbar]:hidden"
+          className="hidden min-h-0 min-w-0 flex-1 justify-center gap-8 overflow-x-auto md:flex [&::-webkit-scrollbar]:hidden"
           aria-label="Principal"
         >
           {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="shrink-0 py-2 text-sm font-medium tracking-wide text-zinc-300 transition-colors hover:text-white"
+              className="group relative shrink-0 py-1.5 text-sm font-medium tracking-wide transition-colors"
+              style={{ color: "var(--txt-muted)" }}
+              onMouseEnter={(e) => e.currentTarget.style.color = "var(--txt)"}
+              onMouseLeave={(e) => e.currentTarget.style.color = "var(--txt-muted)"}
             >
               {item.label}
+              <span
+                className="absolute -bottom-0.5 left-0 h-px w-0 rounded-full transition-all duration-300 group-hover:w-full"
+                style={{ background: "var(--accent)" }}
+              />
             </Link>
           ))}
         </nav>
@@ -76,33 +83,47 @@ export default function Header() {
           <Link
             href="#contacto"
             onClick={closeMenu}
-            className="group flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.07] px-2 py-2 text-sm font-medium tracking-wide text-white transition-colors active:bg-white/[0.12] sm:px-3 sm:py-1.5 md:px-4 md:py-2"
+            className="group flex items-center gap-2 rounded-xl px-3 py-1.5 text-sm font-semibold text-white transition-all duration-200 active:scale-95 md:px-4 md:py-2"
+            style={{
+              background: "rgba(255,255,255,0.06)",
+              border: "1px solid rgba(255,255,255,0.14)",
+              backdropFilter: "blur(10px)",
+              color: "#e4e4e7"
+            }}
+            onMouseEnter={(e) => { 
+                e.currentTarget.style.background = "rgba(255,255,255,0.12)"; 
+                e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)";
+                e.currentTarget.style.color = "#fff";
+            }}
+            onMouseLeave={(e) => { 
+                e.currentTarget.style.background = "rgba(255,255,255,0.06)"; 
+                e.currentTarget.style.borderColor = "rgba(255,255,255,0.14)";
+                e.currentTarget.style.color = "#e4e4e7";
+            }}
           >
             <span className="hidden sm:inline">Contacto</span>
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-black transition-transform active:scale-95 sm:h-8 sm:w-8">
-              <ArrowUpRight className="h-4 w-4" strokeWidth={2.2} />
-            </span>
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={2.2} />
           </Link>
 
           <button
             type="button"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-white md:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-xl transition-colors active:scale-95 md:hidden"
+            style={{ background: "var(--surface-2)", border: "1px solid var(--border)", color: "var(--txt)" }}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
             onClick={() => setMenuOpen((o) => !o)}
           >
-            {menuOpen ? (
-              <X className="h-5 w-5" strokeWidth={2} />
-            ) : (
-              <Menu className="h-5 w-5" strokeWidth={2} />
-            )}
+            {menuOpen
+              ? <X className="h-5 w-5" strokeWidth={2} />
+              : <Menu className="h-5 w-5" strokeWidth={2} />
+            }
           </button>
         </div>
       </div>
 
       <AnimatePresence>
-        {menuOpen ? (
+        {menuOpen && (
           <motion.div
             key="mobile-menu"
             className="pointer-events-none fixed inset-0 z-40 md:hidden"
@@ -113,7 +134,8 @@ export default function Header() {
           >
             <button
               type="button"
-              className="pointer-events-auto absolute inset-0 bg-black/70 backdrop-blur-sm"
+              className="pointer-events-auto absolute inset-0 backdrop-blur-sm"
+              style={{ background: "rgba(5,5,7,0.75)" }}
               aria-hidden
               onClick={closeMenu}
             />
@@ -126,8 +148,10 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 320 }}
-              className="pointer-events-auto absolute bottom-0 right-0 top-0 flex w-[min(100%,20rem)] flex-col border-l border-white/[0.08] bg-zinc-950 pt-[max(5.5rem,env(safe-area-inset-top))] shadow-2xl"
+              className="pointer-events-auto absolute bottom-0 right-0 top-0 flex w-[min(100%,20rem)] flex-col pt-[max(5.5rem,env(safe-area-inset-top))] shadow-2xl"
               style={{
+                background: "var(--surface)",
+                borderLeft: "1px solid var(--border)",
                 paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))",
               }}
             >
@@ -137,7 +161,8 @@ export default function Header() {
                     key={item.href}
                     href={item.href}
                     onClick={closeMenu}
-                    className="rounded-xl px-4 py-3.5 text-base font-medium text-zinc-200 transition-colors active:bg-white/[0.06]"
+                    className="rounded-xl px-4 py-3.5 text-base font-medium transition-colors active:bg-white/[0.06]"
+                    style={{ color: "var(--txt)" }}
                   >
                     {item.label}
                   </Link>
@@ -145,7 +170,7 @@ export default function Header() {
               </div>
             </motion.nav>
           </motion.div>
-        ) : null}
+        )}
       </AnimatePresence>
     </motion.header>
   );

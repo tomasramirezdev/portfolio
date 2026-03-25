@@ -1,17 +1,31 @@
 @import "tailwindcss";
 
+/* ─── Design tokens ──────────────────────────────────────────────────── */
 :root {
-  --background: #000000;
-  --foreground: #fafafa;
+  --bg: #050507;
+  --surface: #0e0e12;
+  --surface-2: #14141a;
+  --accent: #7c5cfc;
+  --accent-dim: rgba(124, 92, 252, 0.18);
+  --accent-dim: rgba(124, 92, 252, 0.18);
+  --txt: #f1f0ff;
+  --txt-muted: #6b6a80;
+  --txt-subtle: #3e3d52;
+  --border: rgba(124, 92, 252, 0.12);
+  --border-strong: rgba(124, 92, 252, 0.28);
+  --glow: rgba(124, 92, 252, 0.35);
 }
 
+/* ─── Tailwind theme ─────────────────────────────────────────────────── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--bg);
+  --color-foreground: var(--txt);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
+/* ─── Base ───────────────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
@@ -19,39 +33,83 @@ html {
 }
 
 body {
-  background: #000000;
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--txt);
   font-family: var(--font-sans), system-ui, sans-serif;
   font-feature-settings: "kern" 1, "liga" 1;
   text-rendering: optimizeLegibility;
 }
 
+/* ─── Gradient text helpers ──────────────────────────────────────────── */
 .text-gradient-hero {
-  background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #c4b5fd 45%,
+    #7c5cfc 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-@keyframes marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+.text-gradient-amber {
+  background: linear-gradient(90deg, #f0a500 0%, #ffca60 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
+/* ─── Shimmer animation (hero headline) ─────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    270deg,
+    #ffffff,
+    #c4b5fd,
+    #7c5cfc,
+    #c4b5fd,
+    #ffffff
+  );
+  background-size: 300% 300%;
+  animation: shimmer 7s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ─── Pulse dot ──────────────────────────────────────────────────────── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.85); }
+}
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ─── Marquee ─────────────────────────────────────────────────────────── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
 .animate-marquee {
   animation: marquee-scroll 36s linear infinite;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+/* ─── Glow utilities ─────────────────────────────────────────────────── */
+.glow-accent {
+  box-shadow: 0 0 32px var(--glow), 0 0 64px rgba(124, 92, 252, 0.15);
+}
 
-  .animate-marquee {
-    animation: none;
-  }
+/* ─── Reduced motion ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-marquee { animation: none; }
+  .text-shimmer { animation: none; }
+  .pulse-dot { animation: none; }
 }
