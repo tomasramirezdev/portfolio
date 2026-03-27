@@ -194,7 +194,7 @@ const content = {
       {
         number: "04",
         title: "Full-stack site development",
-        description: "I implemented the design from scratch using HTML5, CSS3, and vanilla JavaScript. No frameworks — clean, performant, fully custom code. Includes scroll animations, real-time form validation, and load optimization.",
+        description: "I implemented the design from scratch using HTML5, CSS3, and vanilla JavaScript. No frameworks — clean, performant, fully custom code. Includes scroll animations, real-time form validation, and loading optimization.",
       },
       {
         number: "05",

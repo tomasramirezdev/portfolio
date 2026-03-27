@@ -8,7 +8,7 @@ export const certifications = [
     issuer:        "CODERHOUSE",
     year:          "2022",
     description:   "Consultas, análisis de datos y estructuras para proyectos de desarrollo y reporting con precisión.",
-    descriptionEn: "Queries, data analysis, and structures for development projects and precision reporting.",
+    descriptionEn: "Queries, data analysis, and database structures for development and reporting projects.",
     certificateUrl: "/certificates/sql-mysql.png",
   },
   {
@@ -18,7 +18,7 @@ export const certifications = [
     issuer:        "CODEAROCK",
     year:          "2023-2024",
     description:   "Trabajé con etiquetas y semántica, estilos y estructuras, maquetación, landings y proyectos web con fundamentos y React.",
-    descriptionEn: "Worked with semantic markup, styles and structure, layouts, landing pages, and web projects using fundamentals and React.",
+    descriptionEn: "Worked with semantic markup, styles and structure, layouts, landing pages, and web projects — covering HTML/CSS fundamentals through React.",
     certificateUrl: "/certificates/html-css-js-react.png",
   },
   {
