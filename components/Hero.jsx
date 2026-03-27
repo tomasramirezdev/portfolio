@@ -124,7 +124,7 @@ export default function Hero() {
             {tr.bio3}
             <span style={{ color: "var(--txt)" }} className="font-medium">{tr.bio4}</span>
             {tr.bio5}
-            <span style={{ color: "var(--txt)" }} className="font-medium">{tr.bio6}</span>
+            {tr.bio6 && <span style={{ color: "var(--txt)" }} className="font-medium">{tr.bio6}</span>}
             {tr.bio7}
           </motion.p>
 
