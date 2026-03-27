@@ -361,7 +361,7 @@ export function ContactSection() {
           className="mt-4 font-display text-[clamp(2rem,6vw,3.25rem)] font-bold leading-tight tracking-tight"
           style={{ color: "var(--txt)" }}
         >
-          {tr.headline1}{" "}
+          {tr.headline1}<br />
           <span className="text-gradient-hero">{tr.headline2}</span>
         </h2>
 
@@ -374,9 +374,9 @@ export function ContactSection() {
 
         <a
           href="mailto:rtomassebastian@gmail.com"
-          className="group mx-auto mt-10 inline-flex min-h-12 w-full max-w-sm items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold text-white transition-all duration-200 active:scale-95 sm:w-auto"
-          style={{ background: "var(--accent)", boxShadow: "0 0 28px var(--glow)" }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = "#9070ff"; }}
+          className="group mx-auto mt-10 inline-flex min-h-12 w-full max-w-sm items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold transition-all duration-200 active:scale-95 sm:w-auto"
+          style={{ background: "var(--accent)", color: "#050507", boxShadow: "0 0 28px var(--glow)" }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = "#f8fafc"; }}
           onMouseLeave={(e) => { e.currentTarget.style.background = "var(--accent)"; }}
         >
           rtomassebastian@gmail.com

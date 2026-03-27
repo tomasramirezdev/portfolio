@@ -51,7 +51,7 @@ export default function HeroVisual() {
         <motion.div 
           animate={{ scale: [1, 1.15, 1], opacity: [0.1, 0.2, 0.1], x: [0, 15, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-[5%] top-[10%] w-[250px] h-[250px] md:w-[400px] md:h-[400px] bg-purple-600 rounded-full blur-[90px] md:blur-[140px] mix-blend-screen"
+          className="absolute right-[5%] top-[10%] w-[250px] h-[250px] md:w-[400px] md:h-[400px] bg-slate-400 rounded-full blur-[90px] md:blur-[140px] mix-blend-screen"
         />
         <motion.div 
           animate={{ scale: [1, 1.25, 1], opacity: [0.08, 0.15, 0.08], y: [0, -15, 0] }}
@@ -78,8 +78,8 @@ export default function HeroVisual() {
           className="absolute top-8 left-2 right-12 md:top-12 md:left-4 md:right-16 h-28 md:h-32 bg-[#ffffff05] backdrop-blur-xl border border-white/10 rounded-2xl p-4 md:p-5 flex flex-col justify-between shadow-2xl"
         >
           <div className="flex items-center gap-2 md:gap-3">
-            <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center">
-              <Layers className="w-4 h-4 text-purple-400" />
+            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+              <Layers className="w-4 h-4 text-white/60" />
             </div>
             <div className="h-4 w-20 md:w-24 bg-white/10 rounded-full" />
           </div>
@@ -96,10 +96,10 @@ export default function HeroVisual() {
           transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
           className="absolute bottom-16 right-0 w-40 h-40 md:w-48 md:h-48 bg-[#ffffff08] backdrop-blur-3xl border border-white/10 rounded-3xl p-5 md:p-6 shadow-2xl flex flex-col items-center justify-center gap-4"
         >
-          <div className="w-12 h-12 rounded-full border border-purple-500/30 flex items-center justify-center">
-            <MousePointer2 className="w-5 h-5 text-purple-300" />
+          <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center">
+            <MousePointer2 className="w-5 h-5 text-white/50" />
           </div>
-          <div className="h-1.5 w-16 bg-gradient-to-r from-purple-500/80 to-blue-500/80 rounded-full" />
+          <div className="h-1.5 w-16 bg-gradient-to-r from-white/40 to-slate-400/60 rounded-full" />
         </motion.div>
 
         {/* Tarjeta Código (Desarrollo) - Flota ligeramente en Z */}

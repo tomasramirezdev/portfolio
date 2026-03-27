@@ -27,19 +27,19 @@ export default function CertificationCard({
       className={`group flex h-[392px] w-full max-w-md shrink-0 flex-col rounded-2xl p-6 active:scale-[0.99] sm:max-w-sm md:max-w-none md:w-[260px] md:p-7 ${className}`}
       style={{
         background: "rgba(14, 14, 18, 0.85)",
-        border: "1px solid rgba(124, 92, 252, 0.22)",
+        border: "1px solid rgba(226, 232, 240, 0.12)",
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
         boxShadow: "0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)",
         transition: "border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease",
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "rgba(124, 92, 252, 0.55)";
-        e.currentTarget.style.boxShadow = "0 8px 32px rgba(124,92,252,0.2), inset 0 1px 0 rgba(255,255,255,0.08)";
+        e.currentTarget.style.borderColor = "rgba(226, 232, 240, 0.30)";
+        e.currentTarget.style.boxShadow = "0 8px 32px rgba(226,232,240,0.10), inset 0 1px 0 rgba(255,255,255,0.08)";
         e.currentTarget.style.transform = "scale(1.02)";
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "rgba(124, 92, 252, 0.22)";
+        e.currentTarget.style.borderColor = "rgba(226, 232, 240, 0.12)";
         e.currentTarget.style.boxShadow = "0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)";
         e.currentTarget.style.transform = "scale(1)";
       }}
@@ -53,7 +53,7 @@ export default function CertificationCard({
 
       <p
         className="mt-3 text-[11px] font-semibold uppercase tracking-[0.18em]"
-        style={{ color: "#7c5cfc" }}
+        style={{ color: "#e2e8f0" }}
       >
         {issuer}
       </p>
@@ -74,7 +74,7 @@ export default function CertificationCard({
 
       <span
         className="mt-5 inline-flex items-center gap-2 text-sm font-semibold transition-all group-hover:gap-3"
-        style={{ color: "#7c5cfc" }}
+        style={{ color: "#e2e8f0" }}
       >
         {lang === "en" ? "View certificate" : "Ver certificado"}
         <ArrowUpRight

@@ -1,11 +1,11 @@
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="es"
-      className={`${jakarta.variable} ${inter.variable} h-full antialiased`}
+      className={`${poppins.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="flex min-h-[100dvh] flex-col overflow-x-clip font-sans pb-[env(safe-area-inset-bottom,0px)]">
         <Providers>{children}</Providers>

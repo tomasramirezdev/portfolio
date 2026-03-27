@@ -275,7 +275,7 @@ const content = {
         number: "02",
         challenge: "Changing prices without generating distrust",
         description: "Publishing a fixed price when that price changes by season, modality, and group size is a trap. The user arrives expecting to pay X, gets told Y, and leaves. But publishing nothing doesn't work either — people want a rough idea before reaching out.",
-        solution: "I designed tour cards with "starting from" pricing and clear "seasonal price" and "group/private" labels. The CTA says 'Check availability,' not 'Buy' — it opens WhatsApp with a pre-filled message including the tour of interest. The conversation starts with context, not from scratch.",
+        solution: "I designed tour cards with 'starting from' pricing and clear 'seasonal price' and 'group/private' labels. The CTA says 'Check availability,' not 'Buy' — it opens WhatsApp with a pre-filled message including the tour of interest. The conversation starts with context, not from scratch.",
       },
       {
         number: "03",
