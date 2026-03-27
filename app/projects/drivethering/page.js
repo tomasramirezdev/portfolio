@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
 
 // ─── DriveTheRing colour palette ────────────────────────────────────────────
 const C = {
@@ -26,110 +27,225 @@ const fadeUp = {
   }),
 };
 
-// ─── Data ────────────────────────────────────────────────────────────────────
-const stats = [
-  { value: "3",    unit: "meses", label: "Duración del proyecto" },
-  { value: "+40%", unit: "",      label: "Tasa de conversión" },
-  { value: "15+",  unit: "",      label: "Entrevistas de usuario" },
-  { value: "8",    unit: "",      label: "Iteraciones de diseño" },
-];
-
-const tools = [
-  "Figma",
-  "Prototyping",
-  "User Research",
-  "Usability Testing",
-  "Design Systems",
-  "Responsive Design",
-  "Competitive Analysis",
-  "Information Architecture",
-  "Wireframing",
-];
-
-const meta = [
-  { label: "Rol",      value: "UX/UI Designer — Lead" },
-  { label: "Año",      value: "2024" },
-  { label: "Duración", value: "3 meses" },
-  { label: "Tipo",     value: "Producto digital · B2C" },
-  { label: "Stack",    value: "Figma · FigJam · Maze" },
-];
-
-const designProcess = [
-  {
-    number: "01",
-    title: "Investigación de usuarios",
-    description:
-      "Realicé 15+ entrevistas en profundidad con entusiastas del automovilismo. Mapeé sus frustraciones, expectativas y el contexto en el que reservan experiencias de conducción de alto rendimiento.",
+// ─── Bilingual content ───────────────────────────────────────────────────────
+const content = {
+  es: {
+    back: "Volver al portfolio",
+    heroLabel: "Proyecto 01 \u00a0·\u00a0 UX/UI Design \u00a0·\u00a0 2024",
+    tagline: "Plataforma premium de alquiler de autos de carrera. Proceso UX/UI completo orientado a maximizar conversión y simplificar la reserva de experiencias en pista.",
+    scrollCue: "Scroll para explorar",
+    stats: [
+      { value: "3",    unit: "meses", label: "Duración del proyecto" },
+      { value: "+40%", unit: "",      label: "Tasa de conversión" },
+      { value: "15+",  unit: "",      label: "Entrevistas de usuario" },
+      { value: "8",    unit: "",      label: "Iteraciones de diseño" },
+    ],
+    toolsLabel: "Herramientas & metodologías",
+    galleryLabel: "Galería de diseños",
+    gallerySub: "Pantallas principales del proyecto — mockups e interfaces finales",
+    galleryItems: [
+      { label: "Hero & Search — Pantalla principal",        span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
+      { label: "Detalle de vehículo",                       span: "",                            ratio: "aspect-[4/5]" },
+      { label: "Flujo de reserva — Step 1",                 span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Mobile checkout — Paso final",              span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Design system — Componentes & tokens",      span: "",                            ratio: "aspect-[4/3]" },
+    ],
+    meta: [
+      { label: "Rol",      value: "UX/UI Designer — Lead" },
+      { label: "Año",      value: "2024" },
+      { label: "Duración", value: "3 meses" },
+      { label: "Tipo",     value: "Producto digital · B2C" },
+      { label: "Stack",    value: "Figma · FigJam · Maze" },
+    ],
+    overviewLabel: "Descripción del proyecto",
+    overviewHeading: "Un flujo de reserva tan afinado como un motor de F1.",
+    overviewP1: "Drive The Ring es una plataforma digital para amantes del automovilismo que quieren vivir la experiencia de manejar autos de carrera en circuitos reales. El desafío fue diseñar un sistema de reserva que se sintiera tan premium como el producto que vendía.",
+    overviewP2Part1: "Lideré el proceso UX/UI completo: desde research y wireframes hasta el design system y los assets listos para desarrollo. El resultado fue un",
+    overviewStrong: "aumento del 40% en la tasa de conversión",
+    overviewP2Part2: "y una reducción significativa del drop-off en el flujo de checkout.",
+    quote: "\u201cDiseñar para adrenalina requiere decisiones rápidas y cero fricción. Cada interacción fue pensada para que el usuario sienta velocidad antes de pisar el acelerador.\u201d",
+    processLabel: "Proceso de diseño",
+    processHeading: "De la investigación al producto final.",
+    designProcess: [
+      {
+        number: "01",
+        title: "Investigación de usuarios",
+        description: "Realicé 15+ entrevistas en profundidad con entusiastas del automovilismo. Mapeé sus frustraciones, expectativas y el contexto en el que reservan experiencias de conducción de alto rendimiento.",
+      },
+      {
+        number: "02",
+        title: "Análisis competitivo",
+        description: "Estudié plataformas de alquiler de lujo y experiencias en pista a nivel global. Identifiqué oportunidades de diferenciación en confianza, velocidad de reserva y narrativa visual premium.",
+      },
+      {
+        number: "03",
+        title: "Wireframes de baja fidelidad",
+        description: "Estructuré los flujos clave: búsqueda de autos, selección de circuito y checkout. La prioridad fue reducir la fricción cognitiva en cada paso del embudo de conversión.",
+      },
+      {
+        number: "04",
+        title: "Prototipado interactivo",
+        description: "Construí prototipos de alta interactividad en Figma con flujos completos de reserva. Usados directamente en las sesiones de usability testing con usuarios reales.",
+      },
+      {
+        number: "05",
+        title: "Diseño UI de alta fidelidad",
+        description: "Desarrollé el sistema de diseño completo: tipografía agresiva, paleta dark con acentos naranjas, componentes de confianza y microinteracciones que refuerzan velocidad y adrenalina.",
+      },
+      {
+        number: "06",
+        title: "Testing de usabilidad",
+        description: "8 rondas de testing iterativo. Cada ciclo identificó puntos de fricción específicos que se resolvieron antes de la siguiente iteración, logrando un flujo de reserva 60% más rápido.",
+      },
+    ],
+    challengesLabel: "Desafíos & soluciones",
+    challengesHeading: "Los problemas reales requieren soluciones reales.",
+    challengePrefix: "Desafío",
+    solutionLabel: "Solución implementada",
+    challenges: [
+      {
+        number: "01",
+        challenge: "Flujo de reserva multi-variable",
+        description: "El usuario debía seleccionar auto, circuito, fecha, duración y add-ons de forma simultánea. Demasiadas variables en un solo paso generaban abandono masivo antes del pago.",
+        solution: "Diseñé un wizard step-by-step con estado persistente y resumen lateral en tiempo real. Cada paso tiene una única decisión. La tasa de completion del checkout aumentó un 73%.",
+      },
+      {
+        number: "02",
+        challenge: "Confianza en transacciones de alto valor",
+        description: "Reservar un día en pista puede costar miles de dólares. El usuario necesitaba absoluta seguridad antes de ingresar su tarjeta — y el diseño original no la transmitía.",
+        solution: "Implementé social proof contextual (reviews con foto y nombre real), badges de garantía visibles en cada paso, y una sección 'Qué incluye' con iconografía clara. El drop-off en checkout bajó un 45%.",
+      },
+      {
+        number: "03",
+        challenge: "Experiencia mobile-first en contexto desktop-dominado",
+        description: "El 68% del tráfico era mobile, pero el flujo original estaba pensado para escritorio. Imágenes cortadas, botones pequeños y un checkout imposible en pantallas chicas.",
+        solution: "Rediseñé la arquitectura desde mobile hacia arriba: carousels fullscreen, áreas de toque generosas y checkout en 3 pasos concretos. El bounce rate mobile cayó un 38%.",
+      },
+    ],
+    resultsLabel: "Resultados clave",
+    results: [
+      { metric: "+73%",  detail: "Completion rate en el flujo de checkout" },
+      { metric: "−45%",  detail: "Drop-off en la página de pago" },
+      { metric: "−38%",  detail: "Bounce rate en mobile" },
+    ],
+    ctaLabel: "¿Te gustó el trabajo?",
+    ctaHeading: "Trabajemos juntos en tu próximo proyecto.",
+    ctaBody: "Diseño y código que convierte. Hablemos de tu idea y construyamos algo que destaque.",
+    viewMore: "Ver más proyectos",
+    footerText: "FORMA — Sistema para mueblerias · Córdoba, Argentina",
   },
-  {
-    number: "02",
-    title: "Análisis competitivo",
-    description:
-      "Estudié plataformas de alquiler de lujo y experiencias en pista a nivel global. Identifiqué oportunidades de diferenciación en confianza, velocidad de reserva y narrativa visual premium.",
+  en: {
+    back: "Back to portfolio",
+    heroLabel: "Project 01 \u00a0·\u00a0 UX/UI Design \u00a0·\u00a0 2024",
+    tagline: "Premium race car rental platform. Full UX/UI process focused on maximizing conversion and simplifying track experience bookings.",
+    scrollCue: "Scroll to explore",
+    stats: [
+      { value: "3",    unit: "months", label: "Project duration" },
+      { value: "+40%", unit: "",       label: "Conversion rate" },
+      { value: "15+",  unit: "",       label: "User interviews" },
+      { value: "8",    unit: "",       label: "Design iterations" },
+    ],
+    toolsLabel: "Tools & methodologies",
+    galleryLabel: "Design gallery",
+    gallerySub: "Key screens from the project — mockups and final interfaces",
+    galleryItems: [
+      { label: "Hero & Search — Main screen",               span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
+      { label: "Vehicle detail",                            span: "",                            ratio: "aspect-[4/5]" },
+      { label: "Booking flow — Step 1",                     span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Mobile checkout — Final step",              span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Design system — Components & tokens",       span: "",                            ratio: "aspect-[4/3]" },
+    ],
+    meta: [
+      { label: "Role",     value: "UX/UI Designer — Lead" },
+      { label: "Year",     value: "2024" },
+      { label: "Duration", value: "3 months" },
+      { label: "Type",     value: "Digital product · B2C" },
+      { label: "Stack",    value: "Figma · FigJam · Maze" },
+    ],
+    overviewLabel: "Project overview",
+    overviewHeading: "A booking flow as finely tuned as an F1 engine.",
+    overviewP1: "Drive The Ring is a digital platform for motorsport enthusiasts who want to experience driving race cars on real circuits. The challenge was designing a booking system that felt as premium as the product it was selling.",
+    overviewP2Part1: "I led the full UX/UI process — from research and wireframes through to the design system and developer-ready assets. The result was a",
+    overviewStrong: "40% increase in conversion rate",
+    overviewP2Part2: "and a significant reduction in drop-off throughout the checkout flow.",
+    quote: "\u201cDesigning for adrenaline means fast decisions and zero friction. Every interaction was crafted so users feel the speed before they ever hit the throttle.\u201d",
+    processLabel: "Design process",
+    processHeading: "From research to final product.",
+    designProcess: [
+      {
+        number: "01",
+        title: "User research",
+        description: "I conducted 15+ in-depth interviews with motorsport enthusiasts. I mapped their frustrations, expectations, and the context in which they book high-performance driving experiences.",
+      },
+      {
+        number: "02",
+        title: "Competitive analysis",
+        description: "I studied luxury rental platforms and track experiences globally. I identified differentiation opportunities in trust, booking speed, and premium visual storytelling.",
+      },
+      {
+        number: "03",
+        title: "Low-fidelity wireframes",
+        description: "I structured the key flows: car search, circuit selection, and checkout. The priority was reducing cognitive friction at every step of the conversion funnel.",
+      },
+      {
+        number: "04",
+        title: "Interactive prototyping",
+        description: "I built highly interactive Figma prototypes with full booking flows, used directly in usability testing sessions with real users.",
+      },
+      {
+        number: "05",
+        title: "High-fidelity UI design",
+        description: "I developed the complete design system: aggressive typography, dark palette with orange accents, trust-building components, and micro-interactions that reinforce speed and adrenaline.",
+      },
+      {
+        number: "06",
+        title: "Usability testing",
+        description: "8 rounds of iterative testing. Each cycle surfaced specific friction points that were resolved before the next iteration, resulting in a booking flow that was 60% faster.",
+      },
+    ],
+    challengesLabel: "Challenges & solutions",
+    challengesHeading: "Real problems require real solutions.",
+    challengePrefix: "Challenge",
+    solutionLabel: "Solution",
+    challenges: [
+      {
+        number: "01",
+        challenge: "Multi-variable booking flow",
+        description: "Users had to select a car, circuit, date, duration, and add-ons all at once. Too many decisions in a single step led to massive drop-off before payment.",
+        solution: "I designed a step-by-step wizard with persistent state and a live summary panel. Each step presents a single decision. Checkout completion rate increased by 73%.",
+      },
+      {
+        number: "02",
+        challenge: "Building trust for high-value transactions",
+        description: "A day on the track can cost thousands of dollars. Users needed absolute confidence before entering their card — and the original design wasn't delivering that.",
+        solution: "I implemented contextual social proof (reviews with real photos and names), visible guarantee badges at every step, and a clear 'What's included' section with clean iconography. Checkout drop-off fell by 45%.",
+      },
+      {
+        number: "03",
+        challenge: "Mobile-first experience in a desktop-dominated context",
+        description: "68% of traffic was mobile, but the original flow was built for desktop. Cropped images, small buttons, and a checkout that was nearly impossible on small screens.",
+        solution: "I redesigned the architecture from mobile up: fullscreen carousels, generous touch targets, and a concrete 3-step checkout. Mobile bounce rate dropped by 38%.",
+      },
+    ],
+    resultsLabel: "Key results",
+    results: [
+      { metric: "+73%",  detail: "Checkout flow completion rate" },
+      { metric: "−45%",  detail: "Drop-off on the payment page" },
+      { metric: "−38%",  detail: "Mobile bounce rate" },
+    ],
+    ctaLabel: "Like what you see?",
+    ctaHeading: "Let's work together on your next project.",
+    ctaBody: "Design and code that converts. Tell me about your idea and let's build something that stands out.",
+    viewMore: "View more projects",
+    footerText: "Drive The Ring — UX/UI Project",
   },
-  {
-    number: "03",
-    title: "Wireframes de baja fidelidad",
-    description:
-      "Estructuré los flujos clave: búsqueda de autos, selección de circuito y checkout. La prioridad fue reducir la fricción cognitiva en cada paso del embudo de conversión.",
-  },
-  {
-    number: "04",
-    title: "Prototipado interactivo",
-    description:
-      "Construí prototipos de alta interactividad en Figma con flujos completos de reserva. Usados directamente en las sesiones de usability testing con usuarios reales.",
-  },
-  {
-    number: "05",
-    title: "Diseño UI de alta fidelidad",
-    description:
-      "Desarrollé el sistema de diseño completo: tipografía agresiva, paleta dark con acentos naranjas, componentes de confianza y microinteracciones que refuerzan velocidad y adrenalina.",
-  },
-  {
-    number: "06",
-    title: "Testing de usabilidad",
-    description:
-      "8 rondas de testing iterativo. Cada ciclo identificó puntos de fricción específicos que se resolvieron antes de la siguiente iteración, logrando un flujo de reserva 60% más rápido.",
-  },
-];
-
-const challenges = [
-  {
-    number: "01",
-    challenge: "Flujo de reserva multi-variable",
-    description:
-      "El usuario debía seleccionar auto, circuito, fecha, duración y add-ons de forma simultánea. Demasiadas variables en un solo paso generaban abandono masivo antes del pago.",
-    solution:
-      "Diseñé un wizard step-by-step con estado persistente y resumen lateral en tiempo real. Cada paso tiene una única decisión. La tasa de completion del checkout aumentó un 73%.",
-  },
-  {
-    number: "02",
-    challenge: "Confianza en transacciones de alto valor",
-    description:
-      "Reservar un día en pista puede costar miles de dólares. El usuario necesitaba absoluta seguridad antes de ingresar su tarjeta — y el diseño original no la transmitía.",
-    solution:
-      "Implementé social proof contextual (reviews con foto y nombre real), badges de garantía visibles en cada paso, y una sección 'Qué incluye' con iconografía clara. El drop-off en checkout bajó un 45%.",
-  },
-  {
-    number: "03",
-    challenge: "Experiencia mobile-first en contexto desktop-dominado",
-    description:
-      "El 68% del tráfico era mobile, pero el flujo original estaba pensado para escritorio. Imágenes cortadas, botones pequeños y un checkout imposible en pantallas chicas.",
-    solution:
-      "Rediseñé la arquitectura desde mobile hacia arriba: carousels fullscreen, áreas de toque generosas y checkout en 3 pasos concretos. El bounce rate mobile cayó un 38%.",
-  },
-];
-
-const galleryItems = [
-  { label: "Hero & Search — Pantalla principal",        span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
-  { label: "Detalle de vehículo",                       span: "",                            ratio: "aspect-[4/5]" },
-  { label: "Flujo de reserva — Step 1",                 span: "",                            ratio: "aspect-[4/3]" },
-  { label: "Mobile checkout — Paso final",              span: "",                            ratio: "aspect-[4/3]" },
-  { label: "Design system — Componentes & tokens",      span: "",                            ratio: "aspect-[4/3]" },
-];
+};
 
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 export default function DriveTheRingPage() {
+  const { lang } = useLang();
+  const d = content[lang];
+
   return (
     <>
       {/* Page-scoped CSS */}
@@ -167,7 +283,7 @@ export default function DriveTheRingPage() {
             }}
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" strokeWidth={2.2} />
-            Volver al portfolio
+            {d.back}
           </Link>
         </div>
 
@@ -218,7 +334,7 @@ export default function DriveTheRingPage() {
               className="mb-5 text-xs font-bold uppercase tracking-[0.35em]"
               style={{ color: C.orange }}
             >
-              Proyecto 01 &nbsp;·&nbsp; UX/UI Design &nbsp;·&nbsp; 2024
+              {d.heroLabel}
             </motion.p>
 
             {/* Title */}
@@ -242,7 +358,7 @@ export default function DriveTheRingPage() {
               className="mx-auto mt-7 max-w-lg text-base leading-relaxed sm:text-lg"
               style={{ color: "rgba(241,240,255,0.55)" }}
             >
-              Plataforma premium de alquiler de autos de carrera. Proceso UX/UI completo orientado a maximizar conversión y simplificar la reserva de experiencias en pista.
+              {d.tagline}
             </motion.p>
 
             {/* Scroll cue */}
@@ -252,7 +368,7 @@ export default function DriveTheRingPage() {
             >
               <div style={{ width: 48, height: 1, background: C.orangeMid }} />
               <span className="text-[10px] font-semibold uppercase tracking-[0.3em]" style={{ color: "rgba(241,240,255,0.25)" }}>
-                Scroll para explorar
+                {d.scrollCue}
               </span>
               <div style={{ width: 48, height: 1, background: C.orangeMid }} />
             </motion.div>
@@ -269,7 +385,7 @@ export default function DriveTheRingPage() {
           }}
         >
           <div className="mx-auto max-w-5xl grid grid-cols-2 gap-8 sm:grid-cols-4">
-            {stats.map((s, i) => (
+            {d.stats.map((s, i) => (
               <motion.div
                 key={s.label}
                 custom={i}
@@ -314,21 +430,21 @@ export default function DriveTheRingPage() {
               viewport={{ once: true }}
             >
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.orange }}>
-                Descripción del proyecto
+                {d.overviewLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold leading-tight tracking-tight"
                 style={{ fontSize: "clamp(1.75rem,4vw,2.5rem)", color: "#f1f0ff" }}
               >
-                Un flujo de reserva tan afinado como un motor de F1.
+                {d.overviewHeading}
               </h2>
               <p className="mt-5 text-base leading-relaxed sm:text-lg" style={{ color: "rgba(241,240,255,0.52)" }}>
-                Drive The Ring es una plataforma digital para amantes del automovilismo que quieren vivir la experiencia de manejar autos de carrera en circuitos reales. El desafío fue diseñar un sistema de reserva que se sintiera tan premium como el producto que vendía.
+                {d.overviewP1}
               </p>
               <p className="mt-4 text-base leading-relaxed sm:text-lg" style={{ color: "rgba(241,240,255,0.52)" }}>
-                Lideré el proceso UX/UI completo: desde research y wireframes hasta el design system y los assets listos para desarrollo. El resultado fue un{" "}
-                <strong style={{ color: "#f1f0ff" }}>aumento del 40% en la tasa de conversión</strong>{" "}
-                y una reducción significativa del drop-off en el flujo de checkout.
+                {d.overviewP2Part1}{" "}
+                <strong style={{ color: "#f1f0ff" }}>{d.overviewStrong}</strong>{" "}
+                {d.overviewP2Part2}
               </p>
 
               {/* Highlight strip */}
@@ -338,7 +454,7 @@ export default function DriveTheRingPage() {
               >
                 <div style={{ width: 3, minWidth: 3, height: 36, borderRadius: 2, background: C.orange }} />
                 <p className="text-sm leading-relaxed" style={{ color: "rgba(241,240,255,0.7)" }}>
-                  &ldquo;Diseñar para adrenalina requiere decisiones rápidas y cero fricción. Cada interacción fue pensada para que el usuario sienta velocidad antes de pisar el acelerador.&rdquo;
+                  {d.quote}
                 </p>
               </div>
             </motion.div>
@@ -352,7 +468,7 @@ export default function DriveTheRingPage() {
               whileInView="show"
               viewport={{ once: true }}
             >
-              {meta.map((m) => (
+              {d.meta.map((m) => (
                 <div
                   key={m.label}
                   className="flex items-center justify-between rounded-xl px-5 py-3.5"
@@ -384,10 +500,14 @@ export default function DriveTheRingPage() {
         >
           <div className="mx-auto max-w-5xl">
             <p className="mb-6 text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.orange }}>
-              Herramientas &amp; metodologías
+              {d.toolsLabel}
             </p>
             <div className="flex flex-wrap gap-3">
-              {tools.map((t) => (
+              {[
+                "Figma", "Prototyping", "User Research", "Usability Testing",
+                "Design Systems", "Responsive Design", "Competitive Analysis",
+                "Information Architecture", "Wireframing",
+              ].map((t) => (
                 <span
                   key={t}
                   className="rounded-full px-4 py-2 text-sm font-medium"
@@ -415,15 +535,15 @@ export default function DriveTheRingPage() {
               className="mb-8"
             >
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.orange }}>
-                Galería de diseños
+                {d.galleryLabel}
               </p>
               <p className="mt-1 text-sm" style={{ color: "rgba(241,240,255,0.35)" }}>
-                Pantallas principales del proyecto — mockups e interfaces finales
+                {d.gallerySub}
               </p>
             </motion.div>
 
             <div className="grid gap-4 sm:grid-cols-3">
-              {galleryItems.map((item, i) => (
+              {d.galleryItems.map((item, i) => (
                 <motion.div
                   key={item.label}
                   custom={i}
@@ -480,18 +600,18 @@ export default function DriveTheRingPage() {
               className="mb-12"
             >
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.orange }}>
-                Proceso de diseño
+                {d.processLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold tracking-tight"
                 style={{ fontSize: "clamp(1.75rem,4vw,2.25rem)", color: "#f1f0ff" }}
               >
-                De la investigación al producto final.
+                {d.processHeading}
               </h2>
             </motion.div>
 
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {designProcess.map((step, i) => (
+              {d.designProcess.map((step, i) => (
                 <motion.div
                   key={step.number}
                   custom={i}
@@ -537,18 +657,18 @@ export default function DriveTheRingPage() {
               className="mb-12"
             >
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.orange }}>
-                Desafíos &amp; soluciones
+                {d.challengesLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold tracking-tight"
                 style={{ fontSize: "clamp(1.75rem,4vw,2.25rem)", color: "#f1f0ff" }}
               >
-                Los problemas reales requieren soluciones reales.
+                {d.challengesHeading}
               </h2>
             </motion.div>
 
             <div className="flex flex-col gap-5">
-              {challenges.map((c, i) => (
+              {d.challenges.map((c, i) => (
                 <motion.div
                   key={c.number}
                   custom={i}
@@ -565,7 +685,7 @@ export default function DriveTheRingPage() {
                     style={{ background: `rgba(255,107,26,0.06)` }}
                   >
                     <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-2" style={{ color: C.orange }}>
-                      Desafío {c.number}
+                      {d.challengePrefix} {c.number}
                     </p>
                     <h3 className="font-display text-lg font-bold" style={{ color: "#f1f0ff" }}>
                       {c.challenge}
@@ -583,7 +703,7 @@ export default function DriveTheRingPage() {
                     <div className="flex items-center gap-2 mb-2">
                       <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#4ade80" }} />
                       <p className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: "#4ade80" }}>
-                        Solución implementada
+                        {d.solutionLabel}
                       </p>
                     </div>
                     <p className="text-sm leading-relaxed" style={{ color: "rgba(241,240,255,0.62)" }}>
@@ -610,14 +730,10 @@ export default function DriveTheRingPage() {
               className="mb-8 text-xs font-bold uppercase tracking-[0.25em]"
               style={{ color: C.orange }}
             >
-              Resultados clave
+              {d.resultsLabel}
             </motion.p>
             <div className="grid gap-4 sm:grid-cols-3">
-              {[
-                { metric: "+73%",  detail: "Completion rate en el flujo de checkout" },
-                { metric: "−45%",  detail: "Drop-off en la página de pago" },
-                { metric: "−38%",  detail: "Bounce rate en mobile" },
-              ].map((r, i) => (
+              {d.results.map((r, i) => (
                 <motion.div
                   key={r.metric}
                   custom={i}
@@ -662,19 +778,19 @@ export default function DriveTheRingPage() {
               viewport={{ once: true }}
             >
               <p className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: C.orange }}>
-                ¿Te gustó el trabajo?
+                {d.ctaLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold leading-tight tracking-tight"
                 style={{ fontSize: "clamp(2rem,5vw,3rem)", color: "#f1f0ff" }}
               >
-                Trabajemos juntos en tu próximo proyecto.
+                {d.ctaHeading}
               </h2>
               <p
                 className="mx-auto mt-5 max-w-md text-base leading-relaxed"
                 style={{ color: "rgba(241,240,255,0.5)" }}
               >
-                Diseño y código que convierte. Hablemos de tu idea y construyamos algo que destaque.
+                {d.ctaBody}
               </p>
 
               <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
@@ -697,7 +813,7 @@ export default function DriveTheRingPage() {
                     color:   "#f1f0ff",
                   }}
                 >
-                  Ver más proyectos
+                  {d.viewMore}
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={2.2} />
                 </Link>
               </div>
@@ -710,7 +826,7 @@ export default function DriveTheRingPage() {
           className="px-4 py-8 text-center text-xs sm:px-6 lg:px-8"
           style={{ borderTop: `1px solid ${C.orangeDim}`, color: "rgba(241,240,255,0.2)" }}
         >
-          © {new Date().getFullYear()} Tomas Ramirez &nbsp;·&nbsp; Drive The Ring — Proyecto UX/UI
+          © {new Date().getFullYear()} Tomas Ramirez &nbsp;·&nbsp; Drive The Ring — UX/UI Project
         </footer>
       </div>
     </>

@@ -10,20 +10,27 @@ import { t } from "@/data/translations";
 const projects = [
   {
     title: "FORMA",
-    tag: "Ver proyecto",
+    tag:   { es: "Ver proyecto", en: "View project" },
     year: "2024",
     stack: "Design System · UX/UI · Next.js",
-    description: "Sistema de catálogo para mueblerias de Córdoba — powered by Google Sheets. No es un e-commerce, es una plataforma de fidelización.",
+    description: {
+      es: "Sistema de catálogo para mueblerias de Córdoba — powered by Google Sheets. No es un e-commerce, es una plataforma de fidelización.",
+      en: "White-label catalog system for furniture stores in Córdoba — powered by Google Sheets. Not an e-commerce, a loyalty platform.",
+    },
     accent: "rgba(200,169,107,0.12)",
     accentBorder: "rgba(200,169,107,0.30)",
     href: "/projects/forma",
+    image: "/forma.png",
   },
   {
     title: "DRIVE THE RING",
-    tag: "Ver proyecto",
+    tag:   { es: "Ver proyecto", en: "View project" },
     year: "2024",
     stack: "Front-end · UI/UX",
-    description: "Plataforma premium de alquiler de autos de carrera. UX/UI completo orientado a conversión — +40% en reservas.",
+    description: {
+      es: "Plataforma premium de alquiler de autos de carrera. UX/UI completo orientado a conversión — +40% en reservas.",
+      en: "Premium racing car rental platform. Full UX/UI focused on conversion — +40% in bookings.",
+    },
     accent: "rgba(255,107,26,0.12)",
     accentBorder: "rgba(255,107,26,0.30)",
     href: "/projects/drivethering",
@@ -31,20 +38,27 @@ const projects = [
   },
   {
     title: "XOP",
-    tag: "Ver proyecto",
+    tag:   { es: "Ver proyecto", en: "View project" },
     year: "2025 →",
     stack: "UX/UI · Dashboard · Design System",
-    description: "ERP con ecommerce integrado para retail. Diseño del dashboard y tienda online con personalizaciones por rubro — ropa, motos, construcción y cosmética.",
+    description: {
+      es: "ERP con ecommerce integrado para retail. Diseño del dashboard y tienda online con personalizaciones por rubro — ropa, motos, construcción y cosmética.",
+      en: "ERP with integrated ecommerce for retail. Dashboard and online store design with industry-specific customizations — fashion, motorcycles, construction, and cosmetics.",
+    },
     accent: "rgba(45,140,255,0.12)",
     accentBorder: "rgba(45,140,255,0.30)",
     href: "/projects/xop",
+    image: "/xop.png",
   },
   {
     title: "PREVENCIÓN",
-    tag: "Ver proyecto",
+    tag:   { es: "Ver proyecto", en: "View project" },
     year: "2024",
-    stack: "Front-end · UI/UX · Desarrollo",
-    description: "Landing page de generación de leads para planes de salud. Diseño UX/UI + desarrollo completo — +30% conversión.",
+    stack: { es: "Front-end · UI/UX · Desarrollo", en: "Front-end · UI/UX · Development" },
+    description: {
+      es: "Landing page de generación de leads para planes de salud. Diseño UX/UI + desarrollo completo — +30% conversión.",
+      en: "Lead generation landing page for health insurance plans. Full UX/UI design + development — +30% conversion.",
+    },
     accent: "rgba(240,21,123,0.12)",
     accentBorder: "rgba(240,21,123,0.30)",
     href: "/projects/prevencion",
@@ -52,20 +66,27 @@ const projects = [
   },
   {
     title: "HANS GUIA",
-    tag: "Ver proyecto",
+    tag:   { es: "Ver proyecto", en: "View project" },
     year: "2024",
     stack: "UX/UI · i18n · SEO · Next.js",
-    description: "Web en 5 idiomas para un guía de turismo en Ilha Grande. Precios dinámicos, blog SEO y reviews reales de TripAdvisor.",
+    description: {
+      es: "Web en 5 idiomas para un guía de turismo en Ilha Grande. Precios dinámicos, blog SEO y reviews reales de TripAdvisor.",
+      en: "Website in 5 languages for a tour guide in Ilha Grande. Dynamic pricing, SEO blog, and real TripAdvisor reviews.",
+    },
     accent: "rgba(212,144,10,0.12)",
     accentBorder: "rgba(212,144,10,0.30)",
     href: "/projects/hansguia",
+    image: "/hansguia.jpg",
   },
   {
     title: "BORA",
-    tag: "Ver proyecto",
+    tag:   { es: "Ver proyecto", en: "View project" },
     year: "2024",
-    stack: "Branding · UX/UI · Desarrollo",
-    description: "Plataforma de booking de paseos en Ilha Grande. Proyecto personal — logo, UX/UI y desarrollo completo desde cero.",
+    stack: { es: "Branding · UX/UI · Desarrollo", en: "Branding · UX/UI · Development" },
+    description: {
+      es: "Plataforma de booking de paseos en Ilha Grande. Proyecto personal — logo, UX/UI y desarrollo completo desde cero.",
+      en: "Tour booking platform for Ilha Grande. Personal project — logo, UX/UI, and full development from scratch.",
+    },
     accent: "rgba(0,201,167,0.12)",
     accentBorder: "rgba(0,201,167,0.30)",
     href: "/projects/bora",
@@ -206,7 +227,7 @@ export function WorksSection() {
           </Link>
         </div>
 
-        <div className="mt-10 grid gap-5 sm:mt-12 sm:gap-6 md:grid-cols-3">
+        <div className="mt-10 grid gap-5 sm:mt-12 sm:gap-6 md:grid-cols-3 md:items-stretch">
           {projects.map((p, i) => {
             const CardInner = (
               <>
@@ -240,7 +261,7 @@ export function WorksSection() {
                       className="inline-block rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-widest"
                       style={{ background: p.accentBorder, color: "var(--txt)" }}
                     >
-                      {p.tag}
+                      {typeof p.tag === "object" ? p.tag[lang] : p.tag}
                     </span>
                     <span
                       className="text-xs font-medium"
@@ -252,7 +273,7 @@ export function WorksSection() {
                 </div>
 
                 {/* Info */}
-                <div className="p-5">
+                <div className="flex flex-1 flex-col p-5">
                   <div className="flex items-start justify-between gap-3">
                     <h3
                       className="font-display text-lg font-bold tracking-tight"
@@ -269,27 +290,27 @@ export function WorksSection() {
                     className="mt-2 text-sm leading-relaxed"
                     style={{ color: "var(--txt-muted)" }}
                   >
-                    {p.description}
+                    {typeof p.description === "object" ? p.description[lang] : p.description}
                   </p>
                   <p
                     className="mt-3 text-xs font-medium"
                     style={{ color: "var(--accent)" }}
                   >
-                    {p.stack}
+                    {typeof p.stack === "object" ? p.stack[lang] : p.stack}
                   </p>
                 </div>
               </>
             );
 
             return p.href ? (
-              <Link key={p.title} href={p.href} className="block">
+              <Link key={p.title} href={p.href} className="block h-full">
                 <motion.article
                   custom={i}
                   variants={cardReveal}
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true, margin: "-40px" }}
-                  className="group overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1"
+                  className="group flex flex-col overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1 h-full"
                   style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
                 >
                   {CardInner}
@@ -303,7 +324,7 @@ export function WorksSection() {
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, margin: "-40px" }}
-                className="group overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1"
+                className="group flex flex-col overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1 h-full"
                 style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
               >
                 {CardInner}

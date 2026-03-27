@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
 
 // ─── FORMA colour palette — warm sand / premium wood ────────────────────────
 const C = {
@@ -26,119 +27,267 @@ const fadeUp = {
   }),
 };
 
-// ─── Data ────────────────────────────────────────────────────────────────────
-const stats = [
-  { value: "∞",   label: "Mueblerias que pueden usarlo — el sistema escala" },
-  { value: "0",   label: "Conocimientos técnicos requeridos para gestionar" },
-  { value: "100%", label: "Powered by Google Sheets — sin base de datos" },
-  { value: "1",   label: "Sistema de diseño para múltiples marcas" },
-];
-
-const tools = [
-  "Figma",
-  "Design System",
-  "Google Sheets API",
-  "Next.js",
-  "Tailwind CSS",
-  "UX Research",
-  "UI Design",
-  "Branding",
-  "Wireframing",
-  "Prototyping",
-  "Copywriting",
-];
-
-const meta = [
-  { label: "Rol",      value: "Product Designer + Developer" },
-  { label: "Tipo",     value: "Producto propio · SaaS para mueblerias" },
-  { label: "Año",      value: "2024" },
-  { label: "Mercado",  value: "Córdoba, Argentina" },
-  { label: "Stack",    value: "Next.js · Tailwind · Google Sheets" },
-  { label: "Figma",    value: "Design system completo" },
-];
-
-const designProcess = [
-  {
-    number: "01",
-    title: "Research — el dueño de mueblaría como usuario",
-    description:
-      "El usuario principal no es el cliente final — es el dueño de la mueblería. Generalmente mayor de 45 años, sin experiencia tecnológica, que necesita actualizar su catálogo sin depender de un programador. Eso definió todo.",
+// ─── Bilingual content ───────────────────────────────────────────────────────
+const content = {
+  es: {
+    back: "Volver al portfolio",
+    heroLabel: "Proyecto 01 \u00a0·\u00a0 Producto propio \u00a0·\u00a0 Córdoba, Argentina",
+    badge: "Design system · UX/UI · Desarrollo · Sheets API",
+    subtitle: "No es una mueblería. Es el sistema.",
+    tagline: "Plataforma de catálogo y consulta diseñada para mueblerias de Córdoba que quieren presencia digital sin depender de un programador — powered by Google Sheets.",
+    liveSiteBtn: "Ver demo en vivo",
+    scrollCue: "Scroll para explorar",
+    stats: [
+      { value: "∞",   label: "Mueblerias que pueden usarlo — el sistema escala" },
+      { value: "0",   label: "Conocimientos técnicos requeridos para gestionar" },
+      { value: "100%", label: "Powered by Google Sheets — sin base de datos" },
+      { value: "1",   label: "Sistema de diseño para múltiples marcas" },
+    ],
+    meta: [
+      { label: "Rol",      value: "Product Designer + Developer" },
+      { label: "Tipo",     value: "Producto propio · SaaS para mueblerias" },
+      { label: "Año",      value: "2024" },
+      { label: "Mercado",  value: "Córdoba, Argentina" },
+      { label: "Stack",    value: "Next.js · Tailwind · Google Sheets" },
+      { label: "Figma",    value: "Design system completo" },
+    ],
+    liveSiteCard: "Ver demo en producción",
+    howItWorksLabel: "Cómo funciona",
+    howItWorksSteps: [
+      {
+        title: "El dueño carga en Sheets",
+        description: "Abre su planilla de Google, agrega una fila con el producto, precio y foto. Listo. Sin dashboards, sin contraseñas, sin soporte.",
+      },
+      {
+        title: "El cliente navega el catálogo",
+        description: "El sitio muestra los productos en tiempo real. El cliente filtra por categoría, ve fotos, precio y disponibilidad de stock.",
+      },
+      {
+        title: "Consulta por WhatsApp",
+        description: "El botón de consulta abre WhatsApp con un mensaje pre-armado que incluye el producto exacto. El vendedor recibe un lead calificado y cierra en una conversación.",
+      },
+    ],
+    toolsLabel: "Tecnologías & disciplinas",
+    galleryLabel: "Diseño del sistema",
+    gallerySub: "Pantallas, design system y flujos de usuario",
+    galleryItems: [
+      { label: "Hero & catálogo principal",              span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
+      { label: "Design system — Tokens & componentes",   span: "",                            ratio: "aspect-[4/5]" },
+      { label: "Filtros por categoría",                  span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Flujo de consulta — WhatsApp CTA",       span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Mobile — Catálogo responsive",           span: "",                            ratio: "aspect-[4/3]" },
+    ],
+    overviewLabel: "El proyecto",
+    overviewHeading: "Un e-commerce que no compite en precio — compite en confianza.",
+    overviewP1: "Las mueblerias de barrio en Córdoba tienen algo que MercadoLibre no puede dar: atención personalizada, asesoramiento real y relación directa con el cliente. FORMA es el sistema que digitaliza esa ventaja sin destruirla.",
+    overviewP2Part1: "En lugar de un checkout frío, el cliente consulta por WhatsApp. En lugar de un CMS complejo, el dueño gestiona su catálogo desde",
+    overviewStrong: "Google Sheets — sin saber nada de tecnología",
+    overviewP2Part2: ". Y en lugar de un sitio de una sola mueblería, FORMA es un",
+    overviewStrong2: "sistema replicable",
+    overviewP2Part3: "listo para implementarse en cualquier mueblería de la ciudad.",
+    quote: "\u201cEl mejor CMS para un dueño de mueblería de 55 años es el Excel que ya conoce. El diseño tiene que adaptarse a las personas, no al revés.\u201d",
+    processLabel: "Proceso de trabajo",
+    processHeading: "De la observación al sistema listo para escalar.",
+    designProcess: [
+      {
+        number: "01",
+        title: "Research — el dueño de mueblaría como usuario",
+        description: "El usuario principal no es el cliente final — es el dueño de la mueblería. Generalmente mayor de 45 años, sin experiencia tecnológica, que necesita actualizar su catálogo sin depender de un programador. Eso definió todo.",
+      },
+      {
+        number: "02",
+        title: "El concepto: un sistema, no un sitio",
+        description: "FORMA no es una mueblería. Es el sistema que puede adoptar cualquier mueblería de Córdoba. Decidí crear una capa de diseño neutral y premium que se adapte a distintas marcas sin perder coherencia visual.",
+      },
+      {
+        number: "03",
+        title: "Design system en Figma",
+        description: "Construí el sistema de diseño completo: tokens de color y tipografía intercambiables por marca, componentes de producto, estados de hover y error, layouts de catálogo y hero. Un brandbook que cualquier mueblería puede tomar y personalizar.",
+      },
+      {
+        number: "04",
+        title: "UX — de e-commerce a plataforma de consulta",
+        description: "Romper el paradigma del 'carrito de compras' fue la decisión más importante. El flujo no termina en un checkout — termina en un mensaje de WhatsApp. Diseñé la experiencia para que esa transición se sienta natural y premium, no como una limitación.",
+      },
+      {
+        number: "05",
+        title: "Google Sheets como backend",
+        description: "En lugar de un CMS o base de datos tradicional, conecté el catálogo a Google Sheets via API. El dueño ve una planilla familiar, carga o edita un producto, y el sitio se actualiza automáticamente. Sin dashboards, sin contraseñas extra, sin soporte técnico.",
+      },
+      {
+        number: "06",
+        title: "Desarrollo y puesta en producción",
+        description: "Desarrollé la plataforma con Next.js y Tailwind CSS. Filtros por categoría, estados de stock en tiempo real desde Sheets, botones de consulta por WhatsApp con mensaje pre-armado, y diseño 100% responsive optimizado para mobile.",
+      },
+    ],
+    challengesLabel: "Desafíos & soluciones",
+    challengesHeading: "Tecnología invisible — experiencia evidente.",
+    challengePrefix: "Desafío",
+    solutionLabel: "Solución implementada",
+    challenges: [
+      {
+        number: "01",
+        challenge: "El dueño tiene que poder actualizarlo solo",
+        description: "Si el sitio depende de un desarrollador para cambiar el precio de un sillón, fracasó. El sistema tenía que ser tan simple de mantener como un Excel — porque literalmente es un Excel.",
+        solution: "Google Sheets como base de datos: el dueño abre su planilla, cambia el precio, y en segundos el sitio refleja el cambio. Sin CMS, sin dashboard, sin nada que aprender. La adopción del sistema por parte de dueños no técnicos fue inmediata.",
+      },
+      {
+        number: "02",
+        challenge: "Convertir sin un checkout — el flujo de consulta",
+        description: "Una mueblería de barrio no puede competir en precio con MercadoLibre. Su ventaja es la atención personalizada. Si ponemos un checkout, perdemos esa ventaja y entramos en una batalla que no podemos ganar.",
+        solution: "Diseñé un flujo de 'consulta inteligente': el cliente elige el producto, toca 'Consultar', y se abre WhatsApp con un mensaje pre-generado que incluye el nombre del producto, precio y foto. El vendedor recibe un lead calificado, no una transacción fría. La tasa de respuesta y cierre es mucho mayor que la de un e-commerce típico.",
+      },
+      {
+        number: "03",
+        challenge: "Un sistema para múltiples marcas con identidades distintas",
+        description: "FORMA tiene que funcionar para La Mueblería del Centro tanto como para un estudio de diseño de mobiliario premium. Las marcas son distintas — el sistema tiene que adaptarse sin romperse.",
+        solution: "Construí el design system con tokens CSS intercambiables: colores, tipografías y estilos de card se configuran en un único archivo. Cambiar de una marca a otra es cuestión de minutos, no de rediseño. Esto convierte a FORMA en un producto escalable — no un proyecto de una sola vez.",
+      },
+    ],
+    resultsLabel: "Lo que FORMA entrega",
+    results: [
+      { metric: "0 deps",  detail: "Cero dependencia técnica para que el dueño gestione su catálogo" },
+      { metric: "WhatsApp", detail: "Canal de cierre — leads calificados con contexto completo del producto" },
+      { metric: "Escalable", detail: "Un sistema replicable para cualquier mueblería de Córdoba" },
+    ],
+    ctaLabel: "¿Te gustó el trabajo?",
+    ctaHeading: "Trabajemos juntos en tu próximo proyecto.",
+    ctaBody: "Diseño y código que convierte. Hablemos de tu idea y construyamos algo que destaque.",
+    viewMore: "Ver más proyectos",
   },
-  {
-    number: "02",
-    title: "El concepto: un sistema, no un sitio",
-    description:
-      "FORMA no es una mueblería. Es el sistema que puede adoptar cualquier mueblería de Córdoba. Decidí crear una capa de diseño neutral y premium que se adapte a distintas marcas sin perder coherencia visual.",
+  en: {
+    back: "Back to portfolio",
+    heroLabel: "Project 01 \u00a0·\u00a0 Own product \u00a0·\u00a0 Córdoba, Argentina",
+    badge: "Design system · UX/UI · Development · Sheets API",
+    subtitle: "Not a furniture store. The system behind them.",
+    tagline: "A catalog and inquiry platform designed for furniture stores in Córdoba that want a digital presence without depending on a developer — powered by Google Sheets.",
+    liveSiteBtn: "View live demo",
+    scrollCue: "Scroll to explore",
+    stats: [
+      { value: "∞",   label: "Furniture stores that can use it — the system scales" },
+      { value: "0",   label: "Technical knowledge required to manage it" },
+      { value: "100%", label: "Powered by Google Sheets — no database needed" },
+      { value: "1",   label: "Design system for multiple brands" },
+    ],
+    meta: [
+      { label: "Role",   value: "Product Designer + Developer" },
+      { label: "Type",   value: "Own product · SaaS for furniture stores" },
+      { label: "Year",   value: "2024" },
+      { label: "Market", value: "Córdoba, Argentina" },
+      { label: "Stack",  value: "Next.js · Tailwind · Google Sheets" },
+      { label: "Figma",  value: "Full design system" },
+    ],
+    liveSiteCard: "View live demo",
+    howItWorksLabel: "How it works",
+    howItWorksSteps: [
+      {
+        title: "The owner updates in Sheets",
+        description: "They open their Google spreadsheet, add a row with the product, price, and photo. Done. No dashboards, no extra passwords, no support needed.",
+      },
+      {
+        title: "The customer browses the catalog",
+        description: "The site shows products in real time. Customers filter by category, view photos, prices, and stock availability.",
+      },
+      {
+        title: "Inquiry via WhatsApp",
+        description: "The inquiry button opens WhatsApp with a pre-filled message including the exact product. The seller receives a qualified lead and closes the sale in one conversation.",
+      },
+    ],
+    toolsLabel: "Technologies & disciplines",
+    galleryLabel: "System design",
+    gallerySub: "Screens, design system, and user flows",
+    galleryItems: [
+      { label: "Hero & main catalog",                    span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
+      { label: "Design system — Tokens & components",    span: "",                            ratio: "aspect-[4/5]" },
+      { label: "Category filters",                       span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Inquiry flow — WhatsApp CTA",            span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Mobile — Responsive catalog",            span: "",                            ratio: "aspect-[4/3]" },
+    ],
+    overviewLabel: "The project",
+    overviewHeading: "An e-commerce that doesn't compete on price — it competes on trust.",
+    overviewP1: "Local furniture stores in Córdoba have something MercadoLibre can't offer: personalized attention, real advice, and a direct relationship with the customer. FORMA is the system that digitizes that advantage without destroying it.",
+    overviewP2Part1: "Instead of a cold checkout, customers inquire via WhatsApp. Instead of a complex CMS, the owner manages their catalog through",
+    overviewStrong: "Google Sheets — no technical knowledge required",
+    overviewP2Part2: ". And instead of a site for a single store, FORMA is a",
+    overviewStrong2: "replicable system",
+    overviewP2Part3: "ready to deploy for any furniture store in the city.",
+    quote: "\u201cThe best CMS for a 55-year-old furniture store owner is the spreadsheet they already know. Design has to adapt to people, not the other way around.\u201d",
+    processLabel: "Work process",
+    processHeading: "From observation to a system ready to scale.",
+    designProcess: [
+      {
+        number: "01",
+        title: "Research — the store owner as the user",
+        description: "The primary user isn't the end customer — it's the store owner. Typically over 45, with no technical background, who needs to update their catalog without relying on a developer. That defined everything.",
+      },
+      {
+        number: "02",
+        title: "The concept: a system, not a website",
+        description: "FORMA isn't a furniture store. It's the system any furniture store in Córdoba can adopt. I decided to create a neutral, premium design layer that adapts to different brands without losing visual coherence.",
+      },
+      {
+        number: "03",
+        title: "Design system in Figma",
+        description: "I built the full design system: brand-swappable color and typography tokens, product components, hover and error states, catalog and hero layouts. A brandbook any store can take and customize.",
+      },
+      {
+        number: "04",
+        title: "UX — from e-commerce to inquiry platform",
+        description: "Breaking the 'shopping cart' paradigm was the most important decision. The flow doesn't end at checkout — it ends in a WhatsApp message. I designed the experience so that transition feels natural and premium, not like a limitation.",
+      },
+      {
+        number: "05",
+        title: "Google Sheets as the backend",
+        description: "Instead of a CMS or traditional database, I connected the catalog to Google Sheets via API. The owner sees a familiar spreadsheet, adds or edits a product, and the site updates automatically. No dashboards, no extra passwords, no tech support.",
+      },
+      {
+        number: "06",
+        title: "Development and production launch",
+        description: "I built the platform with Next.js and Tailwind CSS. Category filters, real-time stock status from Sheets, WhatsApp inquiry buttons with pre-filled messages, and a 100% responsive design optimized for mobile.",
+      },
+    ],
+    challengesLabel: "Challenges & solutions",
+    challengesHeading: "Invisible technology — evident experience.",
+    challengePrefix: "Challenge",
+    solutionLabel: "Solution",
+    challenges: [
+      {
+        number: "01",
+        challenge: "The owner has to be able to update it on their own",
+        description: "If the site requires a developer to change the price of a sofa, it has failed. The system had to be as simple to maintain as a spreadsheet — because it literally is one.",
+        solution: "Google Sheets as the database: the owner opens their spreadsheet, changes the price, and within seconds the site reflects the update. No CMS, no dashboard, nothing to learn. Adoption by non-technical owners was immediate.",
+      },
+      {
+        number: "02",
+        challenge: "Converting without a checkout — the inquiry flow",
+        description: "A local furniture store can't compete on price with MercadoLibre. Their advantage is personalized service. Adding a checkout would surrender that advantage and enter a battle they can't win.",
+        solution: "I designed a 'smart inquiry' flow: the customer selects a product, taps 'Inquire,' and WhatsApp opens with a pre-generated message including the product name, price, and photo. The seller receives a qualified lead, not a cold transaction. Conversion and close rates are far higher than typical e-commerce.",
+      },
+      {
+        number: "03",
+        challenge: "A system for multiple brands with different identities",
+        description: "FORMA has to work for a neighborhood store just as well as for a premium furniture design studio. The brands are different — the system has to adapt without breaking.",
+        solution: "I built the design system with swappable CSS tokens: colors, typography, and card styles are configured in a single file. Switching from one brand to another takes minutes, not a redesign. This makes FORMA a scalable product — not a one-off project.",
+      },
+    ],
+    resultsLabel: "What FORMA delivers",
+    results: [
+      { metric: "0 deps",   detail: "Zero technical dependency for owners to manage their catalog" },
+      { metric: "WhatsApp", detail: "Closing channel — qualified leads with full product context" },
+      { metric: "Scalable", detail: "A replicable system for any furniture store in Córdoba" },
+    ],
+    ctaLabel: "Like what you see?",
+    ctaHeading: "Let's work together on your next project.",
+    ctaBody: "Design and code that converts. Tell me about your idea and let's build something that stands out.",
+    viewMore: "View more projects",
   },
-  {
-    number: "03",
-    title: "Design system en Figma",
-    description:
-      "Construí el sistema de diseño completo: tokens de color y tipografía intercambiables por marca, componentes de producto, estados de hover y error, layouts de catálogo y hero. Un brandbook que cualquier mueblería puede tomar y personalizar.",
-  },
-  {
-    number: "04",
-    title: "UX — de e-commerce a plataforma de consulta",
-    description:
-      "Romper el paradigma del 'carrito de compras' fue la decisión más importante. El flujo no termina en un checkout — termina en un mensaje de WhatsApp. Diseñé la experiencia para que esa transición se sienta natural y premium, no como una limitación.",
-  },
-  {
-    number: "05",
-    title: "Google Sheets como backend",
-    description:
-      "En lugar de un CMS o base de datos tradicional, conecté el catálogo a Google Sheets via API. El dueño ve una planilla familiar, carga o edita un producto, y el sitio se actualiza automáticamente. Sin dashboards, sin contraseñas extra, sin soporte técnico.",
-  },
-  {
-    number: "06",
-    title: "Desarrollo y puesta en producción",
-    description:
-      "Desarrollé la plataforma con Next.js y Tailwind CSS. Filtros por categoría, estados de stock en tiempo real desde Sheets, botones de consulta por WhatsApp con mensaje pre-armado, y diseño 100% responsive optimizado para mobile.",
-  },
-];
-
-const challenges = [
-  {
-    number: "01",
-    challenge: "El dueño tiene que poder actualizarlo solo",
-    description:
-      "Si el sitio depende de un desarrollador para cambiar el precio de un sillón, fracasó. El sistema tenía que ser tan simple de mantener como un Excel — porque literalmente es un Excel.",
-    solution:
-      "Google Sheets como base de datos: el dueño abre su planilla, cambia el precio, y en segundos el sitio refleja el cambio. Sin CMS, sin dashboard, sin nada que aprender. La adopción del sistema por parte de dueños no técnicos fue inmediata.",
-  },
-  {
-    number: "02",
-    challenge: "Convertir sin un checkout — el flujo de consulta",
-    description:
-      "Una mueblería de barrio no puede competir en precio con MercadoLibre. Su ventaja es la atención personalizada. Si ponemos un checkout, perdemos esa ventaja y entramos en una batalla que no podemos ganar.",
-    solution:
-      "Diseñé un flujo de 'consulta inteligente': el cliente elige el producto, toca 'Consultar', y se abre WhatsApp con un mensaje pre-generado que incluye el nombre del producto, precio y foto. El vendedor recibe un lead calificado, no una transacción fría. La tasa de respuesta y cierre es mucho mayor que la de un e-commerce típico.",
-  },
-  {
-    number: "03",
-    challenge: "Un sistema para múltiples marcas con identidades distintas",
-    description:
-      "FORMA tiene que funcionar para La Mueblería del Centro tanto como para un estudio de diseño de mobiliario premium. Las marcas son distintas — el sistema tiene que adaptarse sin romperse.",
-    solution:
-      "Construí el design system con tokens CSS intercambiables: colores, tipografías y estilos de card se configuran en un único archivo. Cambiar de una marca a otra es cuestión de minutos, no de rediseño. Esto convierte a FORMA en un producto escalable — no un proyecto de una sola vez.",
-  },
-];
-
-const results = [
-  { metric: "0 deps",  detail: "Cero dependencia técnica para que el dueño gestione su catálogo" },
-  { metric: "WhatsApp", detail: "Canal de cierre — leads calificados con contexto completo del producto" },
-  { metric: "Escalable", detail: "Un sistema replicable para cualquier mueblería de Córdoba" },
-];
-
-const galleryItems = [
-  { label: "Hero & catálogo principal",              span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
-  { label: "Design system — Tokens & componentes",   span: "",                            ratio: "aspect-[4/5]" },
-  { label: "Filtros por categoría",                  span: "",                            ratio: "aspect-[4/3]" },
-  { label: "Flujo de consulta — WhatsApp CTA",       span: "",                            ratio: "aspect-[4/3]" },
-  { label: "Mobile — Catálogo responsive",           span: "",                            ratio: "aspect-[4/3]" },
-];
+};
 
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 export default function FormaPage() {
+  const { lang } = useLang();
+  const d = content[lang];
+
   return (
     <>
       <style>{`
@@ -175,7 +324,7 @@ export default function FormaPage() {
             }}
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" strokeWidth={2.2} />
-            Volver al portfolio
+            {d.back}
           </Link>
         </div>
 
@@ -228,7 +377,7 @@ export default function FormaPage() {
               className="mb-5 text-xs font-bold uppercase tracking-[0.35em]"
               style={{ color: C.sand }}
             >
-              Proyecto 01 &nbsp;·&nbsp; Producto propio &nbsp;·&nbsp; Córdoba, Argentina
+              {d.heroLabel}
             </motion.p>
 
             {/* Badge */}
@@ -241,7 +390,7 @@ export default function FormaPage() {
                   className="forma-pulse inline-block h-1.5 w-1.5 rounded-full"
                   style={{ background: C.sand }}
                 />
-                Design system · UX/UI · Desarrollo · Sheets API
+                {d.badge}
               </span>
             </motion.div>
 
@@ -267,7 +416,7 @@ export default function FormaPage() {
               className="mt-3 text-sm font-semibold uppercase tracking-[0.25em]"
               style={{ color: "rgba(241,240,255,0.35)" }}
             >
-              No es una mueblería. Es el sistema.
+              {d.subtitle}
             </motion.p>
 
             {/* Tagline */}
@@ -276,7 +425,7 @@ export default function FormaPage() {
               className="mx-auto mt-7 max-w-lg text-base leading-relaxed sm:text-lg"
               style={{ color: "rgba(241,240,255,0.55)" }}
             >
-              Plataforma de catálogo y consulta diseñada para mueblerias de Córdoba que quieren presencia digital sin depender de un programador — powered by Google Sheets.
+              {d.tagline}
             </motion.p>
 
             {/* CTA to live site */}
@@ -292,7 +441,7 @@ export default function FormaPage() {
                   color: "#f1f0ff",
                 }}
               >
-                Ver demo en vivo
+                {d.liveSiteBtn}
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={2.2} />
               </a>
             </motion.div>
@@ -304,7 +453,7 @@ export default function FormaPage() {
             >
               <div style={{ width: 48, height: 1, background: C.sandMid }} />
               <span className="text-[10px] font-semibold uppercase tracking-[0.3em]" style={{ color: "rgba(241,240,255,0.25)" }}>
-                Scroll para explorar
+                {d.scrollCue}
               </span>
               <div style={{ width: 48, height: 1, background: C.sandMid }} />
             </motion.div>
@@ -321,7 +470,7 @@ export default function FormaPage() {
           }}
         >
           <div className="mx-auto max-w-5xl grid grid-cols-2 gap-8 sm:grid-cols-4">
-            {stats.map((s, i) => (
+            {d.stats.map((s, i) => (
               <motion.div
                 key={s.label}
                 custom={i}
@@ -360,23 +509,23 @@ export default function FormaPage() {
               viewport={{ once: true }}
             >
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.sand }}>
-                El proyecto
+                {d.overviewLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold leading-tight tracking-tight"
                 style={{ fontSize: "clamp(1.75rem,4vw,2.5rem)", color: "#f1f0ff" }}
               >
-                Un e-commerce que no compite en precio — compite en confianza.
+                {d.overviewHeading}
               </h2>
               <p className="mt-5 text-base leading-relaxed sm:text-lg" style={{ color: "rgba(241,240,255,0.52)" }}>
-                Las mueblerias de barrio en Córdoba tienen algo que MercadoLibre no puede dar: atención personalizada, asesoramiento real y relación directa con el cliente. FORMA es el sistema que digitaliza esa ventaja sin destruirla.
+                {d.overviewP1}
               </p>
               <p className="mt-4 text-base leading-relaxed sm:text-lg" style={{ color: "rgba(241,240,255,0.52)" }}>
-                En lugar de un checkout frío, el cliente consulta por WhatsApp. En lugar de un CMS complejo, el dueño gestiona su catálogo desde{" "}
-                <strong style={{ color: "#f1f0ff" }}>Google Sheets — sin saber nada de tecnología</strong>.
-                Y en lugar de un sitio de una sola mueblería, FORMA es un{" "}
-                <strong style={{ color: "#f1f0ff" }}>sistema replicable</strong>{" "}
-                listo para implementarse en cualquier mueblería de la ciudad.
+                {d.overviewP2Part1}{" "}
+                <strong style={{ color: "#f1f0ff" }}>{d.overviewStrong}</strong>
+                {d.overviewP2Part2}{" "}
+                <strong style={{ color: "#f1f0ff" }}>{d.overviewStrong2}</strong>{" "}
+                {d.overviewP2Part3}
               </p>
 
               {/* Highlight strip */}
@@ -386,7 +535,7 @@ export default function FormaPage() {
               >
                 <div style={{ width: 3, minWidth: 3, height: 40, borderRadius: 2, background: C.sand, marginTop: 2 }} />
                 <p className="text-sm leading-relaxed" style={{ color: "rgba(241,240,255,0.7)" }}>
-                  &ldquo;El mejor CMS para un dueño de mueblería de 55 años es el Excel que ya conoce. El diseño tiene que adaptarse a las personas, no al revés.&rdquo;
+                  {d.quote}
                 </p>
               </div>
             </motion.div>
@@ -400,7 +549,7 @@ export default function FormaPage() {
               whileInView="show"
               viewport={{ once: true }}
             >
-              {meta.map((m) => (
+              {d.meta.map((m) => (
                 <div
                   key={m.label}
                   className="flex items-center justify-between rounded-xl px-5 py-3.5"
@@ -427,7 +576,7 @@ export default function FormaPage() {
                 style={{ background: C.sandDim, border: `1px solid ${C.sandMid}` }}
               >
                 <span className="text-sm font-semibold" style={{ color: "#f1f0ff" }}>
-                  Ver demo en producción
+                  {d.liveSiteCard}
                 </span>
                 <ArrowUpRight
                   className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -439,7 +588,7 @@ export default function FormaPage() {
           </div>
         </section>
 
-        {/* ── HOW IT WORKS — diferenciador clave ───────────────────────── */}
+        {/* ── HOW IT WORKS ─────────────────────────────────────────────── */}
         <section
           className="px-4 py-16 sm:px-6 lg:px-8"
           style={{ background: C.surface, borderTop: `1px solid ${C.sandDim}`, borderBottom: `1px solid ${C.sandDim}` }}
@@ -453,44 +602,10 @@ export default function FormaPage() {
               className="mb-10 text-xs font-bold uppercase tracking-[0.25em]"
               style={{ color: C.sand }}
             >
-              Cómo funciona
+              {d.howItWorksLabel}
             </motion.p>
             <div className="grid gap-5 sm:grid-cols-3">
-              {[
-                {
-                  icon: (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.sand} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                      <polyline points="14 2 14 8 20 8" />
-                      <line x1="16" y1="13" x2="8" y2="13" />
-                      <line x1="16" y1="17" x2="8" y2="17" />
-                      <polyline points="10 9 9 9 8 9" />
-                    </svg>
-                  ),
-                  title: "El dueño carga en Sheets",
-                  description: "Abre su planilla de Google, agrega una fila con el producto, precio y foto. Listo. Sin dashboards, sin contraseñas, sin soporte.",
-                },
-                {
-                  icon: (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.sand} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                      <line x1="8" y1="21" x2="16" y2="21" />
-                      <line x1="12" y1="17" x2="12" y2="21" />
-                    </svg>
-                  ),
-                  title: "El cliente navega el catálogo",
-                  description: "El sitio muestra los productos en tiempo real. El cliente filtra por categoría, ve fotos, precio y disponibilidad de stock.",
-                },
-                {
-                  icon: (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.sand} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                    </svg>
-                  ),
-                  title: "Consulta por WhatsApp",
-                  description: "El botón de consulta abre WhatsApp con un mensaje pre-armado que incluye el producto exacto. El vendedor recibe un lead calificado y cierra en una conversación.",
-                },
-              ].map((step, i) => (
+              {d.howItWorksSteps.map((step, i) => (
                 <motion.div
                   key={step.title}
                   custom={i}
@@ -505,7 +620,27 @@ export default function FormaPage() {
                     className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl"
                     style={{ background: C.sandDim, border: `1px solid ${C.sandMid}` }}
                   >
-                    {step.icon}
+                    {i === 0 && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.sand} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="16" y1="13" x2="8" y2="13" />
+                        <line x1="16" y1="17" x2="8" y2="17" />
+                        <polyline points="10 9 9 9 8 9" />
+                      </svg>
+                    )}
+                    {i === 1 && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.sand} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                        <line x1="8" y1="21" x2="16" y2="21" />
+                        <line x1="12" y1="17" x2="12" y2="21" />
+                      </svg>
+                    )}
+                    {i === 2 && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.sand} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                      </svg>
+                    )}
                   </div>
                   <h3 className="font-display text-base font-bold" style={{ color: "#f1f0ff" }}>
                     {step.title}
@@ -523,10 +658,13 @@ export default function FormaPage() {
         <section className="px-4 py-12 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
             <p className="mb-6 text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.sand }}>
-              Tecnologías &amp; disciplinas
+              {d.toolsLabel}
             </p>
             <div className="flex flex-wrap gap-3">
-              {tools.map((t) => (
+              {[
+                "Figma", "Design System", "Google Sheets API", "Next.js", "Tailwind CSS",
+                "UX Research", "UI Design", "Branding", "Wireframing", "Prototyping", "Copywriting",
+              ].map((t) => (
                 <span
                   key={t}
                   className="rounded-full px-4 py-2 text-sm font-medium"
@@ -557,15 +695,15 @@ export default function FormaPage() {
               className="mb-8"
             >
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.sand }}>
-                Diseño del sistema
+                {d.galleryLabel}
               </p>
               <p className="mt-1 text-sm" style={{ color: "rgba(241,240,255,0.35)" }}>
-                Pantallas, design system y flujos de usuario
+                {d.gallerySub}
               </p>
             </motion.div>
 
             <div className="grid gap-4 sm:grid-cols-3">
-              {galleryItems.map((item, i) => (
+              {d.galleryItems.map((item, i) => (
                 <motion.div
                   key={item.label}
                   custom={i}
@@ -612,18 +750,18 @@ export default function FormaPage() {
               className="mb-12"
             >
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.sand }}>
-                Proceso de trabajo
+                {d.processLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold tracking-tight"
                 style={{ fontSize: "clamp(1.75rem,4vw,2.25rem)", color: "#f1f0ff" }}
               >
-                De la observación al sistema listo para escalar.
+                {d.processHeading}
               </h2>
             </motion.div>
 
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {designProcess.map((step, i) => (
+              {d.designProcess.map((step, i) => (
                 <motion.div
                   key={step.number}
                   custom={i}
@@ -663,18 +801,18 @@ export default function FormaPage() {
               className="mb-12"
             >
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.sand }}>
-                Desafíos &amp; soluciones
+                {d.challengesLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold tracking-tight"
                 style={{ fontSize: "clamp(1.75rem,4vw,2.25rem)", color: "#f1f0ff" }}
               >
-                Tecnología invisible — experiencia evidente.
+                {d.challengesHeading}
               </h2>
             </motion.div>
 
             <div className="flex flex-col gap-5">
-              {challenges.map((c, i) => (
+              {d.challenges.map((c, i) => (
                 <motion.div
                   key={c.number}
                   custom={i}
@@ -687,7 +825,7 @@ export default function FormaPage() {
                 >
                   <div className="px-6 pt-6 pb-5" style={{ background: "rgba(200,169,107,0.05)" }}>
                     <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-2" style={{ color: C.sand }}>
-                      Desafío {c.number}
+                      {d.challengePrefix} {c.number}
                     </p>
                     <h3 className="font-display text-lg font-bold" style={{ color: "#f1f0ff" }}>
                       {c.challenge}
@@ -703,7 +841,7 @@ export default function FormaPage() {
                     <div className="flex items-center gap-2 mb-2">
                       <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#4ade80" }} />
                       <p className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: "#4ade80" }}>
-                        Solución implementada
+                        {d.solutionLabel}
                       </p>
                     </div>
                     <p className="text-sm leading-relaxed" style={{ color: "rgba(241,240,255,0.62)" }}>
@@ -730,10 +868,10 @@ export default function FormaPage() {
               className="mb-8 text-xs font-bold uppercase tracking-[0.25em]"
               style={{ color: C.sand }}
             >
-              Lo que FORMA entrega
+              {d.resultsLabel}
             </motion.p>
             <div className="grid gap-4 sm:grid-cols-3">
-              {results.map((r, i) => (
+              {d.results.map((r, i) => (
                 <motion.div
                   key={r.metric}
                   custom={i}
@@ -773,19 +911,19 @@ export default function FormaPage() {
               viewport={{ once: true }}
             >
               <p className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: C.sand }}>
-                ¿Te gustó el trabajo?
+                {d.ctaLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold leading-tight tracking-tight"
                 style={{ fontSize: "clamp(2rem,5vw,3rem)", color: "#f1f0ff" }}
               >
-                Trabajemos juntos en tu próximo proyecto.
+                {d.ctaHeading}
               </h2>
               <p
                 className="mx-auto mt-5 max-w-md text-base leading-relaxed"
                 style={{ color: "rgba(241,240,255,0.5)" }}
               >
-                Diseño y código que convierte. Hablemos de tu idea y construyamos algo que destaque.
+                {d.ctaBody}
               </p>
               <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                 <a
@@ -801,7 +939,7 @@ export default function FormaPage() {
                   className="group inline-flex min-h-12 items-center gap-2 rounded-xl px-7 py-3.5 text-sm font-semibold transition-all duration-200 hover:scale-[1.03] active:scale-95"
                   style={{ border: `1px solid ${C.sandMid}`, color: "#f1f0ff" }}
                 >
-                  Ver más proyectos
+                  {d.viewMore}
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={2.2} />
                 </Link>
               </div>
@@ -814,7 +952,7 @@ export default function FormaPage() {
           className="px-4 py-8 text-center text-xs sm:px-6 lg:px-8"
           style={{ borderTop: `1px solid ${C.sandDim}`, color: "rgba(241,240,255,0.2)" }}
         >
-          © {new Date().getFullYear()} Tomas Ramirez &nbsp;·&nbsp; FORMA — Sistema para mueblerias · Córdoba, Argentina
+          © {new Date().getFullYear()} Tomas Ramirez &nbsp;·&nbsp; FORMA — Furniture store system · Córdoba, Argentina
         </footer>
       </div>
     </>

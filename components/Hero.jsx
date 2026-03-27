@@ -25,14 +25,22 @@ function AvailabilityBadge({ label }) {
       variants={fadeUp}
       initial="hidden"
       animate="show"
-      className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium"
+      className="inline-flex items-center gap-2.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em]"
       style={{
-        background: "rgba(34,197,94,0.1)",
-        border: "1px solid rgba(34,197,94,0.2)",
-        color: "#4ade80",
+        background: "linear-gradient(135deg, rgba(34,197,94,0.08) 0%, rgba(34,197,94,0.04) 100%)",
+        border: "1px solid rgba(34,197,94,0.18)",
+        color: "rgba(134,239,172,0.9)",
+        boxShadow: "0 0 16px rgba(34,197,94,0.08), inset 0 1px 0 rgba(255,255,255,0.04)",
+        backdropFilter: "blur(8px)",
       }}
     >
-      <span className="pulse-dot h-1.5 w-1.5 rounded-full" style={{ background: "#4ade80" }} />
+      <span className="relative flex h-2 w-2 items-center justify-center">
+        <span
+          className="absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping"
+          style={{ background: "#4ade80", animationDuration: "2s" }}
+        />
+        <span className="relative h-1.5 w-1.5 rounded-full" style={{ background: "#4ade80" }} />
+      </span>
       {label}
     </motion.div>
   );

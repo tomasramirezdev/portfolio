@@ -10,8 +10,12 @@ import {
   certTransformStylesTablet,
 } from "@/data/certifications";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useLang } from "@/contexts/LanguageContext";
+import { t } from "@/data/translations";
 
 export default function CertificationsSection() {
+  const { lang } = useLang();
+  const tr = t[lang].certs;
   const [transformStyles, setTransformStyles] = useState(
     certTransformStylesDesktop,
   );
@@ -40,13 +44,13 @@ export default function CertificationsSection() {
             className="text-xs font-semibold uppercase tracking-[0.2em]"
             style={{ color: "var(--txt)" }}
           >
-            Formación
+            {tr.label}
           </p>
           <h2
             className="mt-2 font-display text-[clamp(1.75rem,5vw,2.5rem)] font-bold tracking-tight md:text-4xl"
             style={{ color: "var(--txt)" }}
           >
-            Certificaciones
+            {tr.headline}
           </h2>
 
         </div>

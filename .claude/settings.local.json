@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:tomasramirezdev.github.io)",
+      "WebFetch(domain:prevencion-salud.vercel.app)",
+      "WebFetch(domain:forma-ashy-zeta.vercel.app)",
+      "WebFetch(domain:hansguia-etsnjnlv4-rtomassebastian-gmailcoms-projects.vercel.app)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(npm install:*)",
+      "Bash(grep -l \"useLang\" c:/Users/Seba/tportfolio/app/projects/*/page.js)",
+      "Bash(grep -l \"content\\\\[lang\\\\]\\\\|d\\\\.back\\\\|const d = \" c:/Users/Seba/tportfolio/app/projects/*/page.js)"
+    ]
+  }
+}

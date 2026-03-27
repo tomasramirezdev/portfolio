@@ -6,6 +6,8 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLang } from "@/contexts/LanguageContext";
 import { t } from "@/data/translations";
+import ES from "country-flag-icons/react/3x2/ES";
+import US from "country-flag-icons/react/3x2/US";
 
 function LogoMark({ onNavigate }) {
   return (
@@ -50,12 +52,10 @@ function LangToggle() {
         e.currentTarget.style.color = "rgba(241,240,255,0.65)";
       }}
     >
-      <span className="text-base leading-none" aria-hidden>
-        {lang === "es" ? "🇦🇷" : "🇺🇸"}
-      </span>
-      <span className="hidden sm:inline">
-        {lang === "es" ? "ES" : "EN"}
-      </span>
+      {lang === "es"
+        ? <ES title="Español" className="h-4 w-6 rounded-sm" />
+        : <US title="English" className="h-4 w-6 rounded-sm" />
+      }
     </button>
   );
 }

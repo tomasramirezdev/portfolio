@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
 
 // ─── Hans Guia colour palette — warm amber / adventure ──────────────────────
 const C = {
@@ -26,14 +27,6 @@ const fadeUp = {
   }),
 };
 
-// ─── Data ────────────────────────────────────────────────────────────────────
-const stats = [
-  { value: "5",    label: "Idiomas — PT · ES · EN · FR · DE" },
-  { value: "100%", label: "Responsive — mobile first" },
-  { value: "Blog", label: "SEO orgánico sobre Ilha Grande" },
-  { value: "⭐",   label: "Reviews reales de TripAdvisor integradas" },
-];
-
 const languages = [
   { code: "PT", name: "Português" },
   { code: "ES", name: "Español" },
@@ -42,120 +35,279 @@ const languages = [
   { code: "DE", name: "Deutsch" },
 ];
 
-const tools = [
-  "Next.js",
-  "Tailwind CSS",
-  "i18n / Internacionalización",
-  "Figma",
-  "UX/UI Design",
-  "SEO On-page",
-  "Blog Strategy",
-  "WhatsApp API",
-  "Responsive Design",
-  "TripAdvisor Integration",
-  "Dynamic Pricing UX",
-  "Copywriting × 5 idiomas",
-];
-
-const meta = [
-  { label: "Cliente",   value: "Hans — Guía de turismo" },
-  { label: "Rol",       value: "UX/UI Designer + Developer" },
-  { label: "Año",       value: "2024" },
-  { label: "Idiomas",   value: "5 — PT, ES, EN, FR, DE" },
-  { label: "Ubicación", value: "Ilha Grande, Brasil" },
-  { label: "Stack",     value: "Next.js · Tailwind · i18n" },
-];
-
-const designProcess = [
-  {
-    number: "01",
-    title: "Brief & research del cliente",
-    description:
-      "Hans es un guía con años de experiencia, reputación ganada en TripAdvisor y clientes de todo el mundo. El brief fue claro: necesitaba una presencia digital que lo representara como el profesional que es, en el idioma de cada turista.",
+// ─── Bilingual content ───────────────────────────────────────────────────────
+const content = {
+  es: {
+    back: "Volver al portfolio",
+    heroLabel: "Proyecto 04 \u00a0·\u00a0 Cliente real \u00a0·\u00a0 Ilha Grande, Brasil",
+    badge: "5 idiomas · Precios dinámicos · SEO · Reviews reales",
+    tagline: "Sitio web para un guía de turismo multilingüe en Ilha Grande. 5 idiomas, precios dinámicos por temporada y modalidad, blog SEO y reviews reales de TripAdvisor.",
+    scrollCue: "Scroll para explorar",
+    stats: [
+      { value: "5",    label: "Idiomas — PT · ES · EN · FR · DE" },
+      { value: "100%", label: "Responsive — mobile first" },
+      { value: "Blog", label: "SEO orgánico sobre Ilha Grande" },
+      { value: "⭐",   label: "Reviews reales de TripAdvisor integradas" },
+    ],
+    meta: [
+      { label: "Cliente",   value: "Hans — Guía de turismo" },
+      { label: "Rol",       value: "UX/UI Designer + Developer" },
+      { label: "Año",       value: "2024" },
+      { label: "Idiomas",   value: "5 — PT, ES, EN, FR, DE" },
+      { label: "Ubicación", value: "Ilha Grande, Brasil" },
+      { label: "Stack",     value: "Next.js · Tailwind · i18n" },
+    ],
+    liveSiteCard: "Ver sitio en producción",
+    threePillarsLabel: "Los tres pilares del sitio",
+    pillars: [
+      {
+        title: "5 idiomas, 1 experiencia",
+        description: "PT · ES · EN · FR · IT. Cada versión adapta no solo el texto, sino el tono, las referencias culturales y los CTAs al mercado de cada turista.",
+      },
+      {
+        title: "Precios dinámicos sin fricción",
+        description: "Precios 'desde' con indicadores de temporada, grupo y privado. El CTA envía al turista a WhatsApp con el tour preseleccionado — la conversación arranca con contexto.",
+      },
+      {
+        title: "Blog SEO + reviews reales",
+        description: "Artículos sobre cómo llegar a Ilha Grande para captar tráfico orgánico. Reviews verificadas de TripAdvisor para traer credibilidad al canal propio.",
+      },
+    ],
+    toolsLabel: "Tecnologías & disciplinas",
+    galleryLabel: "Capturas del sitio",
+    gallerySub: "Pantallas principales en producción",
+    galleryItems: [
+      { label: "Hero — Identidad personal de Hans",         span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
+      { label: "Selector de idioma & navegación",           span: "",                            ratio: "aspect-[4/5]" },
+      { label: "Cards de tours con precios dinámicos",      span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Blog — SEO Ilha Grande",                    span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Reviews de TripAdvisor integradas",         span: "",                            ratio: "aspect-[4/3]" },
+    ],
+    overviewLabel: "El proyecto",
+    overviewHeading: "El sitio web que habla el idioma de cada turista.",
+    overviewP1: "Hans es un guía de turismo con años de experiencia en Ilha Grande que habla 5 idiomas. Sus clientes vienen de todo el mundo — Brasil, Argentina, Estados Unidos, Francia y Alemania. El desafío fue construir una presencia digital que lo represente a la altura de su reputación, en el idioma de cada visitante.",
+    overviewP2Part1: "El sitio combina tres pilares: un",
+    overviewStrong1: "catálogo de tours con precios dinámicos",
+    overviewP2Part2: "que derivan al usuario a WhatsApp, un",
+    overviewStrong2: "blog SEO",
+    overviewP2Part3: "orientado a captar turistas que están planeando visitar Ilha Grande, y",
+    overviewStrong3: "reviews reales de TripAdvisor",
+    overviewP2Part4: "que trasladan su reputación ganada al canal propio.",
+    quote: "\u201cUn turista alemán y uno brasileño no navegan igual ni esperan lo mismo. El mismo sitio tiene que hablarle a los dos — en su idioma, con sus referencias culturales, con su CTA.\u201d",
+    processLabel: "Proceso de trabajo",
+    processHeading: "Un sitio que trabaja mientras Hans guía turistas.",
+    designProcess: [
+      {
+        number: "01",
+        title: "Brief & research del cliente",
+        description: "Hans es un guía con años de experiencia, reputación ganada en TripAdvisor y clientes de todo el mundo. El brief fue claro: necesitaba una presencia digital que lo representara como el profesional que es, en el idioma de cada turista.",
+      },
+      {
+        number: "02",
+        title: "Arquitectura de contenido multilingüe",
+        description: "Diseñé la estructura del sitio pensando en 5 audiencias distintas simultáneamente. Cada idioma no es solo una traducción — el tono, las referencias culturales y los CTAs se adaptan a cada mercado. El selector de idioma es parte central de la navegación.",
+      },
+      {
+        number: "03",
+        title: "Sistema de precios dinámico",
+        description: "Los tours de Hans cambian de precio por temporada, por modalidad (grupo o privado) y por demanda. Diseñé un sistema de cards que muestra rangos de precio y envía al usuario a consultar por WhatsApp — sin comprometer la transparencia ni generar falsas expectativas.",
+      },
+      {
+        number: "04",
+        title: "UX/UI Design en Figma",
+        description: "Diseño limpio y aventurero. Cards de tours con fotos de Ilha Grande, indicadores de dificultad, duración y modalidad. Hero con fuerte identidad personal de Hans. Sistema de colores cálido que evoca selva, playa y atardecer tropical.",
+      },
+      {
+        number: "05",
+        title: "Blog estratégico para SEO",
+        description: "Desarrollé un blog con artículos orientados a keywords de cola larga: 'cómo llegar a Ilha Grande', 'mejores playas de Ilha Grande', 'qué hacer en Ilha Grande en familia'. Contenido que atrae tráfico orgánico calificado — turistas que ya están planeando el viaje.",
+      },
+      {
+        number: "06",
+        title: "Reviews reales & credibilidad",
+        description: "Integré reviews reales de TripAdvisor y Google en el sitio. No son testimonios inventados — son opiniones verificadas con nombre, foto y puntuación. Esto traslada la reputación que Hans ya tiene en plataformas externas a su propio canal digital.",
+      },
+    ],
+    challengesLabel: "Desafíos & soluciones",
+    challengesHeading: "Multilingüe, dinámico y con autoridad real.",
+    challengePrefix: "Desafío",
+    solutionLabel: "Solución implementada",
+    challenges: [
+      {
+        number: "01",
+        challenge: "5 idiomas sin multiplicar el esfuerzo de mantenimiento",
+        description: "Tener 5 versiones del sitio suena a 5 veces el trabajo de actualización. Si Hans cambia el precio de un tour, ¿lo tiene que cambiar 5 veces? Eso no es viable para un freelancer que está guiando turistas todo el día.",
+        solution: "Implementé un sistema de internacionalización con un único archivo de configuración por idioma. El contenido que cambia frecuentemente (precios, disponibilidad) vive separado de las traducciones estáticas. Hans actualiza en un solo lugar y el cambio se propaga a los 5 idiomas automáticamente.",
+      },
+      {
+        number: "02",
+        challenge: "Precios que cambian sin generar desconfianza",
+        description: "Publicar un precio fijo cuando ese precio cambia por temporada, modalidad y tamaño de grupo es una trampa. El usuario llega esperando pagar X, le dicen Y, y abandona. Pero no publicar nada tampoco funciona — la gente quiere tener una idea antes de consultar.",
+        solution: "Diseñé cards de tours con precio 'desde' y etiquetas claras de 'precio por temporada' y 'grupo / privado'. El CTA no dice 'Comprar' sino 'Consultar disponibilidad' — abre WhatsApp con un mensaje pre-armado que incluye el tour de interés. La conversación comienza con contexto, no desde cero.",
+      },
+      {
+        number: "03",
+        challenge: "SEO en un destino competido con poca autoridad de dominio",
+        description: "Ilha Grande tiene miles de resultados en Google. Un sitio nuevo sin backlinks no puede competir con TripAdvisor o Booking en keywords genéricas. La estrategia tenía que ser más inteligente.",
+        solution: "Aposté a keywords de intención alta y cola larga: 'como chegar a Ilha Grande de barco', 'trilhas com guia em Ilha Grande', 'tours privados Ilha Grande'. Artículos de blog optimizados con estructura semántica, meta tags por idioma y schema markup. El tráfico orgánico comenzó a crecer en las primeras semanas post-lanzamiento.",
+      },
+      {
+        number: "04",
+        challenge: "Trasladar la reputación de TripAdvisor al sitio propio",
+        description: "Hans tiene excelentes reviews en plataformas externas, pero su sitio propio no lo reflejaba. El usuario que llegaba al sitio no tenía evidencia directa de que era un guía confiable.",
+        solution: "Integré reviews reales con nombre, foto, rating y plataforma de origen. Una sección de testimonios con el promedio de calificación, el número de reviews y un link directo al perfil verificado. La confianza que Hans construyó en años se hace visible en segundos.",
+      },
+    ],
+    resultsLabel: "Lo que el sitio entrega",
+    results: [
+      { metric: "5",     detail: "Idiomas — PT · ES · EN · FR · DE. El sitio habla el idioma de cada turista" },
+      { metric: "Blog",  detail: "Tráfico orgánico creciente desde keywords de Ilha Grande" },
+      { metric: "⭐⭐⭐⭐⭐", detail: "Reviews reales de TripAdvisor integradas en el sitio propio" },
+    ],
+    ctaLabel: "¿Te gustó el trabajo?",
+    ctaHeading: "Trabajemos juntos en tu próximo proyecto.",
+    ctaBody: "Diseño y código que convierte. Hablemos de tu idea y construyamos algo que destaque.",
+    viewMore: "Ver más proyectos",
   },
-  {
-    number: "02",
-    title: "Arquitectura de contenido multilingüe",
-    description:
-      "Diseñé la estructura del sitio pensando en 5 audiencias distintas simultáneamente. Cada idioma no es solo una traducción — el tono, las referencias culturales y los CTAs se adaptan a cada mercado. El selector de idioma es parte central de la navegación.",
+  en: {
+    back: "Back to portfolio",
+    heroLabel: "Project 04 \u00a0·\u00a0 Real client \u00a0·\u00a0 Ilha Grande, Brazil",
+    badge: "5 languages · Dynamic pricing · SEO · Real reviews",
+    tagline: "Website for a multilingual tour guide on Ilha Grande. 5 languages, dynamic seasonal pricing, SEO blog, and real TripAdvisor reviews.",
+    scrollCue: "Scroll to explore",
+    stats: [
+      { value: "5",    label: "Languages — PT · ES · EN · FR · DE" },
+      { value: "100%", label: "Responsive — mobile first" },
+      { value: "Blog", label: "Organic SEO traffic for Ilha Grande" },
+      { value: "⭐",   label: "Real TripAdvisor reviews integrated" },
+    ],
+    meta: [
+      { label: "Client",   value: "Hans — Tour guide" },
+      { label: "Role",     value: "UX/UI Designer + Developer" },
+      { label: "Year",     value: "2024" },
+      { label: "Languages", value: "5 — PT, ES, EN, FR, DE" },
+      { label: "Location", value: "Ilha Grande, Brazil" },
+      { label: "Stack",    value: "Next.js · Tailwind · i18n" },
+    ],
+    liveSiteCard: "View live site",
+    threePillarsLabel: "The three pillars of the site",
+    pillars: [
+      {
+        title: "5 languages, 1 experience",
+        description: "PT · ES · EN · FR · DE. Each version adapts not just the text, but the tone, cultural references, and CTAs to each tourist's market.",
+      },
+      {
+        title: "Dynamic pricing without friction",
+        description: "'Starting from' prices with clear seasonal, group, and private indicators. The CTA sends tourists to WhatsApp with the tour preselected — the conversation starts with context.",
+      },
+      {
+        title: "SEO blog + real reviews",
+        description: "Articles on how to get to Ilha Grande to capture organic traffic. Verified TripAdvisor reviews to bring credibility to the owned channel.",
+      },
+    ],
+    toolsLabel: "Technologies & disciplines",
+    galleryLabel: "Site screenshots",
+    gallerySub: "Key screens in production",
+    galleryItems: [
+      { label: "Hero — Hans's personal identity",           span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
+      { label: "Language selector & navigation",            span: "",                            ratio: "aspect-[4/5]" },
+      { label: "Tour cards with dynamic pricing",           span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Blog — Ilha Grande SEO",                    span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Integrated TripAdvisor reviews",            span: "",                            ratio: "aspect-[4/3]" },
+    ],
+    overviewLabel: "The project",
+    overviewHeading: "The website that speaks every tourist's language.",
+    overviewP1: "Hans is a tour guide with years of experience on Ilha Grande who speaks 5 languages. His clients come from around the world — Brazil, Argentina, the United States, France, and Germany. The challenge was building a digital presence that represents him as the professional he is, in the language of each visitor.",
+    overviewP2Part1: "The site combines three pillars: a",
+    overviewStrong1: "tour catalog with dynamic pricing",
+    overviewP2Part2: "that sends users to WhatsApp, an",
+    overviewStrong2: "SEO blog",
+    overviewP2Part3: "aimed at capturing tourists planning to visit Ilha Grande, and",
+    overviewStrong3: "real TripAdvisor reviews",
+    overviewP2Part4: "that bring his hard-earned reputation to his own channel.",
+    quote: "\u201cA German tourist and a Brazilian tourist don't browse the same way or expect the same things. The same site has to speak to both — in their language, with their cultural references, with their CTA.\u201d",
+    processLabel: "Work process",
+    processHeading: "A site that works while Hans guides tourists.",
+    designProcess: [
+      {
+        number: "01",
+        title: "Client brief & research",
+        description: "Hans is a guide with years of experience, a reputation built on TripAdvisor, and clients from around the world. The brief was clear: he needed a digital presence that represented him as the professional he is, in every tourist's language.",
+      },
+      {
+        number: "02",
+        title: "Multilingual content architecture",
+        description: "I designed the site structure thinking about 5 distinct audiences simultaneously. Each language isn't just a translation — the tone, cultural references, and CTAs are adapted for each market. The language selector is a core part of the navigation.",
+      },
+      {
+        number: "03",
+        title: "Dynamic pricing system",
+        description: "Hans's tours change price by season, modality (group or private), and demand. I designed a card system that shows price ranges and sends users to WhatsApp to inquire — without compromising transparency or creating false expectations.",
+      },
+      {
+        number: "04",
+        title: "UX/UI Design in Figma",
+        description: "Clean, adventurous design. Tour cards with Ilha Grande photos, difficulty, duration, and modality indicators. A hero with strong personal branding for Hans. A warm color palette evoking jungle, beach, and tropical sunsets.",
+      },
+      {
+        number: "05",
+        title: "Strategic SEO blog",
+        description: "I developed a blog with articles targeting long-tail keywords: 'how to get to Ilha Grande,' 'best beaches in Ilha Grande,' 'things to do in Ilha Grande with family.' Content that attracts qualified organic traffic — tourists already planning their trip.",
+      },
+      {
+        number: "06",
+        title: "Real reviews & credibility",
+        description: "I integrated real TripAdvisor and Google reviews into the site. These aren't made-up testimonials — they're verified opinions with names, photos, and ratings. This transfers the reputation Hans has built on external platforms to his own digital channel.",
+      },
+    ],
+    challengesLabel: "Challenges & solutions",
+    challengesHeading: "Multilingual, dynamic, and genuinely authoritative.",
+    challengePrefix: "Challenge",
+    solutionLabel: "Solution",
+    challenges: [
+      {
+        number: "01",
+        challenge: "5 languages without multiplying maintenance effort",
+        description: "Having 5 versions of the site sounds like 5 times the update work. If Hans changes a tour price, does he have to change it 5 times? That's not viable for a freelancer who's guiding tourists all day.",
+        solution: "I implemented an i18n system with a single configuration file per language. Frequently changing content (prices, availability) lives separately from static translations. Hans updates in one place and the change propagates across all 5 languages automatically.",
+      },
+      {
+        number: "02",
+        challenge: "Changing prices without generating distrust",
+        description: "Publishing a fixed price when that price changes by season, modality, and group size is a trap. The user arrives expecting to pay X, gets told Y, and leaves. But publishing nothing doesn't work either — people want a rough idea before reaching out.",
+        solution: "I designed tour cards with 'starting from' pricing and clear 'seasonal price' and 'group / private' labels. The CTA says 'Check availability,' not 'Buy' — it opens WhatsApp with a pre-filled message including the tour of interest. The conversation starts with context, not from scratch.",
+      },
+      {
+        number: "03",
+        challenge: "SEO in a competitive destination with low domain authority",
+        description: "Ilha Grande has thousands of Google results. A new site without backlinks can't compete with TripAdvisor or Booking on generic keywords. The strategy had to be smarter.",
+        solution: "I targeted high-intent, long-tail keywords: 'how to get to Ilha Grande by boat,' 'guided hikes in Ilha Grande,' 'private tours Ilha Grande.' Blog articles optimized with semantic structure, per-language meta tags, and schema markup. Organic traffic started growing in the first weeks after launch.",
+      },
+      {
+        number: "04",
+        challenge: "Bringing TripAdvisor reputation to the owned site",
+        description: "Hans has excellent reviews on external platforms, but his own site didn't reflect that. Visitors who landed on the site had no direct evidence that he was a trustworthy guide.",
+        solution: "I integrated real reviews with names, photos, ratings, and source platform. A testimonials section showing the average rating, total review count, and a direct link to the verified profile. The trust Hans built over years becomes visible in seconds.",
+      },
+    ],
+    resultsLabel: "What the site delivers",
+    results: [
+      { metric: "5",     detail: "Languages — PT · ES · EN · FR · DE. The site speaks every tourist's language" },
+      { metric: "Blog",  detail: "Growing organic traffic from Ilha Grande keywords" },
+      { metric: "⭐⭐⭐⭐⭐", detail: "Real TripAdvisor reviews integrated into the owned site" },
+    ],
+    ctaLabel: "Like what you see?",
+    ctaHeading: "Let's work together on your next project.",
+    ctaBody: "Design and code that converts. Tell me about your idea and let's build something that stands out.",
+    viewMore: "View more projects",
   },
-  {
-    number: "03",
-    title: "Sistema de precios dinámico",
-    description:
-      "Los tours de Hans cambian de precio por temporada, por modalidad (grupo o privado) y por demanda. Diseñé un sistema de cards que muestra rangos de precio y envía al usuario a consultar por WhatsApp — sin comprometer la transparencia ni generar falsas expectativas.",
-  },
-  {
-    number: "04",
-    title: "UX/UI Design en Figma",
-    description:
-      "Diseño limpio y aventurero. Cards de tours con fotos de Ilha Grande, indicadores de dificultad, duración y modalidad. Hero con fuerte identidad personal de Hans. Sistema de colores cálido que evoca selva, playa y atardecer tropical.",
-  },
-  {
-    number: "05",
-    title: "Blog estratégico para SEO",
-    description:
-      "Desarrollé un blog con artículos orientados a keywords de cola larga: 'cómo llegar a Ilha Grande', 'mejores playas de Ilha Grande', 'qué hacer en Ilha Grande en familia'. Contenido que atrae tráfico orgánico calificado — turistas que ya están planeando el viaje.",
-  },
-  {
-    number: "06",
-    title: "Reviews reales & credibilidad",
-    description:
-      "Integré reviews reales de TripAdvisor y Google en el sitio. No son testimonios inventados — son opiniones verificadas con nombre, foto y puntuación. Esto traslada la reputación que Hans ya tiene en plataformas externas a su propio canal digital.",
-  },
-];
-
-const challenges = [
-  {
-    number: "01",
-    challenge: "5 idiomas sin multiplicar el esfuerzo de mantenimiento",
-    description:
-      "Tener 5 versiones del sitio suena a 5 veces el trabajo de actualización. Si Hans cambia el precio de un tour, ¿lo tiene que cambiar 5 veces? Eso no es viable para un freelancer que está guiando turistas todo el día.",
-    solution:
-      "Implementé un sistema de internacionalización con un único archivo de configuración por idioma. El contenido que cambia frecuentemente (precios, disponibilidad) vive separado de las traducciones estáticas. Hans actualiza en un solo lugar y el cambio se propaga a los 5 idiomas automáticamente.",
-  },
-  {
-    number: "02",
-    challenge: "Precios que cambian sin generar desconfianza",
-    description:
-      "Publicar un precio fijo cuando ese precio cambia por temporada, modalidad y tamaño de grupo es una trampa. El usuario llega esperando pagar X, le dicen Y, y abandona. Pero no publicar nada tampoco funciona — la gente quiere tener una idea antes de consultar.",
-    solution:
-      "Diseñé cards de tours con precio 'desde' y etiquetas claras de 'precio por temporada' y 'grupo / privado'. El CTA no dice 'Comprar' sino 'Consultar disponibilidad' — abre WhatsApp con un mensaje pre-armado que incluye el tour de interés. La conversación comienza con contexto, no desde cero.",
-  },
-  {
-    number: "03",
-    challenge: "SEO en un destino competido con poca autoridad de dominio",
-    description:
-      "Ilha Grande tiene miles de resultados en Google. Un sitio nuevo sin backlinks no puede competir con TripAdvisor o Booking en keywords genéricas. La estrategia tenía que ser más inteligente.",
-    solution:
-      "Aposté a keywords de intención alta y cola larga: 'como chegar a Ilha Grande de barco', 'trilhas com guia em Ilha Grande', 'tours privados Ilha Grande'. Artículos de blog optimizados con estructura semántica, meta tags por idioma y schema markup. El tráfico orgánico comenzó a crecer en las primeras semanas post-lanzamiento.",
-  },
-  {
-    number: "04",
-    challenge: "Trasladar la reputación de TripAdvisor al sitio propio",
-    description:
-      "Hans tiene excelentes reviews en plataformas externas, pero su sitio propio no lo reflejaba. El usuario que llegaba al sitio no tenía evidencia directa de que era un guía confiable.",
-    solution:
-      "Integré reviews reales con nombre, foto, rating y plataforma de origen. Una sección de testimonios con el promedio de calificación, el número de reviews y un link directo al perfil verificado. La confianza que Hans construyó en años se hace visible en segundos.",
-  },
-];
-
-const results = [
-  { metric: "5",     detail: "Idiomas — PT · ES · EN · FR · DE. El sitio habla el idioma de cada turista" },
-  { metric: "Blog",  detail: "Tráfico orgánico creciente desde keywords de Ilha Grande" },
-  { metric: "⭐⭐⭐⭐⭐", detail: "Reviews reales de TripAdvisor integradas en el sitio propio" },
-];
-
-const galleryItems = [
-  { label: "Hero — Identidad personal de Hans",         span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
-  { label: "Selector de idioma & navegación",           span: "",                            ratio: "aspect-[4/5]" },
-  { label: "Cards de tours con precios dinámicos",      span: "",                            ratio: "aspect-[4/3]" },
-  { label: "Blog — SEO Ilha Grande",                    span: "",                            ratio: "aspect-[4/3]" },
-  { label: "Reviews de TripAdvisor integradas",         span: "",                            ratio: "aspect-[4/3]" },
-];
+};
 
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 export default function HansGuiaPage() {
+  const { lang } = useLang();
+  const d = content[lang];
+
   return (
     <>
       <style>{`
@@ -191,14 +343,14 @@ export default function HansGuiaPage() {
             }}
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" strokeWidth={2.2} />
-            Volver al portfolio
+            {d.back}
           </Link>
         </div>
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
         <section className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-28 text-center">
 
-          {/* Mapa punteado de fondo */}
+          {/* Dot map background */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
@@ -208,7 +360,7 @@ export default function HansGuiaPage() {
             }}
           />
 
-          {/* Radial glow cálido */}
+          {/* Warm radial glow */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
@@ -217,7 +369,7 @@ export default function HansGuiaPage() {
             }}
           />
 
-          {/* Línea inferior */}
+          {/* Bottom line */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute bottom-16 left-0 right-0 h-px"
@@ -239,7 +391,7 @@ export default function HansGuiaPage() {
               className="mb-5 text-xs font-bold uppercase tracking-[0.35em]"
               style={{ color: C.amber }}
             >
-              Proyecto 04 &nbsp;·&nbsp; Cliente real &nbsp;·&nbsp; Ilha Grande, Brasil
+              {d.heroLabel}
             </motion.p>
 
             {/* Badge */}
@@ -249,7 +401,7 @@ export default function HansGuiaPage() {
                 style={{ background: C.amberDim, border: `1px solid ${C.amberMid}`, color: C.amberLight }}
               >
                 <span className="hans-pulse inline-block h-1.5 w-1.5 rounded-full" style={{ background: C.amber }} />
-                5 idiomas · Precios dinámicos · SEO · Reviews reales
+                {d.badge}
               </span>
             </motion.div>
 
@@ -287,14 +439,14 @@ export default function HansGuiaPage() {
               className="mx-auto mt-7 max-w-lg text-base leading-relaxed sm:text-lg"
               style={{ color: "rgba(241,240,255,0.55)" }}
             >
-              Sitio web para un guía de turismo multilingüe en Ilha Grande. 5 idiomas, precios dinámicos por temporada y modalidad, blog SEO y reviews reales de TripAdvisor.
+              {d.tagline}
             </motion.p>
 
             {/* Scroll cue */}
             <motion.div variants={fadeUp} className="mt-12 flex items-center justify-center gap-4">
               <div style={{ width: 48, height: 1, background: C.amberMid }} />
               <span className="text-[10px] font-semibold uppercase tracking-[0.3em]" style={{ color: "rgba(241,240,255,0.25)" }}>
-                Scroll para explorar
+                {d.scrollCue}
               </span>
               <div style={{ width: 48, height: 1, background: C.amberMid }} />
             </motion.div>
@@ -307,7 +459,7 @@ export default function HansGuiaPage() {
           style={{ background: C.surface, borderTop: `1px solid ${C.amberDim}`, borderBottom: `1px solid ${C.amberDim}` }}
         >
           <div className="mx-auto max-w-5xl grid grid-cols-2 gap-8 sm:grid-cols-4">
-            {stats.map((s, i) => (
+            {d.stats.map((s, i) => (
               <motion.div
                 key={s.label}
                 custom={i}
@@ -346,25 +498,25 @@ export default function HansGuiaPage() {
               viewport={{ once: true }}
             >
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.amber }}>
-                El proyecto
+                {d.overviewLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold leading-tight tracking-tight"
                 style={{ fontSize: "clamp(1.75rem,4vw,2.5rem)", color: "#f1f0ff" }}
               >
-                El sitio web que habla el idioma de cada turista.
+                {d.overviewHeading}
               </h2>
               <p className="mt-5 text-base leading-relaxed sm:text-lg" style={{ color: "rgba(241,240,255,0.52)" }}>
-                Hans es un guía de turismo con años de experiencia en Ilha Grande que habla 5 idiomas. Sus clientes vienen de todo el mundo — Brasil, Argentina, Estados Unidos, Francia y Alemania. El desafío fue construir una presencia digital que lo represente a la altura de su reputación, en el idioma de cada visitante.
+                {d.overviewP1}
               </p>
               <p className="mt-4 text-base leading-relaxed sm:text-lg" style={{ color: "rgba(241,240,255,0.52)" }}>
-                El sitio combina tres pilares: un{" "}
-                <strong style={{ color: "#f1f0ff" }}>catálogo de tours con precios dinámicos</strong>{" "}
-                que derivan al usuario a WhatsApp, un{" "}
-                <strong style={{ color: "#f1f0ff" }}>blog SEO</strong>{" "}
-                orientado a captar turistas que están planeando visitar Ilha Grande, y{" "}
-                <strong style={{ color: "#f1f0ff" }}>reviews reales de TripAdvisor</strong>{" "}
-                que trasladan su reputación ganada al canal propio.
+                {d.overviewP2Part1}{" "}
+                <strong style={{ color: "#f1f0ff" }}>{d.overviewStrong1}</strong>{" "}
+                {d.overviewP2Part2}{" "}
+                <strong style={{ color: "#f1f0ff" }}>{d.overviewStrong2}</strong>{" "}
+                {d.overviewP2Part3}{" "}
+                <strong style={{ color: "#f1f0ff" }}>{d.overviewStrong3}</strong>{" "}
+                {d.overviewP2Part4}
               </p>
 
               {/* Highlight strip */}
@@ -374,7 +526,7 @@ export default function HansGuiaPage() {
               >
                 <div style={{ width: 3, minWidth: 3, height: 40, borderRadius: 2, background: C.amber, marginTop: 2 }} />
                 <p className="text-sm leading-relaxed" style={{ color: "rgba(241,240,255,0.7)" }}>
-                  &ldquo;Un turista alemán y uno brasileño no navegan igual ni esperan lo mismo. El mismo sitio tiene que hablarle a los dos — en su idioma, con sus referencias culturales, con su CTA.&rdquo;
+                  {d.quote}
                 </p>
               </div>
             </motion.div>
@@ -388,7 +540,7 @@ export default function HansGuiaPage() {
               whileInView="show"
               viewport={{ once: true }}
             >
-              {meta.map((m) => (
+              {d.meta.map((m) => (
                 <div
                   key={m.label}
                   className="flex items-center justify-between rounded-xl px-5 py-3.5"
@@ -411,7 +563,7 @@ export default function HansGuiaPage() {
                 style={{ background: C.amberDim, border: `1px solid ${C.amberMid}` }}
               >
                 <span className="text-sm font-semibold" style={{ color: "#f1f0ff" }}>
-                  Ver sitio en producción
+                  {d.liveSiteCard}
                 </span>
                 <ArrowUpRight
                   className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -423,7 +575,7 @@ export default function HansGuiaPage() {
           </div>
         </section>
 
-        {/* ── 3 PILARES ────────────────────────────────────────────────── */}
+        {/* ── THREE PILLARS ─────────────────────────────────────────────── */}
         <section
           className="px-4 py-16 sm:px-6 lg:px-8"
           style={{ background: C.surface, borderTop: `1px solid ${C.amberDim}`, borderBottom: `1px solid ${C.amberDim}` }}
@@ -437,39 +589,10 @@ export default function HansGuiaPage() {
               className="mb-10 text-xs font-bold uppercase tracking-[0.25em]"
               style={{ color: C.amber }}
             >
-              Los tres pilares del sitio
+              {d.threePillarsLabel}
             </motion.p>
             <div className="grid gap-5 sm:grid-cols-3">
-              {[
-                {
-                  icon: (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.amber} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" />
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
-                  ),
-                  title: "5 idiomas, 1 experiencia",
-                  description: "PT · ES · EN · FR · IT. Cada versión adapta no solo el texto, sino el tono, las referencias culturales y los CTAs al mercado de cada turista.",
-                },
-                {
-                  icon: (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.amber} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                    </svg>
-                  ),
-                  title: "Precios dinámicos sin fricción",
-                  description: "Precios 'desde' con indicadores de temporada, grupo y privado. El CTA envía al turista a WhatsApp con el tour preseleccionado — la conversación arranca con contexto.",
-                },
-                {
-                  icon: (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.amber} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                    </svg>
-                  ),
-                  title: "Blog SEO + reviews reales",
-                  description: "Artículos sobre cómo llegar a Ilha Grande para captar tráfico orgánico. Reviews verificadas de TripAdvisor para traer credibilidad al canal propio.",
-                },
-              ].map((p, i) => (
+              {d.pillars.map((p, i) => (
                 <motion.div
                   key={p.title}
                   custom={i}
@@ -484,7 +607,22 @@ export default function HansGuiaPage() {
                     className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl"
                     style={{ background: C.amberDim, border: `1px solid ${C.amberMid}` }}
                   >
-                    {p.icon}
+                    {i === 0 && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.amber} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" />
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                      </svg>
+                    )}
+                    {i === 1 && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.amber} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                      </svg>
+                    )}
+                    {i === 2 && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.amber} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                      </svg>
+                    )}
                   </div>
                   <h3 className="font-display text-base font-bold" style={{ color: "#f1f0ff" }}>
                     {p.title}
@@ -502,10 +640,15 @@ export default function HansGuiaPage() {
         <section className="px-4 py-12 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
             <p className="mb-6 text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.amber }}>
-              Tecnologías &amp; disciplinas
+              {d.toolsLabel}
             </p>
             <div className="flex flex-wrap gap-3">
-              {tools.map((t) => (
+              {[
+                "Next.js", "Tailwind CSS", "i18n / Internacionalización", "Figma",
+                "UX/UI Design", "SEO On-page", "Blog Strategy", "WhatsApp API",
+                "Responsive Design", "TripAdvisor Integration", "Dynamic Pricing UX",
+                "Copywriting × 5 idiomas",
+              ].map((t) => (
                 <span
                   key={t}
                   className="rounded-full px-4 py-2 text-sm font-medium"
@@ -526,14 +669,14 @@ export default function HansGuiaPage() {
           <div className="mx-auto max-w-5xl">
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-8">
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.amber }}>
-                Capturas del sitio
+                {d.galleryLabel}
               </p>
               <p className="mt-1 text-sm" style={{ color: "rgba(241,240,255,0.35)" }}>
-                Pantallas principales en producción
+                {d.gallerySub}
               </p>
             </motion.div>
             <div className="grid gap-4 sm:grid-cols-3">
-              {galleryItems.map((item, i) => (
+              {d.galleryItems.map((item, i) => (
                 <motion.div
                   key={item.label}
                   custom={i}
@@ -572,17 +715,17 @@ export default function HansGuiaPage() {
           <div className="mx-auto max-w-5xl">
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-12">
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.amber }}>
-                Proceso de trabajo
+                {d.processLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold tracking-tight"
                 style={{ fontSize: "clamp(1.75rem,4vw,2.25rem)", color: "#f1f0ff" }}
               >
-                Un sitio que trabaja mientras Hans guía turistas.
+                {d.processHeading}
               </h2>
             </motion.div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {designProcess.map((step, i) => (
+              {d.designProcess.map((step, i) => (
                 <motion.div
                   key={step.number}
                   custom={i}
@@ -616,17 +759,17 @@ export default function HansGuiaPage() {
           <div className="mx-auto max-w-5xl">
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-12">
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.amber }}>
-                Desafíos &amp; soluciones
+                {d.challengesLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold tracking-tight"
                 style={{ fontSize: "clamp(1.75rem,4vw,2.25rem)", color: "#f1f0ff" }}
               >
-                Multilingüe, dinámico y con autoridad real.
+                {d.challengesHeading}
               </h2>
             </motion.div>
             <div className="flex flex-col gap-5">
-              {challenges.map((c, i) => (
+              {d.challenges.map((c, i) => (
                 <motion.div
                   key={c.number}
                   custom={i}
@@ -639,7 +782,7 @@ export default function HansGuiaPage() {
                 >
                   <div className="px-6 pt-6 pb-5" style={{ background: "rgba(212,144,10,0.06)" }}>
                     <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-2" style={{ color: C.amber }}>
-                      Desafío {c.number}
+                      {d.challengePrefix} {c.number}
                     </p>
                     <h3 className="font-display text-lg font-bold" style={{ color: "#f1f0ff" }}>
                       {c.challenge}
@@ -652,7 +795,7 @@ export default function HansGuiaPage() {
                     <div className="flex items-center gap-2 mb-2">
                       <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#4ade80" }} />
                       <p className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: "#4ade80" }}>
-                        Solución implementada
+                        {d.solutionLabel}
                       </p>
                     </div>
                     <p className="text-sm leading-relaxed" style={{ color: "rgba(241,240,255,0.62)" }}>
@@ -672,10 +815,10 @@ export default function HansGuiaPage() {
         >
           <div className="mx-auto max-w-5xl">
             <motion.p variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-8 text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.amber }}>
-              Lo que el sitio entrega
+              {d.resultsLabel}
             </motion.p>
             <div className="grid gap-4 sm:grid-cols-3">
-              {results.map((r, i) => (
+              {d.results.map((r, i) => (
                 <motion.div
                   key={r.metric}
                   custom={i}
@@ -708,16 +851,16 @@ export default function HansGuiaPage() {
           <div className="relative mx-auto max-w-2xl text-center">
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <p className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: C.amber }}>
-                ¿Te gustó el trabajo?
+                {d.ctaLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold leading-tight tracking-tight"
                 style={{ fontSize: "clamp(2rem,5vw,3rem)", color: "#f1f0ff" }}
               >
-                Trabajemos juntos en tu próximo proyecto.
+                {d.ctaHeading}
               </h2>
               <p className="mx-auto mt-5 max-w-md text-base leading-relaxed" style={{ color: "rgba(241,240,255,0.5)" }}>
-                Diseño y código que convierte. Hablemos de tu idea y construyamos algo que destaque.
+                {d.ctaBody}
               </p>
               <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                 <a
@@ -733,7 +876,7 @@ export default function HansGuiaPage() {
                   className="group inline-flex min-h-12 items-center gap-2 rounded-xl px-7 py-3.5 text-sm font-semibold transition-all duration-200 hover:scale-[1.03] active:scale-95"
                   style={{ border: `1px solid ${C.amberMid}`, color: "#f1f0ff" }}
                 >
-                  Ver más proyectos
+                  {d.viewMore}
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={2.2} />
                 </Link>
               </div>
@@ -746,7 +889,7 @@ export default function HansGuiaPage() {
           className="px-4 py-8 text-center text-xs sm:px-6 lg:px-8"
           style={{ borderTop: `1px solid ${C.amberDim}`, color: "rgba(241,240,255,0.2)" }}
         >
-          © {new Date().getFullYear()} Tomas Ramirez &nbsp;·&nbsp; Hans Guia — Sitio multilingüe · Ilha Grande, Brasil
+          © {new Date().getFullYear()} Tomas Ramirez &nbsp;·&nbsp; Hans Guia — Multilingual site · Ilha Grande, Brazil
         </footer>
       </div>
     </>

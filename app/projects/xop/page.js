@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { useLang } from "@/contexts/LanguageContext";
 
 // ─── XOP colour palette — electric blue / enterprise ────────────────────────
 const C = {
@@ -26,127 +27,279 @@ const fadeUp = {
   }),
 };
 
-// ─── Data ────────────────────────────────────────────────────────────────────
-const stats = [
-  { value: "+35%", label: "Aumento en ventas de los clientes" },
-  { value: "12+",  label: "Tiendas lanzadas en producción" },
-  { value: "50+",  label: "Componentes UI en el design system" },
-  { value: "Ene",  unit: "2025→", label: "En curso — proyecto activo" },
-];
-
-const sectors = [
-  { label: "Indumentaria", icon: "👕" },
-  { label: "Motos",        icon: "🏍️" },
-  { label: "Construcción", icon: "🏗️" },
-  { label: "Cosmética",    icon: "💄" },
-];
-
-const tools = [
-  "Figma",
-  "Design System",
-  "UX Research",
-  "UI Design",
-  "Wireframing",
-  "Prototyping",
-  "Usability Testing",
-  "Developer Handoff",
-  "Information Architecture",
-  "Dashboard Design",
-  "Multi-tenant UX",
-  "Ecommerce UX",
-];
-
-const meta = [
-  { label: "Rol",       value: "UX/UI Designer" },
-  { label: "Empresa",   value: "XOP AR" },
-  { label: "Tipo",      value: "ERP + Ecommerce · B2B/B2C" },
-  { label: "Período",   value: "Enero 2025 — presente" },
-  { label: "Rubros",    value: "Retail — ropa, motos, construcción, cosmética" },
-  { label: "Entregable", value: "Design system · Dashboard · Ecommerce" },
-];
-
-const designProcess = [
-  {
-    number: "01",
-    title: "Discovery & research de clientes",
-    description:
-      "XOP tiene clientes en rubros muy distintos: una tienda de ropa no tiene nada que ver con un local de motos. Hice research específico por sector para entender los flujos de venta, los tipos de productos y las necesidades reales de cada tipo de negocio.",
+// ─── Bilingual content ───────────────────────────────────────────────────────
+const content = {
+  es: {
+    back: "Volver al portfolio",
+    heroLabel: "Proyecto 02 \u00a0·\u00a0 UX/UI Designer \u00a0·\u00a0 ERP + Ecommerce",
+    badge: "Dashboard · Design system · Multi-tenant · Retail",
+    tagline: "ERP con ecommerce integrado para el sector retail. Me desempeño como UX/UI Designer diseñando el dashboard de gestión y la web de venta, con personalizaciones por cliente y rubro.",
+    scrollCue: "Scroll para explorar",
+    stats: [
+      { value: "+35%", label: "Aumento en ventas de los clientes" },
+      { value: "12+",  label: "Tiendas lanzadas en producción" },
+      { value: "50+",  label: "Componentes UI en el design system" },
+      { value: "Ene",  unit: "2025→", label: "En curso — proyecto activo" },
+    ],
+    sectors: [
+      { label: "Indumentaria", icon: "👕" },
+      { label: "Motos",        icon: "🏍️" },
+      { label: "Construcción", icon: "🏗️" },
+      { label: "Cosmética",    icon: "💄" },
+    ],
+    meta: [
+      { label: "Rol",       value: "UX/UI Designer" },
+      { label: "Empresa",   value: "XOP AR" },
+      { label: "Tipo",      value: "ERP + Ecommerce · B2B/B2C" },
+      { label: "Período",   value: "Enero 2025 — presente" },
+      { label: "Rubros",    value: "Retail — ropa, motos, construcción, cosmética" },
+      { label: "Entregable", value: "Design system · Dashboard · Ecommerce" },
+    ],
+    visitSite: "Visitar xop.ar",
+    whatIDesignedLabel: "Qué diseñé",
+    whatIDesignedItems: [
+      {
+        title: "Dashboard ERP",
+        description: "Panel de control para que los dueños gestionen pedidos, inventario, productos y métricas de venta. Diseñado para ser operable sin capacitación técnica — claridad sobre complejidad.",
+        tags: ["Pedidos", "Inventario", "Métricas", "Productos"],
+      },
+      {
+        title: "Ecommerce web",
+        description: "Tienda online con catálogo filtrable, fichas de producto con atributos por rubro, carrito y checkout optimizado de una sola página. Temizable por cliente manteniendo la base del sistema.",
+        tags: ["Catálogo", "Fichas", "Checkout", "Mobile"],
+      },
+    ],
+    toolsLabel: "Herramientas & disciplinas",
+    galleryLabel: "Pantallas del sistema",
+    gallerySub: "Dashboard ERP, ecommerce y design system",
+    galleryItems: [
+      { label: "Dashboard ERP — Vista principal",          span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
+      { label: "Ecommerce — Ficha de producto",            span: "",                            ratio: "aspect-[4/5]" },
+      { label: "Gestión de inventario & pedidos",          span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Checkout — Flujo optimizado",              span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Design system — Componentes & tokens",     span: "",                            ratio: "aspect-[4/3]" },
+    ],
+    overviewLabel: "El proyecto",
+    overviewHeading: "Un ERP que cualquier dueño de local puede operar.",
+    overviewP1Part1: "XOP es un sistema ERP con ecommerce integrado pensado para el sector retail en Argentina. Me desempeño como UX/UI Designer en el equipo, siendo responsable del diseño del",
+    overviewStrong1: "dashboard de gestión",
+    overviewP1Part2: "y de la",
+    overviewStrong2: "web de venta online",
+    overviewP1Part3: ", con personalizaciones específicas para cada cliente.",
+    overviewP2Part1: "El desafío central es que un mismo sistema tiene que funcionar para rubros completamente distintos — ropa, motos, construcción y cosmética — sin que cada implementación sea un proyecto de diseño desde cero. La solución es un",
+    overviewStrong3: "design system modular",
+    overviewP2Part2: "con más de 50 componentes temizables por cliente. XOP es un producto",
+    overviewStrong4: "100% funcional y operativo",
+    overviewP2Part3: ", con clientes reales activos en la plataforma.",
+    quote: "\u201cUn ERP que el equipo técnico ama pero el dueño del local no puede usar, fracasó. El diseño tiene que servir a los dos sin comprometer a ninguno.\u201d",
+    processLabel: "Proceso de diseño",
+    processHeading: "Del brief al handoff en 6 etapas.",
+    designProcess: [
+      {
+        number: "01",
+        title: "Discovery & research de clientes",
+        description: "XOP tiene clientes en rubros muy distintos: una tienda de ropa no tiene nada que ver con un local de motos. Hice research específico por sector para entender los flujos de venta, los tipos de productos y las necesidades reales de cada tipo de negocio.",
+      },
+      {
+        number: "02",
+        title: "Arquitectura de información multi-tenant",
+        description: "El mayor desafío arquitectural: diseñar una estructura que funcione para cualquier rubro sin perder coherencia. Definí la jerarquía de navegación del dashboard ERP y del ecommerce pensando en escalabilidad — que sumar un cliente nuevo no requiera rediseñar desde cero.",
+      },
+      {
+        number: "03",
+        title: "Wireframes y flujos interactivos",
+        description: "Mapeé los flujos críticos: gestión de inventario en el ERP, carga de productos, panel de pedidos, y del lado del ecommerce: búsqueda, ficha de producto, carrito y checkout. Cada flujo fue validado antes de pasar a diseño visual.",
+      },
+      {
+        number: "04",
+        title: "Design system & UI de alta fidelidad",
+        description: "Construí un sistema de componentes con más de 50 elementos reutilizables: tablas del ERP, cards de producto, modales, formularios, estados de carga y error. El sistema está preparado para theming — cada cliente puede tener su paleta de color manteniendo la misma base de componentes.",
+      },
+      {
+        number: "05",
+        title: "Usability testing & iteración",
+        description: "Testeé con usuarios reales de distintos rubros. Los dueños de locales no son usuarios técnicos — el ERP tiene que ser tan claro como una planilla de Excel. Cada ronda de testing reveló fricciones específicas que se resolvieron antes del handoff.",
+      },
+      {
+        number: "06",
+        title: "Developer handoff",
+        description: "Entregué especificaciones detalladas en Figma: tokens de diseño, estados de componentes, comportamientos de hover y error, y prototipos interactivos para cada flujo. El objetivo fue que el equipo de desarrollo no tuviera que adivinar nada.",
+      },
+    ],
+    challengesLabel: "Desafíos & soluciones",
+    challengesHeading: "Un sistema para todos, sin ser genérico para ninguno.",
+    challengePrefix: "Desafío",
+    solutionLabel: "Solución implementada",
+    challenges: [
+      {
+        number: "01",
+        challenge: "Un sistema que funcione para rubros completamente distintos",
+        description: "Un local de ropa necesita tallas, colores y lookbooks. Una ferretería necesita SKUs, unidades de medida y stock por depósito. Una moto necesita ficha técnica, versiones y financiación. Un solo sistema tiene que bancarse todo eso sin volverse un caos.",
+        solution: "Diseñé un sistema de fichas de producto modular: un núcleo común (nombre, precio, stock, fotos) y bloques de atributos configurables por rubro. El dashboard ERP usa el mismo principio — módulos activables según el tipo de negocio. El cliente ve solo lo que necesita, sin ruido visual.",
+      },
+      {
+        number: "02",
+        challenge: "Dashboard ERP usable para dueños sin experiencia técnica",
+        description: "El usuario del ERP no es un analista de datos — es el dueño del local que tiene que cargar un producto, ver sus pedidos del día y controlar el stock antes de cerrar. Si el dashboard es complejo, no lo usan.",
+        solution: "Prioricé las acciones más frecuentes en la pantalla principal: pedidos del día, stock crítico y ventas recientes. Tablas con sorting simple, filtros visibles y acciones claras. El resultado fue un ERP que los propios dueños aprendieron a usar sin capacitación.",
+      },
+      {
+        number: "03",
+        challenge: "Checkout optimizado que no pierda ventas",
+        description: "Cada paso innecesario en el checkout es una venta perdida. El flujo original tenía registro obligatorio, múltiples pasos y poca claridad en los métodos de pago — una combinación perfecta para el abandono.",
+        solution: "Rediseñé el checkout en una sola página con opción de compra como invitado, resumen del pedido siempre visible y métodos de pago claros con logos reconocibles. La tasa de abandono de carrito bajó significativamente y las ventas de los clientes aumentaron un 35%.",
+      },
+    ],
+    resultsLabel: "Resultados medibles",
+    results: [
+      { metric: "+35%", detail: "Aumento en ventas de los clientes tras el rediseño del ecommerce" },
+      { metric: "12+",  detail: "Tiendas en producción en distintos rubros de retail" },
+      { metric: "50+",  detail: "Componentes en el design system — reutilizables y temizables" },
+    ],
+    ctaLabel: "¿Te gustó el trabajo?",
+    ctaHeading: "Trabajemos juntos en tu próximo proyecto.",
+    ctaBody: "Diseño y código que convierte. Hablemos de tu idea y construyamos algo que destaque.",
+    viewMore: "Ver más proyectos",
   },
-  {
-    number: "02",
-    title: "Arquitectura de información multi-tenant",
-    description:
-      "El mayor desafío arquitectural: diseñar una estructura que funcione para cualquier rubro sin perder coherencia. Definí la jerarquía de navegación del dashboard ERP y del ecommerce pensando en escalabilidad — que sumar un cliente nuevo no requiera rediseñar desde cero.",
+  en: {
+    back: "Back to portfolio",
+    heroLabel: "Project 02 \u00a0·\u00a0 UX/UI Designer \u00a0·\u00a0 ERP + Ecommerce",
+    badge: "Dashboard · Design system · Multi-tenant · Retail",
+    tagline: "ERP with integrated ecommerce for the retail sector. I work as UX/UI Designer, designing the management dashboard and the online store, with per-client customizations.",
+    scrollCue: "Scroll to explore",
+    stats: [
+      { value: "+35%", label: "Increase in client sales" },
+      { value: "12+",  label: "Stores launched in production" },
+      { value: "50+",  label: "UI components in the design system" },
+      { value: "Jan",  unit: "2025→", label: "Ongoing — active project" },
+    ],
+    sectors: [
+      { label: "Apparel",      icon: "👕" },
+      { label: "Motorcycles",  icon: "🏍️" },
+      { label: "Construction", icon: "🏗️" },
+      { label: "Cosmetics",    icon: "💄" },
+    ],
+    meta: [
+      { label: "Role",        value: "UX/UI Designer" },
+      { label: "Company",     value: "XOP AR" },
+      { label: "Type",        value: "ERP + Ecommerce · B2B/B2C" },
+      { label: "Period",      value: "January 2025 — present" },
+      { label: "Sectors",     value: "Retail — apparel, motorcycles, construction, cosmetics" },
+      { label: "Deliverables", value: "Design system · Dashboard · Ecommerce" },
+    ],
+    visitSite: "Visit xop.ar",
+    whatIDesignedLabel: "What I designed",
+    whatIDesignedItems: [
+      {
+        title: "ERP Dashboard",
+        description: "A control panel for owners to manage orders, inventory, products, and sales metrics. Designed to be operable without technical training — clarity over complexity.",
+        tags: ["Orders", "Inventory", "Metrics", "Products"],
+      },
+      {
+        title: "Ecommerce web",
+        description: "Online store with a filterable catalog, product pages with sector-specific attributes, cart, and an optimized single-page checkout. Themeable per client while maintaining the system base.",
+        tags: ["Catalog", "Product pages", "Checkout", "Mobile"],
+      },
+    ],
+    toolsLabel: "Tools & disciplines",
+    galleryLabel: "System screens",
+    gallerySub: "ERP dashboard, ecommerce, and design system",
+    galleryItems: [
+      { label: "ERP Dashboard — Main view",                span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
+      { label: "Ecommerce — Product page",                 span: "",                            ratio: "aspect-[4/5]" },
+      { label: "Inventory & order management",             span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Checkout — Optimized flow",                span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Design system — Components & tokens",      span: "",                            ratio: "aspect-[4/3]" },
+    ],
+    overviewLabel: "The project",
+    overviewHeading: "An ERP any store owner can actually use.",
+    overviewP1Part1: "XOP is an ERP system with integrated ecommerce built for the retail sector in Argentina. I work as UX/UI Designer on the team, responsible for designing the",
+    overviewStrong1: "management dashboard",
+    overviewP1Part2: "and the",
+    overviewStrong2: "online store",
+    overviewP1Part3: ", with specific customizations for each client.",
+    overviewP2Part1: "The core challenge is that the same system has to work for completely different sectors — apparel, motorcycles, construction, and cosmetics — without each implementation becoming a full redesign. The solution is a",
+    overviewStrong3: "modular design system",
+    overviewP2Part2: "with 50+ components that are themeable per client. XOP is a",
+    overviewStrong4: "fully functional, live product",
+    overviewP2Part3: "with real clients active on the platform.",
+    quote: "\u201cAn ERP the dev team loves but the store owner can't use has failed. The design has to serve both without compromising either.\u201d",
+    processLabel: "Design process",
+    processHeading: "From brief to handoff in 6 stages.",
+    designProcess: [
+      {
+        number: "01",
+        title: "Discovery & client research",
+        description: "XOP has clients in very different sectors: a clothing store has nothing in common with a motorcycle shop. I did sector-specific research to understand sales flows, product types, and the real needs of each type of business.",
+      },
+      {
+        number: "02",
+        title: "Multi-tenant information architecture",
+        description: "The biggest architectural challenge: designing a structure that works for any sector without losing coherence. I defined the navigation hierarchy for the ERP dashboard and ecommerce with scalability in mind — adding a new client shouldn't require redesigning from scratch.",
+      },
+      {
+        number: "03",
+        title: "Wireframes and interactive flows",
+        description: "I mapped the critical flows: inventory management in the ERP, product uploading, order panel, and on the ecommerce side: search, product page, cart, and checkout. Each flow was validated before moving to visual design.",
+      },
+      {
+        number: "04",
+        title: "Design system & high-fidelity UI",
+        description: "I built a component system with 50+ reusable elements: ERP tables, product cards, modals, forms, loading and error states. The system is built for theming — each client can have their own color palette while sharing the same component base.",
+      },
+      {
+        number: "05",
+        title: "Usability testing & iteration",
+        description: "I tested with real users from different sectors. Store owners aren't technical users — the ERP has to be as clear as a spreadsheet. Each testing round surfaced specific friction points that were resolved before handoff.",
+      },
+      {
+        number: "06",
+        title: "Developer handoff",
+        description: "I delivered detailed Figma specifications: design tokens, component states, hover and error behaviors, and interactive prototypes for each flow. The goal was for the development team to have no guesswork.",
+      },
+    ],
+    challengesLabel: "Challenges & solutions",
+    challengesHeading: "One system for everyone, without being generic for anyone.",
+    challengePrefix: "Challenge",
+    solutionLabel: "Solution",
+    challenges: [
+      {
+        number: "01",
+        challenge: "A system that works for completely different sectors",
+        description: "A clothing store needs sizes, colors, and lookbooks. A hardware store needs SKUs, units of measure, and warehouse stock. A motorcycle shop needs spec sheets, variants, and financing. One system has to handle all of that without becoming chaos.",
+        solution: "I designed a modular product page system: a common core (name, price, stock, photos) and configurable attribute blocks per sector. The ERP dashboard uses the same principle — activatable modules by business type. Clients see only what they need, with no visual noise.",
+      },
+      {
+        number: "02",
+        challenge: "An ERP dashboard usable by non-technical store owners",
+        description: "The ERP user isn't a data analyst — they're the store owner who needs to upload a product, check today's orders, and verify stock before closing. If the dashboard is complex, they won't use it.",
+        solution: "I prioritized the most frequent actions on the main screen: today's orders, critical stock, and recent sales. Tables with simple sorting, visible filters, and clear actions. The result was an ERP that owners learned to use without any training.",
+      },
+      {
+        number: "03",
+        challenge: "An optimized checkout that doesn't lose sales",
+        description: "Every unnecessary step in checkout is a lost sale. The original flow had mandatory registration, multiple pages, and unclear payment methods — a perfect recipe for abandonment.",
+        solution: "I redesigned checkout as a single page with a guest purchase option, an always-visible order summary, and clear payment methods with recognizable logos. Cart abandonment dropped significantly and client sales increased by 35%.",
+      },
+    ],
+    resultsLabel: "Measurable results",
+    results: [
+      { metric: "+35%", detail: "Increase in client sales after the ecommerce redesign" },
+      { metric: "12+",  detail: "Stores in production across different retail sectors" },
+      { metric: "50+",  detail: "Design system components — reusable and themeable" },
+    ],
+    ctaLabel: "Like what you see?",
+    ctaHeading: "Let's work together on your next project.",
+    ctaBody: "Design and code that converts. Tell me about your idea and let's build something that stands out.",
+    viewMore: "View more projects",
   },
-  {
-    number: "03",
-    title: "Wireframes y flujos interactivos",
-    description:
-      "Mapeé los flujos críticos: gestión de inventario en el ERP, carga de productos, panel de pedidos, y del lado del ecommerce: búsqueda, ficha de producto, carrito y checkout. Cada flujo fue validado antes de pasar a diseño visual.",
-  },
-  {
-    number: "04",
-    title: "Design system & UI de alta fidelidad",
-    description:
-      "Construí un sistema de componentes con más de 50 elementos reutilizables: tablas del ERP, cards de producto, modales, formularios, estados de carga y error. El sistema está preparado para theming — cada cliente puede tener su paleta de color manteniendo la misma base de componentes.",
-  },
-  {
-    number: "05",
-    title: "Usability testing & iteración",
-    description:
-      "Testeé con usuarios reales de distintos rubros. Los dueños de locales no son usuarios técnicos — el ERP tiene que ser tan claro como una planilla de Excel. Cada ronda de testing reveló fricciones específicas que se resolvieron antes del handoff.",
-  },
-  {
-    number: "06",
-    title: "Developer handoff",
-    description:
-      "Entregué especificaciones detalladas en Figma: tokens de diseño, estados de componentes, comportamientos de hover y error, y prototipos interactivos para cada flujo. El objetivo fue que el equipo de desarrollo no tuviera que adivinar nada.",
-  },
-];
-
-const challenges = [
-  {
-    number: "01",
-    challenge: "Un sistema que funcione para rubros completamente distintos",
-    description:
-      "Un local de ropa necesita tallas, colores y lookbooks. Una ferretería necesita SKUs, unidades de medida y stock por depósito. Una moto necesita ficha técnica, versiones y financiación. Un solo sistema tiene que bancarse todo eso sin volverse un caos.",
-    solution:
-      "Diseñé un sistema de fichas de producto modular: un núcleo común (nombre, precio, stock, fotos) y bloques de atributos configurables por rubro. El dashboard ERP usa el mismo principio — módulos activables según el tipo de negocio. El cliente ve solo lo que necesita, sin ruido visual.",
-  },
-  {
-    number: "02",
-    challenge: "Dashboard ERP usable para dueños sin experiencia técnica",
-    description:
-      "El usuario del ERP no es un analista de datos — es el dueño del local que tiene que cargar un producto, ver sus pedidos del día y controlar el stock antes de cerrar. Si el dashboard es complejo, no lo usan.",
-    solution:
-      "Prioricé las acciones más frecuentes en la pantalla principal: pedidos del día, stock crítico y ventas recientes. Tablas con sorting simple, filtros visibles y acciones claras. El resultado fue un ERP que los propios dueños aprendieron a usar sin capacitación.",
-  },
-  {
-    number: "03",
-    challenge: "Checkout optimizado que no pierda ventas",
-    description:
-      "Cada paso innecesario en el checkout es una venta perdida. El flujo original tenía registro obligatorio, múltiples pasos y poca claridad en los métodos de pago — una combinación perfecta para el abandono.",
-    solution:
-      "Rediseñé el checkout en una sola página con opción de compra como invitado, resumen del pedido siempre visible y métodos de pago claros con logos reconocibles. La tasa de abandono de carrito bajó significativamente y las ventas de los clientes aumentaron un 35%.",
-  },
-];
-
-const results = [
-  { metric: "+35%", detail: "Aumento en ventas de los clientes tras el rediseño del ecommerce" },
-  { metric: "12+",  detail: "Tiendas en producción en distintos rubros de retail" },
-  { metric: "50+",  detail: "Componentes en el design system — reutilizables y temizables" },
-];
-
-const galleryItems = [
-  { label: "Dashboard ERP — Vista principal",          span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
-  { label: "Ecommerce — Ficha de producto",            span: "",                            ratio: "aspect-[4/5]" },
-  { label: "Gestión de inventario & pedidos",          span: "",                            ratio: "aspect-[4/3]" },
-  { label: "Checkout — Flujo optimizado",              span: "",                            ratio: "aspect-[4/3]" },
-  { label: "Design system — Componentes & tokens",     span: "",                            ratio: "aspect-[4/3]" },
-];
+};
 
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 export default function XopPage() {
+  const { lang } = useLang();
+  const d = content[lang];
+
   return (
     <>
       <style>{`
@@ -186,14 +339,14 @@ export default function XopPage() {
             }}
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" strokeWidth={2.2} />
-            Volver al portfolio
+            {d.back}
           </Link>
         </div>
 
         {/* ── HERO ─────────────────────────────────────────────────────── */}
         <section className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-4 pb-20 pt-28 text-center">
 
-          {/* Scanline effect — dashboard/enterprise feel */}
+          {/* Scanline effect */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 overflow-hidden"
@@ -204,7 +357,7 @@ export default function XopPage() {
             />
           </div>
 
-          {/* Grid técnico */}
+          {/* Technical grid */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
@@ -238,7 +391,7 @@ export default function XopPage() {
               className="mb-5 text-xs font-bold uppercase tracking-[0.35em]"
               style={{ color: C.blue }}
             >
-              Proyecto 02 &nbsp;·&nbsp; UX/UI Designer &nbsp;·&nbsp; ERP + Ecommerce
+              {d.heroLabel}
             </motion.p>
 
             {/* Badge */}
@@ -248,7 +401,7 @@ export default function XopPage() {
                 style={{ background: C.blueDim, border: `1px solid ${C.blueMid}`, color: C.blueLight }}
               >
                 <span className="xop-pulse inline-block h-1.5 w-1.5 rounded-full" style={{ background: C.blue }} />
-                Dashboard · Design system · Multi-tenant · Retail
+                {d.badge}
               </span>
             </motion.div>
 
@@ -270,7 +423,7 @@ export default function XopPage() {
 
             {/* Sector pills */}
             <motion.div variants={fadeUp} className="mt-6 flex flex-wrap items-center justify-center gap-2">
-              {sectors.map((s) => (
+              {d.sectors.map((s) => (
                 <span
                   key={s.label}
                   className="rounded-lg px-3 py-1 text-xs font-semibold"
@@ -287,14 +440,14 @@ export default function XopPage() {
               className="mx-auto mt-7 max-w-lg text-base leading-relaxed sm:text-lg"
               style={{ color: "rgba(241,240,255,0.55)" }}
             >
-              ERP con ecommerce integrado para el sector retail. Me desempeño como UX/UI Designer diseñando el dashboard de gestión y la web de venta, con personalizaciones por cliente y rubro.
+              {d.tagline}
             </motion.p>
 
             {/* Scroll cue */}
             <motion.div variants={fadeUp} className="mt-12 flex items-center justify-center gap-4">
               <div style={{ width: 48, height: 1, background: C.blueMid }} />
               <span className="text-[10px] font-semibold uppercase tracking-[0.3em]" style={{ color: "rgba(241,240,255,0.25)" }}>
-                Scroll para explorar
+                {d.scrollCue}
               </span>
               <div style={{ width: 48, height: 1, background: C.blueMid }} />
             </motion.div>
@@ -307,7 +460,7 @@ export default function XopPage() {
           style={{ background: C.surface, borderTop: `1px solid ${C.blueDim}`, borderBottom: `1px solid ${C.blueDim}` }}
         >
           <div className="mx-auto max-w-5xl grid grid-cols-2 gap-8 sm:grid-cols-4">
-            {stats.map((s, i) => (
+            {d.stats.map((s, i) => (
               <motion.div
                 key={s.label}
                 custom={i}
@@ -344,27 +497,27 @@ export default function XopPage() {
               viewport={{ once: true }}
             >
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.blue }}>
-                El proyecto
+                {d.overviewLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold leading-tight tracking-tight"
                 style={{ fontSize: "clamp(1.75rem,4vw,2.5rem)", color: "#f1f0ff" }}
               >
-                Un ERP que cualquier dueño de local puede operar.
+                {d.overviewHeading}
               </h2>
               <p className="mt-5 text-base leading-relaxed sm:text-lg" style={{ color: "rgba(241,240,255,0.52)" }}>
-                XOP es un sistema ERP con ecommerce integrado pensado para el sector retail en Argentina. Me desempeño como UX/UI Designer en el equipo, siendo responsable del diseño del{" "}
-                <strong style={{ color: "#f1f0ff" }}>dashboard de gestión</strong>{" "}
-                y de la{" "}
-                <strong style={{ color: "#f1f0ff" }}>web de venta online</strong>,
-                con personalizaciones específicas para cada cliente.
+                {d.overviewP1Part1}{" "}
+                <strong style={{ color: "#f1f0ff" }}>{d.overviewStrong1}</strong>{" "}
+                {d.overviewP1Part2}{" "}
+                <strong style={{ color: "#f1f0ff" }}>{d.overviewStrong2}</strong>
+                {d.overviewP1Part3}
               </p>
               <p className="mt-4 text-base leading-relaxed sm:text-lg" style={{ color: "rgba(241,240,255,0.52)" }}>
-                El desafío central es que un mismo sistema tiene que funcionar para rubros completamente distintos — ropa, motos, construcción y cosmética — sin que cada implementación sea un proyecto de diseño desde cero. La solución es un{" "}
-                <strong style={{ color: "#f1f0ff" }}>design system modular</strong>{" "}
-                con más de 50 componentes temizables por cliente. XOP es un producto{" "}
-                <strong style={{ color: "#f1f0ff" }}>100% funcional y operativo</strong>,
-                con clientes reales activos en la plataforma.
+                {d.overviewP2Part1}{" "}
+                <strong style={{ color: "#f1f0ff" }}>{d.overviewStrong3}</strong>{" "}
+                {d.overviewP2Part2}{" "}
+                <strong style={{ color: "#f1f0ff" }}>{d.overviewStrong4}</strong>
+                {d.overviewP2Part3}
               </p>
 
               {/* Highlight strip */}
@@ -374,7 +527,7 @@ export default function XopPage() {
               >
                 <div style={{ width: 3, minWidth: 3, height: 40, borderRadius: 2, background: C.blue, marginTop: 2 }} />
                 <p className="text-sm leading-relaxed" style={{ color: "rgba(241,240,255,0.7)" }}>
-                  &ldquo;Un ERP que el equipo técnico ama pero el dueño del local no puede usar, fracasó. El diseño tiene que servir a los dos sin comprometer a ninguno.&rdquo;
+                  {d.quote}
                 </p>
               </div>
             </motion.div>
@@ -388,7 +541,7 @@ export default function XopPage() {
               whileInView="show"
               viewport={{ once: true }}
             >
-              {meta.map((m) => (
+              {d.meta.map((m) => (
                 <div
                   key={m.label}
                   className="flex items-center justify-between rounded-xl px-5 py-3.5"
@@ -411,7 +564,7 @@ export default function XopPage() {
                 style={{ background: C.blueDim, border: `1px solid ${C.blueMid}` }}
               >
                 <span className="text-sm font-semibold" style={{ color: "#f1f0ff" }}>
-                  Visitar xop.ar
+                  {d.visitSite}
                 </span>
                 <ArrowUpRight
                   className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -423,7 +576,7 @@ export default function XopPage() {
           </div>
         </section>
 
-        {/* ── QUÉ DISEÑÉ ───────────────────────────────────────────────── */}
+        {/* ── WHAT I DESIGNED ──────────────────────────────────────────── */}
         <section
           className="px-4 py-16 sm:px-6 lg:px-8"
           style={{ background: C.surface, borderTop: `1px solid ${C.blueDim}`, borderBottom: `1px solid ${C.blueDim}` }}
@@ -437,33 +590,10 @@ export default function XopPage() {
               className="mb-10 text-xs font-bold uppercase tracking-[0.25em]"
               style={{ color: C.blue }}
             >
-              Qué diseñé
+              {d.whatIDesignedLabel}
             </motion.p>
             <div className="grid gap-5 sm:grid-cols-2">
-              {[
-                {
-                  icon: (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.blue} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
-                      <rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />
-                    </svg>
-                  ),
-                  title: "Dashboard ERP",
-                  description: "Panel de control para que los dueños gestionen pedidos, inventario, productos y métricas de venta. Diseñado para ser operable sin capacitación técnica — claridad sobre complejidad.",
-                  tags: ["Pedidos", "Inventario", "Métricas", "Productos"],
-                },
-                {
-                  icon: (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.blue} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
-                      <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-                    </svg>
-                  ),
-                  title: "Ecommerce web",
-                  description: "Tienda online con catálogo filtrable, fichas de producto con atributos por rubro, carrito y checkout optimizado de una sola página. Temizable por cliente manteniendo la base del sistema.",
-                  tags: ["Catálogo", "Fichas", "Checkout", "Mobile"],
-                },
-              ].map((item, i) => (
+              {d.whatIDesignedItems.map((item, i) => (
                 <motion.div
                   key={item.title}
                   custom={i}
@@ -478,7 +608,17 @@ export default function XopPage() {
                     className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl"
                     style={{ background: C.blueDim, border: `1px solid ${C.blueMid}` }}
                   >
-                    {item.icon}
+                    {i === 0 ? (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.blue} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />
+                      </svg>
+                    ) : (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.blue} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+                      </svg>
+                    )}
                   </div>
                   <h3 className="font-display text-lg font-bold" style={{ color: "#f1f0ff" }}>
                     {item.title}
@@ -507,10 +647,14 @@ export default function XopPage() {
         <section className="px-4 py-12 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
             <p className="mb-6 text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.blue }}>
-              Herramientas &amp; disciplinas
+              {d.toolsLabel}
             </p>
             <div className="flex flex-wrap gap-3">
-              {tools.map((t) => (
+              {[
+                "Figma", "Design System", "UX Research", "UI Design", "Wireframing",
+                "Prototyping", "Usability Testing", "Developer Handoff",
+                "Information Architecture", "Dashboard Design", "Multi-tenant UX", "Ecommerce UX",
+              ].map((t) => (
                 <span
                   key={t}
                   className="rounded-full px-4 py-2 text-sm font-medium"
@@ -531,14 +675,14 @@ export default function XopPage() {
           <div className="mx-auto max-w-5xl">
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-8">
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.blue }}>
-                Pantallas del sistema
+                {d.galleryLabel}
               </p>
               <p className="mt-1 text-sm" style={{ color: "rgba(241,240,255,0.35)" }}>
-                Dashboard ERP, ecommerce y design system
+                {d.gallerySub}
               </p>
             </motion.div>
             <div className="grid gap-4 sm:grid-cols-3">
-              {galleryItems.map((item, i) => (
+              {d.galleryItems.map((item, i) => (
                 <motion.div
                   key={item.label}
                   custom={i}
@@ -576,17 +720,17 @@ export default function XopPage() {
           <div className="mx-auto max-w-5xl">
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-12">
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.blue }}>
-                Proceso de diseño
+                {d.processLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold tracking-tight"
                 style={{ fontSize: "clamp(1.75rem,4vw,2.25rem)", color: "#f1f0ff" }}
               >
-                Del brief al handoff en 6 etapas.
+                {d.processHeading}
               </h2>
             </motion.div>
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {designProcess.map((step, i) => (
+              {d.designProcess.map((step, i) => (
                 <motion.div
                   key={step.number}
                   custom={i}
@@ -620,17 +764,17 @@ export default function XopPage() {
           <div className="mx-auto max-w-5xl">
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-12">
               <p className="text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.blue }}>
-                Desafíos &amp; soluciones
+                {d.challengesLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold tracking-tight"
                 style={{ fontSize: "clamp(1.75rem,4vw,2.25rem)", color: "#f1f0ff" }}
               >
-                Un sistema para todos, sin ser genérico para ninguno.
+                {d.challengesHeading}
               </h2>
             </motion.div>
             <div className="flex flex-col gap-5">
-              {challenges.map((c, i) => (
+              {d.challenges.map((c, i) => (
                 <motion.div
                   key={c.number}
                   custom={i}
@@ -643,7 +787,7 @@ export default function XopPage() {
                 >
                   <div className="px-6 pt-6 pb-5" style={{ background: "rgba(45,140,255,0.06)" }}>
                     <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-2" style={{ color: C.blue }}>
-                      Desafío {c.number}
+                      {d.challengePrefix} {c.number}
                     </p>
                     <h3 className="font-display text-lg font-bold" style={{ color: "#f1f0ff" }}>
                       {c.challenge}
@@ -656,7 +800,7 @@ export default function XopPage() {
                     <div className="flex items-center gap-2 mb-2">
                       <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#4ade80" }} />
                       <p className="text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: "#4ade80" }}>
-                        Solución implementada
+                        {d.solutionLabel}
                       </p>
                     </div>
                     <p className="text-sm leading-relaxed" style={{ color: "rgba(241,240,255,0.62)" }}>
@@ -676,10 +820,10 @@ export default function XopPage() {
         >
           <div className="mx-auto max-w-5xl">
             <motion.p variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-8 text-xs font-bold uppercase tracking-[0.25em]" style={{ color: C.blue }}>
-              Resultados medibles
+              {d.resultsLabel}
             </motion.p>
             <div className="grid gap-4 sm:grid-cols-3">
-              {results.map((r, i) => (
+              {d.results.map((r, i) => (
                 <motion.div
                   key={r.metric}
                   custom={i}
@@ -712,16 +856,16 @@ export default function XopPage() {
           <div className="relative mx-auto max-w-2xl text-center">
             <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <p className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: C.blue }}>
-                ¿Te gustó el trabajo?
+                {d.ctaLabel}
               </p>
               <h2
                 className="mt-4 font-display font-bold leading-tight tracking-tight"
                 style={{ fontSize: "clamp(2rem,5vw,3rem)", color: "#f1f0ff" }}
               >
-                Trabajemos juntos en tu próximo proyecto.
+                {d.ctaHeading}
               </h2>
               <p className="mx-auto mt-5 max-w-md text-base leading-relaxed" style={{ color: "rgba(241,240,255,0.5)" }}>
-                Diseño y código que convierte. Hablemos de tu idea y construyamos algo que destaque.
+                {d.ctaBody}
               </p>
               <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                 <a
@@ -737,7 +881,7 @@ export default function XopPage() {
                   className="group inline-flex min-h-12 items-center gap-2 rounded-xl px-7 py-3.5 text-sm font-semibold transition-all duration-200 hover:scale-[1.03] active:scale-95"
                   style={{ border: `1px solid ${C.blueMid}`, color: "#f1f0ff" }}
                 >
-                  Ver más proyectos
+                  {d.viewMore}
                   <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={2.2} />
                 </Link>
               </div>
