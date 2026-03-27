@@ -3,71 +3,78 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
+import { useLang } from "@/contexts/LanguageContext";
+import { t } from "@/data/translations";
 
 // ─── Projects data ─────────────────────────────────────────────────────────
 const projects = [
   {
     title: "FORMA",
-    tag: "Próximamente",
+    tag: "Ver proyecto",
     year: "2024",
-    stack: "Front-end · UI/UX",
-    description: "Cargando descripción del proyecto...",
-    accent: "rgba(124,92,252,0.15)",
-    accentBorder: "rgba(124,92,252,0.35)",
+    stack: "Design System · UX/UI · Next.js",
+    description: "Sistema de catálogo para mueblerias de Córdoba — powered by Google Sheets. No es un e-commerce, es una plataforma de fidelización.",
+    accent: "rgba(200,169,107,0.12)",
+    accentBorder: "rgba(200,169,107,0.30)",
+    href: "/projects/forma",
   },
   {
     title: "DRIVE THE RING",
-    tag: "Próximamente",
+    tag: "Ver proyecto",
     year: "2024",
     stack: "Front-end · UI/UX",
-    description: "Cargando descripción del proyecto...",
-    accent: "rgba(255,255,255,0.15)",
-    accentBorder: "rgba(255,255,255,0.35)",
+    description: "Plataforma premium de alquiler de autos de carrera. UX/UI completo orientado a conversión — +40% en reservas.",
+    accent: "rgba(255,107,26,0.12)",
+    accentBorder: "rgba(255,107,26,0.30)",
+    href: "/projects/drivethering",
+    image: "/drivethering-car.png",
   },
   {
     title: "XOP",
-    tag: "Próximamente",
-    year: "2024",
-    stack: "Front-end · UI/UX",
-    description: "Cargando descripción del proyecto...",
-    accent: "rgba(124,92,252,0.15)",
-    accentBorder: "rgba(124,92,252,0.35)",
+    tag: "Ver proyecto",
+    year: "2025 →",
+    stack: "UX/UI · Dashboard · Design System",
+    description: "ERP con ecommerce integrado para retail. Diseño del dashboard y tienda online con personalizaciones por rubro — ropa, motos, construcción y cosmética.",
+    accent: "rgba(45,140,255,0.12)",
+    accentBorder: "rgba(45,140,255,0.30)",
+    href: "/projects/xop",
   },
   {
-    title: "PREVENCION",
-    tag: "Próximamente",
+    title: "PREVENCIÓN",
+    tag: "Ver proyecto",
     year: "2024",
-    stack: "Front-end · UI/UX",
-    description: "Cargando descripción del proyecto...",
-    accent: "rgba(255,255,255,0.15)",
-    accentBorder: "rgba(255,255,255,0.35)",
+    stack: "Front-end · UI/UX · Desarrollo",
+    description: "Landing page de generación de leads para planes de salud. Diseño UX/UI + desarrollo completo — +30% conversión.",
+    accent: "rgba(240,21,123,0.12)",
+    accentBorder: "rgba(240,21,123,0.30)",
+    href: "/projects/prevencion",
+    image: "/saludplus.png",
   },
   {
     title: "HANS GUIA",
-    tag: "Próximamente",
+    tag: "Ver proyecto",
     year: "2024",
-    stack: "Front-end · UI/UX",
-    description: "Cargando descripción del proyecto...",
-    accent: "rgba(124,92,252,0.15)",
-    accentBorder: "rgba(124,92,252,0.35)",
+    stack: "UX/UI · i18n · SEO · Next.js",
+    description: "Web en 5 idiomas para un guía de turismo en Ilha Grande. Precios dinámicos, blog SEO y reviews reales de TripAdvisor.",
+    accent: "rgba(212,144,10,0.12)",
+    accentBorder: "rgba(212,144,10,0.30)",
+    href: "/projects/hansguia",
   },
   {
     title: "BORA",
-    tag: "Próximamente",
+    tag: "Ver proyecto",
     year: "2024",
-    stack: "Front-end · UI/UX",
-    description: "Cargando descripción del proyecto...",
-    accent: "rgba(255,255,255,0.15)",
-    accentBorder: "rgba(255,255,255,0.35)",
+    stack: "Branding · UX/UI · Desarrollo",
+    description: "Plataforma de booking de paseos en Ilha Grande. Proyecto personal — logo, UX/UI y desarrollo completo desde cero.",
+    accent: "rgba(0,201,167,0.12)",
+    accentBorder: "rgba(0,201,167,0.30)",
+    href: "/projects/bora",
+    image: "/bora.jpg",
   },
 ];
 
 // ─── Stats data ────────────────────────────────────────────────────────────
-const stats = [
-  { value: "3+", label: "Años de experiencia" },
-  { value: "20+", label: "Proyectos entregados" },
-  { value: "10+",   label: "features diseñadas" },
-];
+const statsValues = ["3+", "20+", "10+"];
 
 const cardReveal = {
   hidden: { opacity: 0, y: 20 },
@@ -80,6 +87,9 @@ const cardReveal = {
 
 // ─── About ─────────────────────────────────────────────────────────────────
 export function AboutSection() {
+  const { lang } = useLang();
+  const tr = t[lang].about;
+
   return (
     <section
       id="sobre"
@@ -91,7 +101,7 @@ export function AboutSection() {
           className="text-xs font-semibold uppercase tracking-[0.2em]"
           style={{ color: "var(--txt)" }}
         >
-          Sobre mí
+          {tr.label}
         </p>
 
         <div className="mt-8 grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -101,22 +111,19 @@ export function AboutSection() {
               className="font-display text-[clamp(1.75rem,5vw,2.5rem)] font-bold leading-tight tracking-tight"
               style={{ color: "var(--txt)" }}
             >
-              Diseño y código que trabajan juntos.
+              {tr.headline}
             </h2>
             <p
               className="mt-5 text-base leading-relaxed sm:text-lg"
               style={{ color: "var(--txt-muted)" }}
             >
-              Soy diseñador UX/UI y desarrollador front-end con base en <span style={{ color: "var(--txt)" }} className="font-medium">Córdoba, Argentina</span>. Me especializo en construir interfaces que no solo se ven premium, sino que convierten — con{" "}
-              <span style={{ color: "var(--txt)" }} className="font-medium">Next.js</span>,{" "}
-              <span style={{ color: "var(--txt)" }} className="font-medium">React</span> y sistemas de diseño en{" "}
-              <span style={{ color: "var(--txt)" }} className="font-medium">Figma</span>.
+              {tr.p1}
             </p>
             <p
               className="mt-4 text-base leading-relaxed sm:text-lg"
               style={{ color: "var(--txt-muted)" }}
             >
-              Trabajo con startups y negocios que quieren presencia digital con identidad propia, entrega rápida y código que escala.
+              {tr.p2}
             </p>
           </div>
 
@@ -124,9 +131,9 @@ export function AboutSection() {
           <div className="grid gap-8 md:grid-cols-2 lg:col-span-7 lg:gap-10">
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 md:grid-cols-1 md:gap-6">
-              {stats.map((s) => (
+              {statsValues.map((val, i) => (
                 <div
-                  key={s.label}
+                  key={i}
                   className="rounded-2xl p-5 md:flex md:items-center md:gap-6"
                   style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
                 >
@@ -134,13 +141,13 @@ export function AboutSection() {
                     className="block font-display text-3xl font-bold md:text-4xl"
                     style={{ color: "var(--accent)" }}
                   >
-                    {s.value}
+                    {val}
                   </span>
                   <span
                     className="mt-1 block text-[11px] font-semibold uppercase tracking-[0.18em] md:mt-0"
                     style={{ color: "var(--txt)" }}
                   >
-                    {s.label}
+                    {tr.stats[i]}
                   </span>
                 </div>
               ))}
@@ -164,6 +171,9 @@ export function AboutSection() {
 
 // ─── Works ─────────────────────────────────────────────────────────────────
 export function WorksSection() {
+  const { lang } = useLang();
+  const tr = t[lang].works;
+
   return (
     <section
       id="trabajos"
@@ -177,13 +187,13 @@ export function WorksSection() {
               className="text-xs font-semibold uppercase tracking-[0.2em]"
               style={{ color: "var(--txt)" }}
             >
-              Proyectos destacados
+              {tr.label}
             </p>
             <h2
               className="mt-2 font-display text-[clamp(1.75rem,5vw,2.5rem)] font-bold tracking-tight"
               style={{ color: "var(--txt)" }}
             >
-              Selección de trabajos
+              {tr.headline}
             </h2>
           </div>
           <Link
@@ -191,73 +201,115 @@ export function WorksSection() {
             className="group inline-flex min-h-11 items-center gap-2 self-start text-sm font-semibold transition-colors"
             style={{ color: "var(--accent)" }}
           >
-            Hablemos de tu proyecto
+            {tr.cta}
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </div>
 
         <div className="mt-10 grid gap-5 sm:mt-12 sm:gap-6 md:grid-cols-3">
-          {projects.map((p, i) => (
-            <motion.article
-              key={p.title}
-              custom={i}
-              variants={cardReveal}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-40px" }}
-              className="group overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1"
-              style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
-            >
-              {/* Color stripe / visual */}
-              <div
-                className="flex h-44 items-end p-5"
-                style={{ background: p.accent, borderBottom: `1px solid ${p.accentBorder}` }}
-              >
-                <div className="flex flex-col gap-2">
-                  <span
-                    className="inline-block rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-widest"
-                    style={{ background: p.accentBorder, color: "var(--txt)" }}
-                  >
-                    {p.tag}
-                  </span>
-                  <span
-                    className="text-xs font-medium"
+          {projects.map((p, i) => {
+            const CardInner = (
+              <>
+                {/* Color stripe / visual */}
+                <div
+                  className="relative flex h-44 items-end p-5 overflow-hidden"
+                  style={{
+                    background: p.accent,
+                    borderBottom: `1px solid ${p.accentBorder}`,
+                  }}
+                >
+                  {p.image && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={p.image}
+                      alt={p.title}
+                      className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    />
+                  )}
+                  {/* Gradient overlay so text stays legible */}
+                  {p.image && (
+                    <div
+                      className="absolute inset-0"
+                      style={{
+                        background: "linear-gradient(to top, rgba(7,6,10,0.85) 0%, rgba(7,6,10,0.2) 60%, transparent 100%)",
+                      }}
+                    />
+                  )}
+                  <div className="relative z-10 flex flex-col gap-2">
+                    <span
+                      className="inline-block rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-widest"
+                      style={{ background: p.accentBorder, color: "var(--txt)" }}
+                    >
+                      {p.tag}
+                    </span>
+                    <span
+                      className="text-xs font-medium"
+                      style={{ color: p.image ? "rgba(241,240,255,0.7)" : "var(--txt-muted)" }}
+                    >
+                      {p.year}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Info */}
+                <div className="p-5">
+                  <div className="flex items-start justify-between gap-3">
+                    <h3
+                      className="font-display text-lg font-bold tracking-tight"
+                      style={{ color: "var(--txt)" }}
+                    >
+                      {p.title}
+                    </h3>
+                    <ArrowUpRight
+                      className="mt-0.5 h-5 w-5 shrink-0 transition-colors group-hover:text-[var(--accent)]"
+                      style={{ color: "var(--txt-subtle)" }}
+                    />
+                  </div>
+                  <p
+                    className="mt-2 text-sm leading-relaxed"
                     style={{ color: "var(--txt-muted)" }}
                   >
-                    {p.year}
-                  </span>
-                </div>
-              </div>
-
-              {/* Info */}
-              <div className="p-5">
-                <div className="flex items-start justify-between gap-3">
-                  <h3
-                    className="font-display text-lg font-bold tracking-tight"
-                    style={{ color: "var(--txt)" }}
+                    {p.description}
+                  </p>
+                  <p
+                    className="mt-3 text-xs font-medium"
+                    style={{ color: "var(--accent)" }}
                   >
-                    {p.title}
-                  </h3>
-                  <ArrowUpRight
-                    className="mt-0.5 h-5 w-5 shrink-0 transition-colors"
-                    style={{ color: "var(--txt-subtle)" }}
-                  />
+                    {p.stack}
+                  </p>
                 </div>
-                <p
-                  className="mt-2 text-sm leading-relaxed"
-                  style={{ color: "var(--txt-muted)" }}
+              </>
+            );
+
+            return p.href ? (
+              <Link key={p.title} href={p.href} className="block">
+                <motion.article
+                  custom={i}
+                  variants={cardReveal}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, margin: "-40px" }}
+                  className="group overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1"
+                  style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
                 >
-                  {p.description}
-                </p>
-                <p
-                  className="mt-3 text-xs font-medium"
-                  style={{ color: "var(--accent)" }}
-                >
-                  {p.stack}
-                </p>
-              </div>
-            </motion.article>
-          ))}
+                  {CardInner}
+                </motion.article>
+              </Link>
+            ) : (
+              <motion.article
+                key={p.title}
+                custom={i}
+                variants={cardReveal}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-40px" }}
+                className="group overflow-hidden rounded-2xl transition-transform duration-300 hover:-translate-y-1"
+                style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+              >
+                {CardInner}
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -266,6 +318,10 @@ export function WorksSection() {
 
 // ─── Contact ───────────────────────────────────────────────────────────────
 export function ContactSection() {
+  const { lang } = useLang();
+  const tr = t[lang].contact;
+  const footer = t[lang].footer;
+
   return (
     <section
       id="contacto"
@@ -277,22 +333,22 @@ export function ContactSection() {
           className="text-xs font-semibold uppercase tracking-[0.2em]"
           style={{ color: "var(--txt)" }}
         >
-          Contacto
+          {tr.label}
         </p>
 
         <h2
           className="mt-4 font-display text-[clamp(2rem,6vw,3.25rem)] font-bold leading-tight tracking-tight"
           style={{ color: "var(--txt)" }}
         >
-          ¿Tenés un proyecto?{" "}
-          <span className="text-gradient-hero">Escribime.</span>
+          {tr.headline1}{" "}
+          <span className="text-gradient-hero">{tr.headline2}</span>
         </h2>
 
         <p
           className="mx-auto mt-5 max-w-md text-base leading-relaxed"
           style={{ color: "var(--txt-muted)" }}
         >
-          Respondo en menos de 48 h. Contame de qué se trata y coordinamos una llamada sin compromiso.
+          {tr.desc}
         </p>
 
         <a
@@ -349,7 +405,7 @@ export function ContactSection() {
         className="mx-auto mt-20 max-w-7xl border-t px-2 pt-8 text-center text-xs"
         style={{ borderColor: "var(--border)", color: "var(--txt-subtle)" }}
       >
-        © {new Date().getFullYear()} Tomas Ramirez. Hecho con Next.js & Tailwind.
+        © {new Date().getFullYear()} Tomas Ramirez. {footer}
       </footer>
     </section>
   );

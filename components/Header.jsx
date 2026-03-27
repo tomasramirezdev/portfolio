@@ -4,13 +4,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-
-const nav = [
-  { href: "#inicio", label: "Inicio" },
-  { href: "#sobre", label: "Sobre mí" },
-  { href: "#trabajos", label: "Trabajos" },
-  { href: "#certificaciones", label: "Certificaciones" },
-];
+import { useLang } from "@/contexts/LanguageContext";
+import { t } from "@/data/translations";
 
 function LogoMark({ onNavigate }) {
   return (
@@ -30,8 +25,51 @@ function LogoMark({ onNavigate }) {
   );
 }
 
+function LangToggle() {
+  const { lang, toggle } = useLang();
+
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={lang === "es" ? "Switch to English" : "Cambiar a Español"}
+      className="flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-xs font-bold uppercase tracking-wide transition-all duration-200 hover:scale-105 active:scale-95"
+      style={{
+        background: "rgba(255,255,255,0.05)",
+        border: "1px solid rgba(255,255,255,0.10)",
+        color: "rgba(241,240,255,0.65)",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.background = "rgba(255,255,255,0.10)";
+        e.currentTarget.style.borderColor = "rgba(255,255,255,0.20)";
+        e.currentTarget.style.color = "#f1f0ff";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+        e.currentTarget.style.borderColor = "rgba(255,255,255,0.10)";
+        e.currentTarget.style.color = "rgba(241,240,255,0.65)";
+      }}
+    >
+      <span className="text-base leading-none" aria-hidden>
+        {lang === "es" ? "🇦🇷" : "🇺🇸"}
+      </span>
+      <span className="hidden sm:inline">
+        {lang === "es" ? "ES" : "EN"}
+      </span>
+    </button>
+  );
+}
+
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { lang } = useLang();
+
+  const nav = [
+    { href: "#inicio",          label: t[lang].nav.home },
+    { href: "#sobre",           label: t[lang].nav.about },
+    { href: "#trabajos",        label: t[lang].nav.work },
+    { href: "#certificaciones", label: t[lang].nav.certs },
+  ];
 
   const closeMenu = () => setMenuOpen(false);
 
@@ -80,6 +118,10 @@ export default function Header() {
         </nav>
 
         <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
+          {/* Language toggle */}
+          <LangToggle />
+
+          {/* Contact CTA */}
           <Link
             href="#contacto"
             onClick={closeMenu}
@@ -90,21 +132,22 @@ export default function Header() {
               backdropFilter: "blur(10px)",
               color: "#e4e4e7"
             }}
-            onMouseEnter={(e) => { 
-                e.currentTarget.style.background = "rgba(255,255,255,0.12)"; 
-                e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)";
-                e.currentTarget.style.color = "#fff";
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(255,255,255,0.12)";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)";
+              e.currentTarget.style.color = "#fff";
             }}
-            onMouseLeave={(e) => { 
-                e.currentTarget.style.background = "rgba(255,255,255,0.06)"; 
-                e.currentTarget.style.borderColor = "rgba(255,255,255,0.14)";
-                e.currentTarget.style.color = "#e4e4e7";
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(255,255,255,0.06)";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.14)";
+              e.currentTarget.style.color = "#e4e4e7";
             }}
           >
-            <span className="hidden sm:inline">Contacto</span>
+            <span className="hidden sm:inline">{t[lang].nav.contact}</span>
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" strokeWidth={2.2} />
           </Link>
 
+          {/* Hamburger */}
           <button
             type="button"
             className="flex h-10 w-10 items-center justify-center rounded-xl transition-colors active:scale-95 md:hidden"

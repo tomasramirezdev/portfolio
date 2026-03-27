@@ -2,8 +2,10 @@
 
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
+import { useLang } from "@/contexts/LanguageContext";
+import { t } from "@/data/translations";
 
 const HeroVisual = dynamic(() => import("./HeroVisual"), { ssr: false });
 
@@ -16,7 +18,7 @@ const fadeUp = {
   }),
 };
 
-function AvailabilityBadge() {
+function AvailabilityBadge({ label }) {
   return (
     <motion.div
       custom={0}
@@ -30,11 +32,8 @@ function AvailabilityBadge() {
         color: "#4ade80",
       }}
     >
-      <span
-        className="pulse-dot h-1.5 w-1.5 rounded-full"
-        style={{ background: "#4ade80" }}
-      />
-      Disponible para proyectos
+      <span className="pulse-dot h-1.5 w-1.5 rounded-full" style={{ background: "#4ade80" }} />
+      {label}
     </motion.div>
   );
 }
@@ -70,17 +69,16 @@ function PillButton({ href, children }) {
   );
 }
 
-
-
-
 export default function Hero() {
+  const { lang } = useLang();
+  const tr = t[lang].hero;
+
   return (
     <section
       id="inicio"
       className="relative overflow-x-hidden pb-12 pt-[max(7.25rem,env(safe-area-inset-top)+5.25rem)] sm:pb-16 md:pb-24 md:pt-40"
       style={{ background: "var(--bg)" }}
     >
-      {/* Radial glow behind the visual */}
       <div
         className="pointer-events-none absolute right-[-10%] top-[10%] h-[600px] w-[600px] rounded-full opacity-20 blur-[120px]"
         style={{ background: "var(--accent)" }}
@@ -89,20 +87,23 @@ export default function Hero() {
 
       <div className="relative z-10 mx-auto grid max-w-7xl gap-8 px-4 sm:gap-10 sm:px-5 md:grid-cols-[1fr_minmax(min(100%,380px),1.05fr)] md:items-center md:gap-8 md:px-5 lg:grid-cols-[1fr_1.12fr] lg:gap-12 lg:px-8">
         <div className="max-w-xl md:max-w-none">
-          <AvailabilityBadge />
+          <AvailabilityBadge label={tr.available} />
 
           <motion.h1
+            key={lang}
             custom={1}
             variants={fadeUp}
             initial="hidden"
             animate="show"
             className="mt-6 font-display text-[clamp(2.25rem,8vw+0.5rem,4.5rem)] font-extrabold leading-[1.06] tracking-[-0.03em] text-shimmer text-balance"
           >
-            Diseño interfaces<br />
-            que convierten.
+            {tr.headline.split("\n").map((line, i) => (
+              <span key={i}>{line}{i === 0 && <br />}</span>
+            ))}
           </motion.h1>
 
           <motion.p
+            key={lang + "-bio"}
             custom={2}
             variants={fadeUp}
             initial="hidden"
@@ -110,20 +111,25 @@ export default function Hero() {
             className="mt-6 max-w-md text-[0.9375rem] leading-relaxed sm:text-base md:mt-7 md:text-lg"
             style={{ color: "var(--txt-muted)" }}
           >
-            Soy <span style={{ color: "var(--txt)" }} className="font-medium">Tomas</span> — UX/UI designer y front-end developer desde{" "}
-            <span style={{ color: "var(--txt)" }} className="font-medium">Córdoba, Argentina</span>. Construyo productos digitales que se ven bien y{" "}
-            <span style={{ color: "var(--txt)" }} className="font-medium">funcionan mejor</span>.
+            {tr.bio1}
+            <span style={{ color: "var(--txt)" }} className="font-medium">{tr.bio2}</span>
+            {tr.bio3}
+            <span style={{ color: "var(--txt)" }} className="font-medium">{tr.bio4}</span>
+            {tr.bio5}
+            <span style={{ color: "var(--txt)" }} className="font-medium">{tr.bio6}</span>
+            {tr.bio7}
           </motion.p>
 
           <motion.div
+            key={lang + "-cta"}
             custom={3}
             variants={fadeUp}
             initial="hidden"
             animate="show"
             className="mt-8 flex w-full max-w-md flex-col gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:flex-wrap sm:gap-4"
           >
-            <PillButton href="#trabajos">Ver proyectos</PillButton>
-            <PillButton href="#contacto">Contactame</PillButton>
+            <PillButton href="#trabajos">{tr.cta1}</PillButton>
+            <PillButton href="#contacto">{tr.cta2}</PillButton>
           </motion.div>
         </div>
 
