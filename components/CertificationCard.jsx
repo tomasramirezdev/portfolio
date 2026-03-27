@@ -6,13 +6,18 @@ import { ArrowUpRight } from "lucide-react";
  */
 export default function CertificationCard({
   title,
+  titleEn,
   issuer,
   year,
   description,
+  descriptionEn,
   certificateUrl,
+  lang = "es",
   onPointerEnter,
   className = "",
 }) {
+  const displayTitle = lang === "en" && titleEn ? titleEn : title;
+  const displayDesc  = lang === "en" && descriptionEn ? descriptionEn : description;
   return (
     <a
       href={certificateUrl}
@@ -43,7 +48,7 @@ export default function CertificationCard({
         className="font-display text-lg font-bold leading-snug tracking-tight"
         style={{ color: "#f1f0ff" }}
       >
-        {title}
+        {displayTitle}
       </h3>
 
       <p
@@ -64,14 +69,14 @@ export default function CertificationCard({
         className="mt-4 min-h-0 flex-1 overflow-hidden text-sm leading-relaxed"
         style={{ color: "#6b6a80" }}
       >
-        <span className="line-clamp-7">{description}</span>
+        <span className="line-clamp-7">{displayDesc}</span>
       </p>
 
       <span
         className="mt-5 inline-flex items-center gap-2 text-sm font-semibold transition-all group-hover:gap-3"
         style={{ color: "#7c5cfc" }}
       >
-        Ver certificado
+        {lang === "en" ? "View certificate" : "Ver certificado"}
         <ArrowUpRight
           className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
           strokeWidth={2}

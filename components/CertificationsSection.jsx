@@ -65,7 +65,7 @@ export default function CertificationsSection() {
               viewport={{ once: true, margin: "-24px" }}
               transition={{ delay: i * 0.05, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             >
-              <CertificationCard {...c} />
+              <CertificationCard {...c} lang={lang} />
             </motion.div>
           ))}
         </div>
@@ -84,7 +84,7 @@ export default function CertificationsSection() {
             hoverSpreadPx={56}
           >
             {certifications.map((c) => (
-              <CertificationCard key={c.id} {...c} />
+              <CertificationCard key={c.id} {...c} lang={lang} />
             ))}
           </BounceCards>
         </div>
