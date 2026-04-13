@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useLang } from "@/contexts/LanguageContext";
@@ -53,11 +54,11 @@ const content = {
     galleryLabel: "Galería del proyecto",
     gallerySub: "Pantallas UI y experiencia final",
     galleryItems: [
-      { label: "Hero — Propuesta de valor",            span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
-      { label: "Sección de servicios",                 span: "",                            ratio: "aspect-[4/5]" },
-      { label: "Proyectos destacados",                 span: "",                            ratio: "aspect-[4/3]" },
-      { label: "Formulario de cotización",             span: "",                            ratio: "aspect-[4/3]" },
-      { label: "Mobile — Optimización responsive",     span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Hero — Propuesta de valor",            span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]", image: "/genki-hero.jpg" },
+      { label: "Sección de servicios",                 span: "",                            ratio: "aspect-[4/5]",  image: "/genki-servicios.jpg" },
+      { label: "Proyectos destacados",                 span: "",                            ratio: "aspect-[4/3]",  image: "/genki-proyectos.jpg" },
+      { label: "Formulario de cotización",             span: "",                            ratio: "aspect-[4/3]",  image: "/genki-contacto.jpg" },
+      { label: "Mobile — Optimización responsive",     span: "",                            ratio: "aspect-[4/3]",  image: "/genki-mobile.jpg" },
     ],
     overviewLabel: "El proyecto",
     overviewHeading: "Una empresa con 10 años de trayectoria que merecía una web a su altura.",
@@ -160,11 +161,11 @@ const content = {
     galleryLabel: "Project gallery",
     gallerySub: "UI screens and final experience",
     galleryItems: [
-      { label: "Hero — Value proposition",             span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]" },
-      { label: "Services section",                     span: "",                            ratio: "aspect-[4/5]" },
-      { label: "Featured projects",                    span: "",                            ratio: "aspect-[4/3]" },
-      { label: "Quote request form",                   span: "",                            ratio: "aspect-[4/3]" },
-      { label: "Mobile — Responsive optimization",     span: "",                            ratio: "aspect-[4/3]" },
+      { label: "Hero — Value proposition",             span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]", image: "/genki-hero.jpg" },
+      { label: "Services section",                     span: "",                            ratio: "aspect-[4/5]",  image: "/genki-servicios.jpg" },
+      { label: "Featured projects",                    span: "",                            ratio: "aspect-[4/3]",  image: "/genki-proyectos.jpg" },
+      { label: "Quote request form",                   span: "",                            ratio: "aspect-[4/3]",  image: "/genki-contacto.jpg" },
+      { label: "Mobile — Responsive optimization",     span: "",                            ratio: "aspect-[4/3]",  image: "/genki-mobile.jpg" },
     ],
     overviewLabel: "The project",
     overviewHeading: "A 10-year-old company that deserved a website to match.",
@@ -570,34 +571,27 @@ export default function GenkiPage() {
                   initial="hidden"
                   whileInView="show"
                   viewport={{ once: true, margin: "-30px" }}
-                  className={`overflow-hidden rounded-2xl ${item.span} ${item.ratio}`}
+                  className={`relative overflow-hidden rounded-2xl ${item.span} ${item.ratio}`}
                   style={{ background: C.surface, border: `1px solid ${C.amberMid}` }}
                 >
-                  <div
-                    className="w-full h-full flex flex-col items-center justify-center gap-2 p-6"
-                    style={{
-                      background: `linear-gradient(135deg, ${C.surface} 0%, rgba(245,158,11,0.04) 100%)`,
-                    }}
-                  >
+                  {item.image ? (
+                    <Image
+                      src={item.image}
+                      alt={item.label}
+                      fill
+                      className="object-cover object-top"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  ) : (
                     <div
-                      className="genki-float rounded-full flex items-center justify-center"
-                      style={{
-                        width: 40,
-                        height: 40,
-                        background: C.amberDim,
-                        border: `1px solid ${C.amberMid}`,
-                      }}
+                      className="w-full h-full flex flex-col items-center justify-center gap-2 p-6"
+                      style={{ background: `linear-gradient(135deg, ${C.surface} 0%, rgba(56,189,248,0.04) 100%)` }}
                     >
-                      {/* Sun icon */}
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={C.amber} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="12" cy="12" r="4" />
-                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-                      </svg>
+                      <p className="text-xs text-center leading-relaxed" style={{ color: "rgba(241,240,255,0.22)" }}>
+                        {item.label}
+                      </p>
                     </div>
-                    <p className="text-xs text-center leading-relaxed" style={{ color: "rgba(241,240,255,0.22)" }}>
-                      {item.label}
-                    </p>
-                  </div>
+                  )}
                 </motion.div>
               ))}
             </div>
