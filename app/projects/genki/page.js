@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -54,11 +55,7 @@ const content = {
     galleryLabel: "Galería del proyecto",
     gallerySub: "Pantallas UI y experiencia final",
     galleryItems: [
-      { label: "Hero — Propuesta de valor",            span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]", image: "/genki-hero.jpg" },
-      { label: "Sección de servicios",                 span: "",                            ratio: "aspect-[4/5]",  image: "/genki-servicios.jpg" },
-      { label: "Proyectos destacados",                 span: "",                            ratio: "aspect-[4/3]",  image: "/genki-proyectos.jpg" },
-      { label: "Formulario de cotización",             span: "",                            ratio: "aspect-[4/3]",  image: "/genki-contacto.jpg" },
-      { label: "Mobile — Optimización responsive",     span: "",                            ratio: "aspect-[4/5]",  image: "/genki-mobile-tall.jpg" },
+      { label: "Sitio completo", span: "sm:col-span-3 lg:col-span-3", ratio: "aspect-[16/9]", video: "/videos/genki-scroll.webm" },
     ],
     overviewLabel: "El proyecto",
     overviewHeading: "Una empresa con 10 años de trayectoria que merecía una web a su altura.",
@@ -161,11 +158,7 @@ const content = {
     galleryLabel: "Project gallery",
     gallerySub: "UI screens and final experience",
     galleryItems: [
-      { label: "Hero — Value proposition",             span: "sm:col-span-2 lg:col-span-2", ratio: "aspect-[16/9]", image: "/genki-hero.jpg" },
-      { label: "Services section",                     span: "",                            ratio: "aspect-[4/5]",  image: "/genki-servicios.jpg" },
-      { label: "Featured projects",                    span: "",                            ratio: "aspect-[4/3]",  image: "/genki-proyectos.jpg" },
-      { label: "Quote request form",                   span: "",                            ratio: "aspect-[4/3]",  image: "/genki-contacto.jpg" },
-      { label: "Mobile — Responsive optimization",     span: "",                            ratio: "aspect-[4/5]",  image: "/genki-mobile-tall.jpg" },
+      { label: "Full site", span: "sm:col-span-3 lg:col-span-3", ratio: "aspect-[16/9]", video: "/videos/genki-scroll.webm" },
     ],
     overviewLabel: "The project",
     overviewHeading: "A 10-year-old company that deserved a website to match.",
@@ -245,6 +238,41 @@ const content = {
     viewLive: "View live site",
   },
 };
+
+// ─── Video with poster fallback ──────────────────────────────────────────────
+function GenkiVideo({ src, poster }) {
+  const videoRef = useRef(null);
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const show = () => { v.style.opacity = "1"; };
+    v.addEventListener("canplay", show);
+    v.addEventListener("playing", show);
+    // fallback: show after 3s regardless
+    const t = setTimeout(show, 3000);
+    return () => {
+      v.removeEventListener("canplay", show);
+      v.removeEventListener("playing", show);
+      clearTimeout(t);
+    };
+  }, []);
+  return (
+    <>
+      <img src={poster} alt="" className="absolute inset-0 w-full h-full object-cover object-top" />
+      <video
+        ref={videoRef}
+        src={src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="absolute inset-0 w-full h-full object-cover object-top"
+        style={{ opacity: 0, transition: "opacity 0.6s ease" }}
+      />
+    </>
+  );
+}
 
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 export default function GenkiPage() {
@@ -544,21 +572,6 @@ export default function GenkiPage() {
           </div>
         </section>
 
-        {/* ── VIDEO ────────────────────────────────────────────────────── */}
-        <section className="px-4 pb-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl" style={{ border: `1px solid ${C.amberMid}` }}>
-            <video
-              src="/videos/genki-scroll.webm"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full"
-              style={{ display: "block" }}
-            />
-          </div>
-        </section>
-
         {/* ── GALLERY ──────────────────────────────────────────────────── */}
         <section className="px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
           <div className="mx-auto max-w-5xl">
@@ -587,14 +600,16 @@ export default function GenkiPage() {
                   whileInView="show"
                   viewport={{ once: true, margin: "-30px" }}
                   className={`relative overflow-hidden rounded-2xl ${item.span} ${item.ratio}`}
-                  style={{ background: C.surface, border: `1px solid ${C.amberMid}` }}
+                  style={{ border: `1px solid ${C.amberMid}`, background: C.surface }}
                 >
-                  {item.image ? (
+                  {item.video ? (
+                    <GenkiVideo src={item.video} poster="/genki-hero.jpg" />
+                  ) : item.image ? (
                     <Image
                       src={item.image}
                       alt={item.label}
                       fill
-                      className="object-cover object-top"
+                      className="object-cover object-center"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   ) : (
