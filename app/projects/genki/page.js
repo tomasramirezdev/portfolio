@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -240,37 +239,17 @@ const content = {
 };
 
 // ─── Video with poster fallback ──────────────────────────────────────────────
-function GenkiVideo({ src, poster }) {
-  const videoRef = useRef(null);
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const show = () => { v.style.opacity = "1"; };
-    v.addEventListener("canplay", show);
-    v.addEventListener("playing", show);
-    // fallback: show after 3s regardless
-    const t = setTimeout(show, 3000);
-    return () => {
-      v.removeEventListener("canplay", show);
-      v.removeEventListener("playing", show);
-      clearTimeout(t);
-    };
-  }, []);
+function GenkiVideo({ src }) {
   return (
-    <>
-      <img src={poster} alt="" className="absolute inset-0 w-full h-full object-cover object-top" />
-      <video
-        ref={videoRef}
-        src={src}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        className="absolute inset-0 w-full h-full object-cover object-top"
-        style={{ opacity: 0, transition: "opacity 0.6s ease" }}
-      />
-    </>
+    <video
+      src={src}
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="auto"
+      className="absolute inset-0 w-full h-full object-cover object-top"
+    />
   );
 }
 
@@ -603,7 +582,7 @@ export default function GenkiPage() {
                   style={{ border: `1px solid ${C.amberMid}`, background: C.surface }}
                 >
                   {item.video ? (
-                    <GenkiVideo src={item.video} poster="/genki-hero.jpg" />
+                    <GenkiVideo src={item.video} />
                   ) : item.image ? (
                     <Image
                       src={item.image}
