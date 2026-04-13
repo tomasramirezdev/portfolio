@@ -58,7 +58,7 @@ const content = {
       { label: "Sección de servicios",                 span: "",                            ratio: "aspect-[4/5]",  image: "/genki-servicios.jpg" },
       { label: "Proyectos destacados",                 span: "",                            ratio: "aspect-[4/3]",  image: "/genki-proyectos.jpg" },
       { label: "Formulario de cotización",             span: "",                            ratio: "aspect-[4/3]",  image: "/genki-contacto.jpg" },
-      { label: "Mobile — Optimización responsive",     span: "",                            ratio: "aspect-[4/3]",  image: "/genki-mobile.jpg" },
+      { label: "Mobile — Optimización responsive",     span: "",                            ratio: "aspect-[4/5]",  image: "/genki-mobile-tall.jpg" },
     ],
     overviewLabel: "El proyecto",
     overviewHeading: "Una empresa con 10 años de trayectoria que merecía una web a su altura.",
@@ -165,7 +165,7 @@ const content = {
       { label: "Services section",                     span: "",                            ratio: "aspect-[4/5]",  image: "/genki-servicios.jpg" },
       { label: "Featured projects",                    span: "",                            ratio: "aspect-[4/3]",  image: "/genki-proyectos.jpg" },
       { label: "Quote request form",                   span: "",                            ratio: "aspect-[4/3]",  image: "/genki-contacto.jpg" },
-      { label: "Mobile — Responsive optimization",     span: "",                            ratio: "aspect-[4/3]",  image: "/genki-mobile.jpg" },
+      { label: "Mobile — Responsive optimization",     span: "",                            ratio: "aspect-[4/5]",  image: "/genki-mobile-tall.jpg" },
     ],
     overviewLabel: "The project",
     overviewHeading: "A 10-year-old company that deserved a website to match.",
@@ -541,6 +541,21 @@ export default function GenkiPage() {
                 </span>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ── VIDEO ────────────────────────────────────────────────────── */}
+        <section className="px-4 pb-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl" style={{ border: `1px solid ${C.amberMid}` }}>
+            <video
+              src="/videos/genki-scroll.webm"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full"
+              style={{ display: "block" }}
+            />
           </div>
         </section>
 
