@@ -79,18 +79,18 @@ const projects = [
     image: "/hansguia.jpg",
   },
   {
-    title: "BORA",
+    title: "GENKI",
     tag:   { es: "Ver proyecto", en: "View project" },
     year: "2024",
-    stack: { es: "Branding · UX/UI · Desarrollo", en: "Branding · UX/UI · Development" },
+    stack: { es: "UX/UI · Next.js · Tailwind CSS", en: "UX/UI · Next.js · Tailwind CSS" },
     description: {
-      es: "Plataforma de booking de paseos en Ilha Grande. Proyecto personal — logo, UX/UI y desarrollo completo desde cero.",
-      en: "Tour booking platform for Ilha Grande. Personal project — logo, UX/UI, and full development from scratch.",
+      es: "Sitio institucional para empresa de paneles solares en Córdoba. UX/UI y desarrollo completo en Next.js.",
+      en: "Institutional website for a solar panel company in Córdoba. Full UX/UI and Next.js development.",
     },
-    accent: "rgba(0,201,167,0.12)",
-    accentBorder: "rgba(0,201,167,0.30)",
-    href: "/projects/bora",
-    image: "/bora.jpg",
+    accent: "rgba(56,189,248,0.12)",
+    accentBorder: "rgba(56,189,248,0.30)",
+    href: "/projects/genki",
+    image: "/genki.jpg",
   },
 ];
 
