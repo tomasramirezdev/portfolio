@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
@@ -238,8 +239,18 @@ const content = {
   },
 };
 
-// ─── Video with poster fallback ──────────────────────────────────────────────
+// ─── Video preloaded on mount ─────────────────────────────────────────────────
 function GenkiVideo({ src }) {
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "video";
+    link.href = src;
+    link.type = "video/webm";
+    document.head.appendChild(link);
+    return () => document.head.removeChild(link);
+  }, [src]);
+
   return (
     <video
       src={src}
